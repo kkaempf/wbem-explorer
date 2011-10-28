@@ -1,0 +1,41 @@
+<table>
+<%
+    schema = "http://schema.freedesktop.org/HAL/wsman-schema/0-8-5"
+    uri = schema + "/org/freedesktop/Hal/devices"
+
+    options = WsMan::ClientOption.new
+    options.selector_add( "capability", @capability )
+
+    count = 0
+
+    result = @client.enumerate( uri, options )
+    if result
+        items = result.body.EnumerateResponse.Items
+        while items && items.child
+	    items.child.each_child { |child|
+	        count += 1
+	        next if child.text.nil? || child.text.empty?
+-%>
+<% if count == 1 -%>
+<tr><th>uri</th><th>value</th></tr>
+<% end -%>
+<tr class="hal"><td align="right"><%= child.name -%>&nbsp;</td><td align="left">&nbsp;<%= child.text -%></td></tr>
+<%
+	    }
+	    context = result.context
+	    break unless context
+
+            result = @client.pull( uri, context, options )
+	    break unless result && result.body && result.body.PullResponse
+-%>
+<tr><td><hr/></td><td><hr/></td></tr>
+<%
+	    items = result.body.PullResponse.Items
+         end
+     end
+-%>
+</table>
+
+<% if count == 0 -%>
+<h3>No matching capability found.</h3>
+<% end -%>

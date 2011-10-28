@@ -1,0 +1,14 @@
+<% @title = "WS-Browser - Class View Configuration"
+   @nav_active = "start"
+-%>
+
+<% @subnav = subnav_for_start -%>
+
+<% @view_partial = "classview"
+   @detail_partial = "description"
+   @detail_title = "Description"
+   if @status
+     @view_title = "Class Browser"
+   end  
+-%>  
+<!-- its all in the 'start' layout -->

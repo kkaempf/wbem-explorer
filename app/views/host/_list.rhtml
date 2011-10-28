@@ -1,0 +1,24 @@
+<table>
+  <tr>
+  <% for column in Host.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  <th>&nbsp;&nbsp;&nbsp;</th>
+  </tr>
+  
+<% for host in @hosts %>
+  <tr>
+  <% for column in Host.content_columns %>
+    <td><%=h host.send(column.name) %></td>
+  <% end %>
+  <td>&nbsp;&nbsp;&nbsp;</td>
+    <td><%= link_to 'Connect', :action => 'connect', :id => host %>&nbsp;</td>
+    <td><%= link_to 'Show', :action => 'show', :id => host %>&nbsp;</td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => host %>&nbsp;</td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => host }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @host_pages.current.previous } if @host_pages.current.previous %>
+<%= link_to 'Next page', { :page => @host_pages.current.next } if @host_pages.current.next %> 

@@ -1,0 +1,55 @@
+<% @klass = @cimclass # the ActiveRecord object
+   @cimclass = eval( "WsCim::#{@klass}" ) # the WsCim class
+   -%>
+
+<h1>Configure view on <%= @host.name -%></h1>
+
+<h3>
+Class: <%= @cimclass.name -%>
+</h3>
+<% if @cimclass.superclass != Object
+   n = @cimclass.superclass.name
+   n = n[4..-1] if n[0,4] == "CIM_" -%>
+<% end -%>
+<h3>
+Parent class: <%= link_to @cimclass.superclass.name, { :controller => "function", :action => "browse", :name => n } %>
+</h3>
+
+<p class="description" id="description"
+onmouseover="new Ajax.Updater('description',
+'http://localhost:3000/config/description?name=<%= @cimclass.name -%>',
+{asynchronous:true,evalScripts:true}); return false;"
+onmouseout="new Ajax.Updater('description',
+'http://localhost:3000/config/description',
+{asynchronous:true,evalScripts:true}); return false;"
+>
+DESCRIPTION
+</p>
+
+
+<% form_tag( { :controller => 'config', :action => 'propertyview' } ) do -%>
+
+  <%= hidden_field_tag "classid", @klass.id %>
+
+  <% @properties = @cimclass.properties true
+     unless @properties.empty? -%>
+    <h2>Properties</h2>
+    <%= render :partial => "classview_properties" -%>
+  <% end -%>
+  
+  <% @references = @cimclass.references true
+     unless @references.empty? -%>
+    <h2>References</h2>
+    <%= render :partial => "classview_references" -%>
+
+  <% end -%>
+  
+  <% @methods = @cimclass.methods true
+     unless @methods.empty? -%>
+    <h2>Methods</h2>
+    <%= render :partial => "classview_methods" -%>
+  <% end -%>
+  
+  <%= submit_tag "View Instances" %>
+
+<% end %>

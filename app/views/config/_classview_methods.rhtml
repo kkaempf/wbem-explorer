@@ -1,0 +1,22 @@
+<table>
+<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+<% i = 0
+   @methods.each do |method|
+   i = i + 1 -%>
+  <%= ((i % 2) == 0) ? '<tr class="odd">' : '<tr class="even">' -%>
+    <td><%= method.name -%></td>
+    <td><%= CIM::Type.name( method.type ) -%></td>
+    <% fulldesc = simple_format method.description
+       shortdesc = fulldesc[0..50] + " ..."
+       shortid = "m_short_#{i}"
+       fullid = "m_full_#{i}" -%>
+    <td>
+      <div id='<%= shortid -%>'><%= shortdesc -%></div>
+      <div id='<%= fullid -%>' style="display:none; font:80% Arial; font-weight: lighter; margin:5px; background-color: #79B933;"><%= fulldesc -%></div>
+    </td>
+  </tr>
+  <script type="text/javascript">
+    var m_tooltip_<%= i -%> = new Tooltip('<%= shortid -%>','<%= fullid -%>')
+  </script>
+<% end %>
+</table>

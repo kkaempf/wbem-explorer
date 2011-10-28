@@ -29,7 +29,7 @@ test:
   host: localhost
 
 production:
-  adapter: sqlite3
+  adapter: mysql
   database: db/production.sqlite3
   username: root
   password: 

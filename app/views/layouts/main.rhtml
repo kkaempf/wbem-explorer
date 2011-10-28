@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <%= stylesheet_link_tag "/stylesheets/main" %>
+
+    <% if @head_partial %>
+    <%= render :partial => "#{@head_partial}" %>
+    <% end %>
+    <% if @more_stylesheets %>
+    <%   @more_stylesheets.each do |stylesheet| %>
+    <%=    stylesheet_link_tag "#{stylesheet}" %>
+    <%   end %>
+    <% end %>
+
+    <% if @more_javascripts %>
+    <%   @more_javascripts.each do |javascript| %>
+    <%=    javascript_include_tag "#{javascript}" %>
+    <%   end %>
+    <% end %>
+
+    <%=    javascript_include_tag "debug" %>
+    <%=    javascript_include_tag :defaults %>
+    <%=    javascript_include_tag "tooltip" %>
+    <% if @my_script %>
+    <!-- my script -->
+    <script><%= @my_script %></script>
+    <% end %>
+
+<%
+  @nav = [
+    { :name => "home", :controller => "start" },
+    { :name => "users", :controller => "user" },
+    { :name => "hosts", :controller => "host" },
+    { :name => "intro", :controller => "intro" },
+    { :name => "about", :controller => "about", :last => true }
+  ]
+-%>
+
+
+<title><%= @title %></title>
+
+</head>
+ 
+<body>
+
+<div id="wrapper">
+  <div id="innerwrapper">
+
+	<div id="header">
+
+
+        <!-- Icons on right of header -->
+
+        <div id="icons">
+	<%= link_to( image_tag( "geeko.jpg", :size => "130x85", :border => 0), "http://www.opensuse.org" ) -%>
+	</div>
+
+   <!-- Heading and Subheading text -->
+		<h1>WS-Management on Rails</h1>
+				
+			<h2>
+			    WS-Management and WS-CIM with Ruby
+			</h2>
+
+   <!-- Main navigation -->
+
+			<ul id="nav">
+			  <% @nav.each { |n|
+			       name = n[:name].capitalize
+			       active = Hash.new
+			       active[:class] = "active" if (n[:controller] == @nav_active)
+			       -%>
+			    <%= n[:last]?'<li class="last">':'<li>' -%>
+			      <%= link_to "<em>" + name[0,1] + "</em>" + name[1..-1],
+				   { :controller => n[:controller],
+				     :action => n[:action] || "index" }, active %>
+			    </li>
+			  <% } -%>
+			</ul>
+			
+			
+   <!-- Sub navigation -->
+
+  <% if @subnav %>
+   <ul id="subnav">
+   <% @subnav.each { |sn| -%>
+     <li><%= link_to sn[:name], sn[:attributes], sn[:options] %></li>
+   <% } -%>
+
+   </ul>
+  <% end %>
+
+
+   </div>
+
+
+   <!-- Sidebar -->
+
+		<div id="sidebar">
+		
+				<h2>Status</h2>
+				<%= render :partial => 'status/content' -%>
+				
+				<h2>Actions</h2>
+				<%= render :partial => 'function/content' -%>
+				
+				<h2>Search</h2>
+				
+				<% form_tag( { :controller => "search", :action => :search }, { :style => nil } ) { %>
+				  <%= text_field( "search", "Search", { :value => "Search" } ) %>
+				<% } %>
+		
+		</div>
+		
+		<div id="sidebarright">
+		
+				<h2>Info</h2>
+				<p>
+					This demo shows a <a
+href="www.rubyonrails.org">Ruby On Rails</a> application utilizing
+<a href="http://www.dmtf.org/standards/wbem/wsman">Web Services for
+Management</a>
+				</p>
+				
+				<p>
+					Created by <a
+href="mailto:kkaempf@suse.de">Klaus K&auml;mpf</a>
+				</p>
+				
+				<h2>Links</h2>
+				    <ul>
+					<li><a href="http://www.ruby-lang.org">Ruby</a></li>
+					<li><a href="http://www.rubyonrails.org">Ruby On Rails</a></li>
+					<li><a href="http://www.dmtf.org">DMTF</a></li>
+					<li><a href="http://www.openwsman.org">Openwsman</a></li>
+					<li><a href="http://rwsman.rubyforge.org">rwsman - Ruby bindings</a></li>
+				    </ul>
+
+                                <h2>Sponsors</h2>
+				
+				<ul>
+					<li><a href="http://www.novell.com">Novell</a></li>
+					<li><a href="http://www.opensuse.org">OpenSUSE</a></li>
+					<li><a href="http://www.intel.com">Intel</a></li>
+				</ul>
+		
+		</div>
+		
+		<div id="view">
+		   <h1><%= @view_title %></h1>
+		   <%= render :partial => @view_partial %>
+		</div>
+
+                <% if @detail_partial -%>
+		  <div id="detail">
+		    <h1><%= @detail_title %></h1>
+		    <div id="detail_content">
+		      <%= render :partial => @detail_partial %>
+		    </div>
+		  </div>
+		<% end -%>
+		
+		<div id="footer">
+		
+								<!-- Please leave this line intact -->
+								<p>Template design by <a href="http://www.sixshootermedia.com">Six Shooter Media</a>.<br />
+								<!-- you can delete below here -->
+
+								© All your copyright information here.</p>
+		
+		</div>
+		
+</div>
+</div>
+
+
+</body>
+</html>

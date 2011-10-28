@@ -1,0 +1,12 @@
+<% @title = "WS-Browser - YaST"
+   @nav_active = "start"
+-%>
+
+<% @subnav = subnav_for_start -%>
+
+<% @view_partial = "yast"
+   if @status
+     @view_title = "YaST"
+   end  
+-%>  
+<!-- its all in the 'start' layout -->

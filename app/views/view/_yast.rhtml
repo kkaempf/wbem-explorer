@@ -1,0 +1,15 @@
+<%
+    schema = "http://schema.opensuse.org/YaST/wsman-schema/10-3"
+    uri = schema + "/YCP"
+
+    options = WsMan::ClientOption.new
+    options.property_add( "ycp", @ycp )
+
+    result = @client.invoke( uri, "eval", options )
+    if result
+        value = result.body.result
+    else
+        value = nil
+    end
+-%>
+<h3><%= @ycp -%> = <%= value -%></h3>

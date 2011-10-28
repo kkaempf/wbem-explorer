@@ -1,0 +1,12 @@
+<% @title = "WS-Browser - WS-Management on Rails"
+   @nav_active = "start"
+-%>
+
+<% @subnav = subnav_for_start -%>
+
+<% @view_partial = "identify"
+   if @identify
+     @view_title = "Host Identification"
+   end  
+-%>  
+<!-- its all in the 'start' layout -->

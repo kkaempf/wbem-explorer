@@ -1,0 +1,2 @@
+class DetailController < ApplicationController
+end

@@ -1,0 +1,14 @@
+<% @title = "WS-Browser - Instance Browser"
+   @nav_active = "start"
+   @view_title = "Instances of #{@cimclass.name} on #{@host.name}"
+-%>
+
+<% @subnav = subnav_for_start -%>
+
+<% unless @features.empty?
+     @view_partial = "features"
+   else
+     @view_partial = "empty"
+   end
+-%>  
+<!-- its all in the 'start' layout -->

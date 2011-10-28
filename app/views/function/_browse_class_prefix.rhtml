@@ -1,0 +1,2 @@
+<% @classes = "- Select prefix -" unless @classes -%>
+<%= select_tag "name", options_for_select( @classes ) -%>

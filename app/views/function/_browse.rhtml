@@ -1,0 +1,19 @@
+
+<h2>Class Selector</h2>
+
+<h3>Select a class prefix and a class to browse</h3>
+
+<% form_tag( {:action => 'browse'}, :method => :get ) do -%>
+
+    <% prefixes = { "CIM"=>"CIM_", "Windows"=>"Win32_", "OMC"=>"OMC_", "Sblim"=>"Linux_", "Pegasus"=>"PG_", "Support"=>"PRS_" } -%>
+    <%= select_tag "prefix", options_for_select( prefixes ) -%>
+
+    <div id="browse_class_prefix">
+        <%= render :partial => "browse_class_prefix" -%>
+    </div>
+    <%= observe_field( "prefix", :url => { :action => 'prefix'}, :update => "browse_class_prefix" ) -%>
+
+    <p>&nbsp;<br/></p>
+    <%= submit_tag "Browse" -%>
+
+<% end %>

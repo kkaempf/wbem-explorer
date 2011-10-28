@@ -1,0 +1,19 @@
+<% if @flash[:notice] -%>
+  <div id="notice" class="fade"><%= flash[:notice] %></div>
+<% end -%>
+<% if @flash[:alert] -%>
+  <div id="alert" class="fade"><%= flash[:alert] %></div>
+<% end -%>
+<% form_tag :action => :verifylogin do %>
+  <%= error_messages_for 'user' %>
+
+  <!--[form:user]-->
+  <p><label for="user_login">Login</label>
+  <%= text_field 'user', 'login'  %></p>
+
+  <p><label for="user_password">Password</label>
+  <%= password_field 'user', 'password'  %></p>
+  <!--[eoform:user]-->
+
+  <%= submit_tag "Login" %>
+<% end %>

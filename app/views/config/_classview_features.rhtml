@@ -1,0 +1,41 @@
+<table>
+<tr><th width="10">View</th><th>Name</th><th>Type</th><th>Description</th></tr>
+<%  i = 0
+    @features.each do |feature|
+
+	fdata = Feature.find_by_name( feature.name )
+	unless fdata
+	    fdata = Feature.create( :name => feature.name )
+	    fdata.save
+	end
+
+	featureview = Featureview.find( :first, :conditions => [ "host_id = ? and cimclass_id = ? and feature_id = ?", @host.id, @klass.id, fdata.id ] )
+
+	i = i + 1
+	if (i % 2) == 0
+	    trclass = "even"
+	else
+	    trclass = "odd"
+	end
+	trclass += " propagated" if feature.propagated?
+	trclass += " key" if feature.key?
+-%>
+<tr class="<%= trclass %>" -%>
+   <td><%= check_box_tag "_prop_#{feature.name}", fdata.id, featureview -%></td>
+   <td><%= feature.name -%></td>
+   <td><%= CIM::Type.name( feature.type ) -%></td>
+    <% shortdesc = feature.display_name
+       fulldesc = simple_format feature.description
+       shortdesc = fulldesc[0..100]+" ..." unless shortdesc
+       shortid = "p_short_#{i}"
+       fullid = "p_full_#{i}" -%>
+    <td>
+      <div id='<%= shortid -%>'><%= shortdesc -%></div>
+      <div id='<%= fullid -%>' style="display:none; font:60% Arial; font-weight: lighter; line-height: 1em; background-color: #79B933;"><%= fulldesc -%></div>
+    </td>
+  </tr>
+  <script type="text/javascript">
+    var p_tooltip_<%= i -%> = new Tooltip('<%= shortid -%>','<%= fullid -%>')
+  </script>
+<% end %>
+</table>

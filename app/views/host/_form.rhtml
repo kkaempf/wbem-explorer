@@ -1,0 +1,19 @@
+<%= error_messages_for 'host' %>
+
+<!--[form:host]-->
+<p><label for="host_name">Name</label>
+<%= text_field 'host', 'name'  %></p>
+
+<p><label for="host_fqdn">Host</label>
+<%= text_field 'host', 'fqdn'  %></p>
+
+<p><label for="host_secure">Secure</label>
+<checkbox id="host_secure" name="host[secure]"></p>
+
+<p><label for="host_port">Port</label>
+<%= text_field 'host', 'port'  %></p>
+
+<p><label for="host_path">Path</label>
+<%= text_field 'host', 'path'  %></p>
+<!--[eoform:host]-->
+

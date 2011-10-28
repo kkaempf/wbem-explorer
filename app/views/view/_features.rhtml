@@ -1,0 +1,46 @@
+<h2>Instances</h2>
+
+<div id="reconfigure">[<%= link_to "Reconfigure view", :controller => "config", :action => "classview", :classid => @cimclass.id %>]</div>
+
+<table>
+<tr>
+<th>Nr</th>
+<% @features.each{ |fname| -%>
+  <th><%= fname -%></th>
+<% } -%>
+</tr>
+
+<% classname = @cimclass.name
+   classname = classname[4..-1] if classname[0,4] == "CIM_"
+   @klass = WsCim::const_get( classname )
+   i = 0
+   @klass.each( @client ) { |instance|
+     i = i + 1
+     if (i % 2) == 0
+       trclass = "even"
+     else
+       trclass = "odd"
+     end
+   -%>
+     <tr class="<%= trclass -%>">
+     <td><%= i -%></td>
+     <% @features.each{ |fname|
+          begin
+            value = eval("instance."+fname)
+#	    feature = @klass.const_get( fname )
+          rescue Exception => e
+	    STDERR.puts "#{e}: #{instance}: #{classname}.#{fname} undefined"
+	    value = "undef"
+	  end
+	  align = "right"
+	  align = "left" if value.is_a?( String )
+	  -%>
+       <td align="<%= align -%>"><%= value -%></td>
+     <% } -%>
+   <% } -%>
+</tr>
+   
+</table>
+<% if i == 0 -%>
+ <h3>No instances found</h3>
+<% end -%>

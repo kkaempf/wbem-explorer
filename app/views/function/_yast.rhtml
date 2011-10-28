@@ -1,0 +1,5 @@
+<h2>YaST - Remote Management</h2>
+<h3>Enter a YCP term</h3>
+<% form_tag( { :controller => "view", :action => 'yast' } ) { %>
+  <%= text_field( "yast", "ycp", { :value => "ycp term" } ) %>
+<% } %>

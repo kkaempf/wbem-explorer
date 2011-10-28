@@ -1,0 +1,40 @@
+<h2>HAL - Hardware Abstraction Layer</h2>
+<h3>Choose a HAL capability</h3>
+Either choose from the drop-down list or enter a free form string.
+
+<% form_tag( { :controller => "view", :action => 'hal' }, :method => :get ) { %>
+  <label for="hal_capability">Capability</label>
+  <%= text_field( "hal", "capability" ) %>
+  <%
+     capabilities = [
+     [ "ALSA sound device", :alsa ],
+     [ "Audio player", :audioplayer ],
+     [ "Battery", :battery ],
+     [ "Block device", :block ],
+     [ "Button", :button ],
+     [ "Camera", :camera ],
+     [ "CD/DVD device", :cdrom ],
+     [ "CPU", :processor ],
+     [ "Digital Video", :dvb ],
+     [ "Floppy device", :floppy ],
+     [ "Input device", :input ],
+     [ "Laptop panel", :laptop_panel ],
+     [ "Modem", :modem ],
+     [ "Network device", :net ],
+     [ "OSS sound device", :oss ],
+     [ "PDA", :pda ],
+     [ "Power adapter", :ac_adapter ],
+     [ "Scanner", :scanner ],
+     [ "SCSI generic", :scsi_generic ],
+     [ "SCSI host", :scsi_host ],
+     [ "Sound device", :sound ],
+     [ "Storage device", :storage ],
+     [ "Storage volume", :volume ],
+     [ "Wireless kill switch", :killswitch ]
+     ]
+  -%>
+  <p/>
+  <%= select_tag "name", options_for_select( capabilities ) -%>
+  <p/>
+  <%= submit_tag "List devices" -%>
+<% } %>

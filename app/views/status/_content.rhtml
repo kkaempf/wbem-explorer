@@ -1,0 +1,22 @@
+<h3>User</h3>
+<p>
+  <% if session[:user]
+       u = session[:user] -%>
+    <%= u[:fullname] -%> <%= u[:login] -%>
+  <% else -%>
+    Not logged in&nbsp;&nbsp;
+    <%= link_to "Log in", :controller => "user", :action => "login" -%>
+  <% end -%>
+
+</p>
+<h3>Host</h3>
+<p>
+
+  <% if session[:host]
+      h = session[:host] -%>
+    <%= h[:name] -%> <%= h[:fqdn] -%>
+  <% else -%>
+     Not connected&nbsp;&nbsp;
+    <%= link_to "Connect", :controller => "host", :action => "connect" -%>
+  <% end -%>
+</p>
