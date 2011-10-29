@@ -1,11 +1,11 @@
 class WsClient
-  require "rwsman"
+  require "openwsman"
   def self.create uri
 #    WsMan::debug = -1
-    client = WsMan::Client.new uri
+    client = Openwsman::Client.new uri
     if client
       client.transport.timeout = 5
-      options = WsMan::ClientOption.new
+      options = Openwsman::ClientOption.new
       return client,options
     end
     return nil
