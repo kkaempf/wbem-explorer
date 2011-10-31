@@ -12,7 +12,7 @@ class ConfigController < ApplicationController
   def classview
     # check for host
     unless session[:host]
-      redirect_to :controller => "start", :action => "index"
+      redirect_to home_path
       return
     end
     @host = session[:host]

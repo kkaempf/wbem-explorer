@@ -31,11 +31,11 @@
 
 <%
   @nav = [
-    { :name => "home", :controller => "start" },
-    { :name => "users", :controller => "users" },
-    { :name => "hosts", :controller => "hosts" },
-    { :name => "intro", :controller => "intro" },
-    { :name => "about", :controller => "about", :last => true }
+    { :name => "home", :path => home_path },
+    { :name => "users", :path => users_path },
+    { :name => "hosts", :path => hosts_path },
+    { :name => "intro", :path => intro_path },
+    { :name => "about", :path => about_path, :last => true }
   ]
 -%>
 
@@ -59,10 +59,10 @@
 	</div>
 
    <!-- Heading and Subheading text -->
-		<h1>WS-Management on Rails</h1>
+		<h1>WBEM Explorer</h1>
 				
 			<h2>
-			    WS-Management and WS-CIM with Ruby
+			    Explore Linux, Unix and Windows systems
 			</h2>
 
    <!-- Main navigation -->
@@ -71,12 +71,10 @@
 			  <% @nav.each { |n|
 			       name = n[:name].capitalize
 			       active = Hash.new
-			       active[:class] = "active" if (n[:controller] == @nav_active)
+			       active[:class] = "active" if (n[:name] == @nav_active)
 			       -%>
 			    <%= raw(n[:last]?'<li class="last">':'<li>') -%>
-			      <%= link_to raw("<em>" + name[0,1] + "</em>" + name[1..-1]),
-				   { :controller => n[:controller],
-				     :action => n[:action] || "index" }, active %>
+			      <%= link_to raw("<em>" + name[0,1] + "</em>" + name[1..-1]), n[:path], active %>
 			    </li>
 			  <% } -%>
 			</ul>
@@ -87,7 +85,7 @@
   <% if @subnav %>
    <ul id="subnav">
    <% @subnav.each { |sn| -%>
-     <li><%= link_to sn[:name], sn[:attributes], sn[:options] %></li>
+     <li><%= link_to sn[:name], sn[:path], sn[:options] %></li>
    <% } -%>
 
    </ul>
@@ -109,7 +107,7 @@
 				
 				<h2>Search</h2>
 				
-				<% form_tag( { :controller => "search", :action => :search }, { :style => nil } ) { %>
+				<% form_tag( search_path, { :style => nil } ) { %>
 				  <%= text_field( "search", "Search", { :value => "Search" } ) %>
 				<% } %>
 		

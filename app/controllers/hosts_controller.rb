@@ -63,7 +63,7 @@ class HostsController < ApplicationController
       if host
 #	session[:host] = _host2hash host
 	session[:host] = host
-	redirect_to :controller => "start", :action => "index"
+	redirect_to home_path
       else
 	flash[:notice] = "Host unknown"
       end
@@ -89,12 +89,12 @@ class HostsController < ApplicationController
     else
 #      session[:host] = _host2hash host
       session[:host] = host
-      redirect_to :controller => "start", :action => "index"
+      redirect_to home_path
     end
   end
   
   def release
     session[:host] = nil
-    redirect_to :controller => "start", :action => "index"
+    redirect_to home_path
   end
 end

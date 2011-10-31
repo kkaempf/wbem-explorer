@@ -1,4 +1,4 @@
-class StartController < ApplicationController
+class HomeController < ApplicationController
   require "lib/wsclient.rb"
   require_dependency 'users'
   

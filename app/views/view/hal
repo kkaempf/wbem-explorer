@@ -1,9 +1,9 @@
 <% @title = "WS-Browser - HAL Browser"
-   @nav_active = "start"
+   @nav_active = "home"
    @view_title = "Capability of #{@capability} on #{@host.name}"
 -%>
 
-<% @subnav = subnav_for_start -%>
+<% @subnav = subnav_for_home -%>
 
 <% @view_partial = "hal" -%>  
-<!-- its all in the 'start' layout -->
+<!-- its all in the 'home' layout -->

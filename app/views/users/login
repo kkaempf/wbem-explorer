@@ -1,5 +1,5 @@
 <% @title = "WS-Browser - Login"
-   @nav_active = "start"
+   @nav_active = "home"
 -%>
 
 <% @subnav=[

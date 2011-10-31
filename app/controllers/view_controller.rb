@@ -37,7 +37,7 @@ class ViewController < ApplicationController
     end
     unless session[:client]
       flash[:alert] = "Please connect to a host first"
-      redirect_to :controller => "start", :action => "index"
+      redirect_to home_path
       return
     end
     @capability = halp[:capability]

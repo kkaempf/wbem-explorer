@@ -1,9 +1,9 @@
 <% @title = "WS-Browser - YaST"
-   @nav_active = "start"
+   @nav_active = "home"
    @view_title = "Running YaST"
 -%>
 
-<% @subnav = subnav_for_start -%>
+<% @subnav = subnav_for_home -%>
 
 <% @view_partial = "yast" -%>  
-<!-- its all in the 'start' layout -->
+<!-- its all in the 'home' layout -->

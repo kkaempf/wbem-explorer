@@ -1,0 +1,12 @@
+<% @title = "WBEM-Explorer - Explore standards-based instrumentation"
+   @nav_active = "home"
+-%>
+
+<% @subnav = subnav_for_home -%>
+
+<% @view_partial = "identify"
+   if @identify
+     @view_title = "Host Identification"
+   end  
+-%>  
+<!-- its all in the 'home' layout -->

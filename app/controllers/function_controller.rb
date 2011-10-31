@@ -13,7 +13,7 @@ class FunctionController < ApplicationController
 #      @client, @options = WsClient.create session[:client]
       true
     else
-      redirect_to :controller => "start", :action => "index"
+      redirect_to home_path
       false
     end
   end
@@ -38,7 +38,7 @@ class FunctionController < ApplicationController
 
     host = session[:host]
     unless host
-      redirect_to :controller => "start", :action => "index"
+      redirect_to home_path
       return
     end
 
