@@ -1,22 +1,8 @@
-<h3>User</h3>
 <p>
-  <% if session[:user]
-       u = session[:user] -%>
-    <%= u[:fullname] -%> <%= u[:login] -%>
+  <% if session[:connection] -%>
+    Connected to <%= session[:connection] -%>
   <% else -%>
-    Not logged in&nbsp;&nbsp;
-    <%= link_to "Log in", login_user_path -%>
+    Not connected
   <% end -%>
 
-</p>
-<h3>Host</h3>
-<p>
-
-  <% if session[:host]
-      h = session[:host] -%>
-    <%= h[:name] -%> <%= h[:fqdn] -%>
-  <% else -%>
-     Not connected&nbsp;&nbsp;
-    <%= link_to "Connect", hosts_path -%>
-  <% end -%>
 </p>

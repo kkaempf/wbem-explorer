@@ -107,9 +107,9 @@
 				
 				<h2>Search</h2>
 				
-				<% form_tag( search_host_path, { :style => nil } ) { %>
+				<%= form_tag search_host_path do %>
 				  <%= text_field( "search", "Search", { :value => "Search" } ) %>
-				<% } %>
+				<% end %>
 		
 		</div>
 		
