@@ -54,13 +54,13 @@ WbemExplorer::Application.routes.draw do
   get 'about' => 'about#index'
 
   get 'search_host' => 'hosts#search'
-  resources :hosts do
-    get 'connect' => 'connections#new', :on => :member
-    delete 'release' => 'connections#destroy', :on => :member
-  end
-  resources :users do
-    get 'login' => 'sessions#new', :on => :member
-    delete 'logout' => 'sessions#destroy', :on => :member
+  resources :hosts
+  get 'search_user' => 'users#search'
+  resources :users
+  get 'search_connection' => 'connections#search'
+  get 'connect' => 'connections#connect'
+  resources :connections do
+    get 'disconnect' => 'connections#disconnect'
   end
   # clean up later
   match 'inventory' => 'function#inventory'

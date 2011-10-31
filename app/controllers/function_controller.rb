@@ -6,8 +6,6 @@ class FunctionController < ApplicationController
   require_dependency 'features'
   require_dependency 'featureviews'
 
-  helper :start
-  
   def _ensure_client
     if session[:client] && session[:host]
 #      @client, @options = WsClient.create session[:client]
