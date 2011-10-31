@@ -32,7 +32,7 @@
 <%
   @nav = [
     { :name => "home", :controller => "start" },
-    { :name => "users", :controller => "user" },
+    { :name => "users", :controller => "users" },
     { :name => "hosts", :controller => "hosts" },
     { :name => "intro", :controller => "intro" },
     { :name => "about", :controller => "about", :last => true }

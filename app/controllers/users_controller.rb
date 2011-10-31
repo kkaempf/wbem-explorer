@@ -1,4 +1,4 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
   require_dependency 'users'
   require_dependency 'hosts'
   
