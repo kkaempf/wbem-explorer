@@ -1,0 +1,6 @@
+<%= form_tag @connection do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', connection_path(@connection) %>

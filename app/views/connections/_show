@@ -1,0 +1,7 @@
+<% for column in Connections.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @connection.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', edit_connection_path(@connection) %>

@@ -19,13 +19,19 @@ class ConnectionsController < ApplicationController
 
   def create
     connection = Connections.new(params[:connection])
-    if connection
-      redirect_to home_path
+    if connection && connection.save
+      flash[:notice] = 'Connection was successfully created.'
+      redirect_to connections_path
     else
+      flash[:error] = 'Connection creation failed.'
       redirect_to new_connection_path
     end
   end
   
+  def show
+    @connection = Connections.find(params[:id])
+  end
+
   def edit
   end
   

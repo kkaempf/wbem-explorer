@@ -4,4 +4,4 @@
 </p>
 <% end %>
 
-<%= link_to 'Edit', :action => 'edit', :id => @host %>
+<%= link_to 'Edit', edit_host_path(@host) %>

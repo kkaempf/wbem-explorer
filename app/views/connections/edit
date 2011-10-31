@@ -1,0 +1,8 @@
+<% @title = "WS-Browser - Connection Management"
+   @nav_active = "connections"
+-%>
+
+<% @subnav = subnav_for_connections -%>
+
+<% @view_title = "Edit connection"
+   @view_partial = "edit" %>

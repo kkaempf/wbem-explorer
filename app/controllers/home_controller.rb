@@ -44,7 +44,7 @@ class HomeController < ApplicationController
   end
 
   def connect
-    session[:connection] = params[:connection]
+    session[:connection] = params[:connection_id]
     redirect_to home_path
   end
 

@@ -12,7 +12,7 @@
       <td><%=h connection.send(column.name) %></td>
     <% end %>
     <td>&nbsp;&nbsp;&nbsp;</td>
-    <td><%= link_to 'Connect', connect_path(connection) %>&nbsp;</td>
+    <td><%= link_to 'Connect', connection_connect_path(connection) %>&nbsp;</td>
     <% unless @mode == :connect -%>
       <td><%= link_to 'Show', connection_path(connection) %>&nbsp;</td>
       <td><%= link_to 'Edit', edit_connection_path(connection) %>&nbsp;</td>
