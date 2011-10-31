@@ -1,11 +1,10 @@
-<% if @flash[:notice] -%>
+<% if flash[:notice] -%>
   <div id="notice" class="fade"><%= flash[:notice] %></div>
 <% end -%>
-<% if @flash[:alert] -%>
+<% if flash[:alert] -%>
   <div id="alert" class="fade"><%= flash[:alert] %></div>
 <% end -%>
-<% form_tag :action => 'verifyconnect' do %>
-  <%= error_messages_for 'host' %>
+<%= form_tag connection_path, :method => :post do %>
 
   <!--[form:connect]-->
   <p><label for="host_name">Name</label>

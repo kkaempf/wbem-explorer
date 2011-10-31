@@ -5,4 +5,4 @@
 <% @subnav = subnav_for_hosts -%>
 
 <% @view_title = "Hosts"
-   @view_partial = "list" %>
+   @view_partial = "index" %>

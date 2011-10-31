@@ -7,9 +7,9 @@ module HomeHelper
       r << { :name => "Logout", :path => logout_user_path }
     end
     unless session[:host]
-      r << { :name => "Connect", :path => connect_host_path }
+      r << { :name => "Connect", :path => new_connection_path }
     else
-      r << { :name => "Release", :path => release_host_path }
+      r << { :name => "Release", :path => destroy_connection_path }
     end
     r
   end

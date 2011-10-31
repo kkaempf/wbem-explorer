@@ -5,11 +5,6 @@ class HostsController < ApplicationController
   end
 
   def index
-    list
-    render :action => 'list'
-  end
-
-  def list
     @hosts = Hosts.paginate :per_page => 10, :page => 1
   end
 
@@ -21,7 +16,7 @@ class HostsController < ApplicationController
     @host = Hosts.find(params[:id])
   end
 
-  def add
+  def new
     @host = Hosts.new
   end
 
@@ -29,9 +24,9 @@ class HostsController < ApplicationController
     @host = Hosts.new(params[:host])
     if @host.save
       flash[:notice] = 'Host was successfully created.'
-      redirect_to :action => 'list'
+      redirect_to hosts_path
     else
-      render :action => 'create'
+      render new_host_path
     end
   end
 
@@ -43,57 +38,18 @@ class HostsController < ApplicationController
     @host = Hosts.find(params[:id])
     if @host.update_attributes(params[:host])
       flash[:notice] = 'Host was successfully updated.'
-      redirect_to :action => 'show', :id => @host
+      redirect_to host_path(@host)
     else
-      render :action => 'edit'
+      render edit_host_path(params[:id])
     end
   end
 
   def destroy
-    Hosts.find(params[:id]).destroy
-    redirect_to :action => 'list'
+    host = Hosts.find(params[:id])
+    unless host.destroy
+      flash[:error] = "No such host to delete"
+    end      
+    redirect_to hosts_path
   end
   
-  def connect
-    session[:host] = nil
-    id = params[:id]
-    if (id)
-      host = Hosts.find(id)
-      if host
-#	session[:host] = _host2hash host
-	session[:host] = host
-	redirect_to home_path
-      else
-	flash[:notice] = "Host unknown"
-      end
-    end
-  end
-  
-  def verifyconnect
-    host = session[:host]
-    unless host
-      # not called from connect, but from 'host input field'
-      host = params[:host]
-      name = host[:name]
-      fqdn = host[:fqdn]
-      if name
-	host = Hosts.find_by_name( name )
-      elsif fqdn
-        host = Hosts.find_by_fqdn( fqdn )
-      end
-    end
-    unless host
-      flash[:alert] = 'Unknown host.'
-      redirect_to :action => 'connect'
-    else
-#      session[:host] = _host2hash host
-      session[:host] = host
-      redirect_to home_path
-    end
-  end
-  
-  def release
-    session[:host] = nil
-    redirect_to home_path
-  end
 end
