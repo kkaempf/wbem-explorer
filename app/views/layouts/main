@@ -4,7 +4,7 @@
 
 
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <%= stylesheet_link_tag "/stylesheets/main" %>
+    <%= stylesheet_link_tag "main" %>
 
     <% if @head_partial %>
     <%= render :partial => "#{@head_partial}" %>
