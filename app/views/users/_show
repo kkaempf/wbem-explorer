@@ -1,4 +1,4 @@
-<% for column in User.content_columns %>
+<% for column in Users.content_columns %>
 <p>
   <b><%= column.human_name %>:</b> <%=h @user.send(column.name) %>
 </p>

@@ -1,14 +1,14 @@
 
 <table>
   <tr>
-  <% for column in User.content_columns %>
+  <% for column in Users.content_columns %>
     <th><%= column.human_name %></th>
   <% end %>
   </tr>
   
 <% for user in @users %>
   <tr>
-  <% for column in User.content_columns %>
+  <% for column in Users.content_columns %>
     <td><%=h user.send(column.name) %></td>
   <% end %>
     <td><%= link_to 'Show', :action => 'show', :id => user %></td>
@@ -18,5 +18,5 @@
 <% end %>
 </table>
 
-<%= link_to 'Previous page', { :page => @user_pages.current.previous } if @user_pages.current.previous %>
-<%= link_to 'Next page', { :page => @user_pages.current.next } if @user_pages.current.next %> 
+<%= link_to 'Previous page', { :page => @users.previous_page } if @users.previous_page %>
+<%= link_to 'Next page', { :page => @users.next_page } if @users.next_page %> 
