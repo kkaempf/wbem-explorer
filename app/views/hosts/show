@@ -1,5 +1,5 @@
 <% @title = "WS-Browser - Host Management"
-   @nav_active = "host"
+   @nav_active = "hosts"
 -%>
 
 <% @subnav = subnav_for_hosts -%>

@@ -1,6 +1,6 @@
 <table>
   <tr>
-  <% for column in Host.content_columns %>
+  <% for column in Hosts.content_columns %>
     <th><%= column.human_name %></th>
   <% end %>
   <th>&nbsp;&nbsp;&nbsp;</th>
@@ -8,7 +8,7 @@
   
 <% for host in @hosts %>
   <tr>
-  <% for column in Host.content_columns %>
+  <% for column in Hosts.content_columns %>
     <td><%=h host.send(column.name) %></td>
   <% end %>
   <td>&nbsp;&nbsp;&nbsp;</td>
@@ -20,5 +20,5 @@
 <% end %>
 </table>
 
-<%= link_to 'Previous page', { :page => @host_pages.current.previous } if @host_pages.current.previous %>
-<%= link_to 'Next page', { :page => @host_pages.current.next } if @host_pages.current.next %> 
+<%= link_to 'Previous page', { :page => @hosts.previous_page } if @hosts.previous_page %>
+<%= link_to 'Next page', { :page => @hosts.next_page } if @hosts.next_page %> 
