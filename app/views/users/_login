@@ -1,7 +1,7 @@
-<% if @flash[:notice] -%>
+<% if flash[:notice] -%>
   <div id="notice" class="fade"><%= flash[:notice] %></div>
 <% end -%>
-<% if @flash[:alert] -%>
+<% if flash[:alert] -%>
   <div id="alert" class="fade"><%= flash[:alert] %></div>
 <% end -%>
 <% form_tag :action => :verifylogin do %>

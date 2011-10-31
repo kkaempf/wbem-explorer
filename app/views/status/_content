@@ -5,7 +5,7 @@
     <%= u[:fullname] -%> <%= u[:login] -%>
   <% else -%>
     Not logged in&nbsp;&nbsp;
-    <%= link_to "Log in", login_path -%>
+    <%= link_to "Log in", login_user_path -%>
   <% end -%>
 
 </p>
@@ -17,6 +17,6 @@
     <%= h[:name] -%> <%= h[:fqdn] -%>
   <% else -%>
      Not connected&nbsp;&nbsp;
-    <%= link_to "Connect", connect_path -%>
+    <%= link_to "Connect", connect_host_path -%>
   <% end -%>
 </p>

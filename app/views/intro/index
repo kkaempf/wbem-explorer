@@ -4,7 +4,7 @@
 -%>
 
 <% @subnav=[
-    { :name => "", :attributes => { :action => "" } },
+    { :name => "", :path => intro_path },
 ]
 -%>
 
