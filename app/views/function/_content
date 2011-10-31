@@ -1,7 +1,7 @@
 <ul class="subnav">
-  <li><%= link_to "<b>&raquo;</b>Inventory", :controller => "function", :action => "inventory" -%></li>
-  <li><%= link_to "<b>&raquo;</b>Status", :controller => "function", :action => "status" -%></li>
-  <li><%= link_to "<b>&raquo;</b>Browse", :controller => "function",:action => "browse" -%></li>
-  <li><%= link_to "<b>&raquo;</b>HAL", :controller => "function", :action => "hal" -%></li>
-  <li><%= link_to "<b>&raquo;</b>YaST", :controller => "function", :action => "yast" -%></li>
+  <li><%= link_to raw("<b>&raquo;</b>Inventory"), :controller => "function", :action => "inventory" -%></li>
+  <li><%= link_to raw("<b>&raquo;</b>Status"), :controller => "function", :action => "status" -%></li>
+  <li><%= link_to raw("<b>&raquo;</b>Browse"), :controller => "function",:action => "browse" -%></li>
+  <li><%= link_to raw("<b>&raquo;</b>HAL"), :controller => "function", :action => "hal" -%></li>
+  <li><%= link_to raw("<b>&raquo;</b>YaST"), :controller => "function", :action => "yast" -%></li>
 </ul>
