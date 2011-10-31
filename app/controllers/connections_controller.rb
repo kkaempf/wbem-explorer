@@ -1,4 +1,4 @@
-class ConnectionController < ApplicationController
+class ConnectionsController < ApplicationController
   def new
     session[:host] = nil
     id = params[:id]
