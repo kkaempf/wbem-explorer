@@ -1,6 +1,6 @@
 class FunctionController < ApplicationController
   require "lib/wsclient.rb"
-  require "rwscim"
+  require "cim"
 
   require_dependency 'cimclasses'
   require_dependency 'features'

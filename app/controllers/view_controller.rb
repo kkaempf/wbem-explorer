@@ -1,6 +1,6 @@
 class ViewController < ApplicationController
   require "lib/wsclient.rb"
-  require "rwscim"
+  require "cim"
 
   require_dependency 'users'
   require_dependency 'cimclasses'
