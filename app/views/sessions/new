@@ -3,8 +3,8 @@
 -%>
 
 <% @subnav=[
-    { :name => "", :attributes => { :action => "" } }
+    { :name => "", :path => new_session_path }
     ] -%>
 
 <% @view_title = "Login"
-   @view_partial = "login" %>
+   @view_partial = "new" %>

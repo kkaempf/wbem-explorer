@@ -1,10 +1,10 @@
 module HostsHelper
   def subnav_for_hosts
     [
-     { :name => "Add", :path => new_host_path },
-     { :name => "List", :attributes => hosts_path },
-     { :name => "Search", :attributes => search_host_path },
-     { :name => "Connect", :attributes => connect_host_path }
+     { :name => "New", :path => new_host_path },
+     { :name => "List", :path => hosts_path },
+     { :name => "Search", :path => search_host_path },
+     { :name => "Connect", :path => new_connection_path }
     ]
   end
 end

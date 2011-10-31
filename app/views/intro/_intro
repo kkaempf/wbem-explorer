@@ -3,7 +3,7 @@ instrumentation</p>
 <hr/>
 <h2>Getting started</h2>
 <p>Start by creating Users via the navigation bar on the top.</p>
-<p>Then add hosts via the Hosts/Add menu entry.</p>
+<p>Then add hosts via the Hosts/New menu entry.</p>
 <p>Next, associate users with hosts in order to get pass the right
 credentials with every WBEM operation.</p>
 <br/>

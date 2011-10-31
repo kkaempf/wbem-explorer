@@ -25,12 +25,18 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = Users.new(params[:user])
+    user = params[:user]
+    if Users.find_by_login(user[:login])
+      flash[:error] = 'User already exists.'
+      redirect_to new_user_path
+    end
+    @user = Users.new(user)
     if @user.save
       flash[:notice] = 'User was successfully created.'
-      redirect_to :action => 'list'
+      redirect_to users_path
     else
-      render :action => 'new'
+      flash[:error] = 'User creation failed.'
+      redirect_to new_user_path
     end
   end
 
@@ -42,14 +48,19 @@ class UsersController < ApplicationController
     @user = Users.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:notice] = 'User was successfully updated.'
-      redirect_to :action => 'show', :id => @user
+      redirect_to user_path(@user)
     else
-      render :action => 'edit'
+      render edit_user_path(@user)
     end
   end
 
   def destroy
-    Users.find(params[:id]).destroy
+    @user = Users.find(params[:id])
+    if @user
+      @user.destroy
+    else
+      flash[:notice] = 'User already deleted.'
+    end
     redirect_to users_path
   end
 

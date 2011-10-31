@@ -3,7 +3,7 @@
 -%>
 
 <% @subnav=[
-    { :name => "Create", :attributes => { :action => "create" } },
-    { :name => "Search", :attributes => { :action => "search" } }
+    { :name => "Create", :path => new_user_path },
+    { :name => "Search", :path => users_path }
     ] -%>
 <!-- its all in the 'main' layout -->

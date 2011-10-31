@@ -1,4 +1,11 @@
-<% form_tag :action => 'create' do %>
+<% if flash[:notice] -%>
+  <div id="notice" class="fade"><%= flash[:notice] %></div>
+<% end -%>
+<% if flash[:alert] -%>
+  <div id="alert" class="fade"><%= flash[:alert] %></div>
+<% end -%>
+
+<%= form_tag users_path, :method => :post do %>
   <%= render :partial => 'form' %>
   <%= submit_tag "Create" %>
 <% end %>

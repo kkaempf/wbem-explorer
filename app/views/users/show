@@ -3,8 +3,8 @@
 -%>
 
 <% @subnav=[
-    { :name => "New", :attributes => { :action => "new" } },
-    { :name => "List", :attributes => { :action => "list" } }
+    { :name => "New", :path => new_user_path },
+    { :name => "List", :path => users_path }
     ] -%>
 
 <% @view_title = "Show user"

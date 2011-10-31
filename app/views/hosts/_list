@@ -12,10 +12,10 @@
     <td><%=h host.send(column.name) %></td>
   <% end %>
   <td>&nbsp;&nbsp;&nbsp;</td>
-    <td><%= link_to 'Connect', :action => 'connect', :id => host %>&nbsp;</td>
-    <td><%= link_to 'Show', :action => 'show', :id => host %>&nbsp;</td>
-    <td><%= link_to 'Edit', :action => 'edit', :id => host %>&nbsp;</td>
-    <td><%= link_to 'Destroy', { :action => 'destroy', :id => host }, :confirm => 'Are you sure?', :method => :post %></td>
+    <td><%= link_to 'Connect', create_connection_path(host) %>&nbsp;</td>
+    <td><%= link_to 'Show', host_path(host) %>&nbsp;</td>
+    <td><%= link_to 'Edit', edit_host_path(host) %>&nbsp;</td>
+    <td><%= link_to 'Destroy', host_path(host), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
