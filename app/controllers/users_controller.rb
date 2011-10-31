@@ -1,14 +1,15 @@
 class UsersController < ApplicationController
   require_dependency 'users'
   require_dependency 'hosts'
-  
+  require 'will_paginate'
+
   def index
     list
     render :action => 'list'
   end
 
   def list
-    @user_pages, @users = paginate :users, :per_page => 10
+    @user_pages, @users = Users.paginate :per_page => 10, :page => 1
   end
 
   def show

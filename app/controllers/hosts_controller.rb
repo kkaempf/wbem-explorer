@@ -11,7 +11,7 @@ class HostsController < ApplicationController
   end
 
   def list
-    @host_pages, @hosts = paginate :hosts, :per_page => 10
+    @host_pages, @hosts = Hosts.paginate :per_page => 10, :page => 1
   end
 
   def show

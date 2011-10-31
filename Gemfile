@@ -7,6 +7,8 @@ gem 'rails', '3.1.1'
 
 gem 'cim'
 
+gem 'will_paginate'
+
 gem 'sqlite3'
 
 gem 'json'
