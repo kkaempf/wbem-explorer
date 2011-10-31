@@ -61,7 +61,8 @@ WbemExplorer::Application.routes.draw do
   post 'logout_user' => 'users#logout'
   resources :users
 
-  resource :session
+  resource :session # user session
+  resource :connection # host connection
 
   # clean up later
   match 'inventory' => 'function#inventory'
