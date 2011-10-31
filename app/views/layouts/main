@@ -22,7 +22,6 @@
     <% end %>
 
     <%=    javascript_include_tag "debug" %>
-    <%=    javascript_include_tag :defaults %>
     <%=    javascript_include_tag "tooltip" %>
     <% if @my_script %>
     <!-- my script -->
@@ -70,11 +69,12 @@
 			<ul id="nav">
 			  <% @nav.each { |n|
 			       name = n[:name].capitalize
-			       active = Hash.new
-			       active[:class] = "active" if (n[:name] == @nav_active)
+			       options = Hash.new
+			       options[:class] = "active" if (n[:name] == @nav_active)
+			       options[:method] = n[:method] if n[:method]
 			       -%>
 			    <%= raw(n[:last]?'<li class="last">':'<li>') -%>
-			      <%= link_to raw("<em>" + name[0,1] + "</em>" + name[1..-1]), n[:path], active %>
+			      <%= link_to raw("<em>" + name[0,1] + "</em>" + name[1..-1]), n[:path], options %>
 			    </li>
 			  <% } -%>
 			</ul>

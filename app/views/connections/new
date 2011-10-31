@@ -1,8 +1,0 @@
-<% @title = "WS-Browser - Connect to host"
-   @nav_active = "home"
--%>
-
-<% @subnav = subnav_for_hosts -%>
-
-<% @view_title = "New host connection"
-   @view_partial = "new" %>

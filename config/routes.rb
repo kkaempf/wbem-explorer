@@ -53,17 +53,15 @@ WbemExplorer::Application.routes.draw do
   get 'intro' => 'intro#index'
   get 'about' => 'about#index'
 
-  get 'connect_host' => 'hosts#connect'
-  post 'release_host' => 'hosts#release'
   get 'search_host' => 'hosts#search'
-  resources :hosts
-  get 'login_user' => 'users#login'
-  post 'logout_user' => 'users#logout'
-  resources :users
-
-  resource :session # user session
-  resource :connection # host connection
-
+  resources :hosts do
+    get 'connect' => 'connections#new', :on => :member
+    delete 'release' => 'connections#destroy', :on => :member
+  end
+  resources :users do
+    get 'login' => 'sessions#new', :on => :member
+    delete 'logout' => 'sessions#destroy', :on => :member
+  end
   # clean up later
   match 'inventory' => 'function#inventory'
   match 'status' => 'function#status'

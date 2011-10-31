@@ -12,7 +12,7 @@
     <td><%=h host.send(column.name) %></td>
   <% end %>
   <td>&nbsp;&nbsp;&nbsp;</td>
-    <td><%= link_to 'Connect', create_connection_path(host) %>&nbsp;</td>
+    <td><%= link_to 'Connect', connect_host_path(host) %>&nbsp;</td>
     <td><%= link_to 'Show', host_path(host) %>&nbsp;</td>
     <td><%= link_to 'Edit', edit_host_path(host) %>&nbsp;</td>
     <td><%= link_to 'Destroy', host_path(host), :confirm => 'Are you sure?', :method => :delete %></td>
