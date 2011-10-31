@@ -1,5 +1,4 @@
 class HostsController < ApplicationController
-  helper :start
   
   def _host2hash host
     { :id => host.id, :name => host.name, :fqdn => host.fqdn, :secure => host.secure, :port => host.port, :path => host.path }
