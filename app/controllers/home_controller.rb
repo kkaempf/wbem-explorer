@@ -42,4 +42,15 @@ class HomeController < ApplicationController
       session[:client] = nil
     end
   end
+
+  def connect
+    session[:connection] = params[:connection]
+    redirect_to home_path
+  end
+
+  def disconnect
+    session[:connection] = nil
+    redirect_to home_path
+  end
+
 end

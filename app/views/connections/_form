@@ -1,0 +1,8 @@
+<!--[form:connections]-->
+<p><label for="connection_host">Host</label>
+<%= text_field 'connection', 'host'  %></p>
+
+<p><label for="connection_user">User</label>
+<%= text_field 'connection', 'user'  %></p>
+<!--[eoform:connections]-->
+

@@ -1,21 +1,23 @@
 <table>
   <tr>
-  <% for column in Connections.content_columns %>
-    <th><%= column.human_name %></th>
-  <% end %>
-  <th>&nbsp;&nbsp;&nbsp;</th>
+    <% for column in Connections.content_columns %>
+      <th><%= column.human_name %></th>
+    <% end %>
+    <th>&nbsp;&nbsp;&nbsp;</th>
   </tr>
   
 <% for connection in @connections %>
   <tr>
-  <% for column in Connections.content_columns %>
-    <td><%=h connection.send(column.name) %></td>
-  <% end %>
-  <td>&nbsp;&nbsp;&nbsp;</td>
+    <% for column in Connections.content_columns %>
+      <td><%=h connection.send(column.name) %></td>
+    <% end %>
+    <td>&nbsp;&nbsp;&nbsp;</td>
     <td><%= link_to 'Connect', connect_path(connection) %>&nbsp;</td>
-    <td><%= link_to 'Show', connection_path(connection) %>&nbsp;</td>
-    <td><%= link_to 'Edit', edit_connection_path(connection) %>&nbsp;</td>
-    <td><%= link_to 'Destroy', connection_path(connection), :confirm => 'Are you sure?', :method => :delete %></td>
+    <% unless @mode == :connect -%>
+      <td><%= link_to 'Show', connection_path(connection) %>&nbsp;</td>
+      <td><%= link_to 'Edit', edit_connection_path(connection) %>&nbsp;</td>
+      <td><%= link_to 'Destroy', connection_path(connection), :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end -%>
   </tr>
 <% end %>
 </table>

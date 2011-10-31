@@ -50,6 +50,7 @@ WbemExplorer::Application.routes.draw do
   # just remember to delete public/index.html.
   root :to => 'home#index'
   get 'home' => 'home#index'
+  get 'connect' => 'connections#connect'
   get 'intro' => 'intro#index'
   get 'about' => 'about#index'
 
@@ -58,9 +59,9 @@ WbemExplorer::Application.routes.draw do
   get 'search_user' => 'users#search'
   resources :users
   get 'search_connection' => 'connections#search'
-  get 'connect' => 'connections#connect'
   resources :connections do
-    get 'disconnect' => 'connections#disconnect'
+    get 'connect' => 'home#connect'
+    get 'disconnect' => 'home#disconnect'
   end
   # clean up later
   match 'inventory' => 'function#inventory'

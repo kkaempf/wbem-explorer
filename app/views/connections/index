@@ -1,8 +1,13 @@
 <% @title = "WS-Browser - Connections"
-   @nav_active = "connections"
+   @nav_active = "connections" unless @mode == :connect
 -%>
 
-<% @subnav = subnav_for_connections -%>
+<% if @mode == :connect
+     @subnav = subnav_for_home
+   else
+     @subnav = subnav_for_connections
+   end
+-%>
 
 <% @view_title = "Connections"
-   @view_partial = "index" %>
+   @view_partial = "index" -%>

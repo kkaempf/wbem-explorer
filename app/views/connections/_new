@@ -1,0 +1,4 @@
+<%= form_tag connections_path, :method => :post do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Add" %>
+<% end %>
