@@ -11,7 +11,11 @@ class HostsController < ApplicationController
   end
 
   def list
-    @host_pages, @hosts = Hosts.paginate :per_page => 10, :page => 1
+    @hosts = Hosts.paginate :per_page => 10, :page => 1
+  end
+
+  def find
+    @hosts = Hosts.paginate :per_page => 10, :page => params[:page], :order => 'updated_at DESC'
   end
 
   def show

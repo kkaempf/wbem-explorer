@@ -9,7 +9,11 @@ class UsersController < ApplicationController
   end
 
   def list
-    @user_pages, @users = Users.paginate :per_page => 10, :page => 1
+    @users = Users.paginate :per_page => 10, :page => 1
+  end
+
+  def find
+    @users = Users.paginate :per_page => 10, :page => params[:page], :order => 'updated_at DESC'
   end
 
   def show
