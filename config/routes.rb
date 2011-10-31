@@ -49,16 +49,26 @@ WbemExplorer::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'home#index'
-  match 'home' => 'home#index'
-  match 'intro' => 'intro#index'
-  match 'about' => 'about#index'
+  get 'home' => 'home#index'
+  get 'intro' => 'intro#index'
+  get 'about' => 'about#index'
 
-  match 'connect' => 'hosts#connect'
-  match 'release' => 'hosts#release'
+  get 'connect_host' => 'hosts#connect'
+  post 'release_host' => 'hosts#release'
+  get 'search_host' => 'hosts#search'
   resources :hosts
-  match 'login' => 'users#login'
-  match 'logout' => 'users#logout'
+  get 'login_user' => 'users#login'
+  post 'logout_user' => 'users#logout'
   resources :users
+
+  resource :session
+
+  # clean up later
+  match 'inventory' => 'function#inventory'
+  match 'status' => 'function#status'
+  match 'browse' => 'function#browse'
+  match 'hal' => 'function#hal'
+  match 'yast' => 'function#yast'
 
   # See how all your routes lay out with "rake routes"
 

@@ -50,35 +50,7 @@ class UsersController < ApplicationController
 
   def destroy
     Users.find(params[:id]).destroy
-    redirect_to :action => 'list'
-  end
-
-  def login
-    session[:user] = nil
-  end
-  
-  def verifylogin
-    user = params[:user]
-    name = user[:login]
-    password = user[:password]
-    user = Users.find_by_login( name )
-    unless user
-      flash[:alert] = 'Unknown user.'
-      redirect_to :action => 'login'
-    else
-      unless user.password == password
-        flash[:alert] = 'Wrong credentials.'
-        redirect_to :action => 'login'
-      else
-	session[:user] = user
-	redirect_to :controller => 'start', :action => 'index'
-      end
-    end
-  end
-  
-  def logout
-    session[:user] = nil
-    redirect_to :controller => 'start', :action => 'index'
+    redirect_to users_path
   end
 
 end
