@@ -15,15 +15,15 @@ class HostsController < ApplicationController
   end
 
   def show
-    @host = Host.find(params[:id])
+    @host = Hosts.find(params[:id])
   end
 
   def add
-    @host = Host.new
+    @host = Hosts.new
   end
 
   def create
-    @host = Host.new(params[:host])
+    @host = Hosts.new(params[:host])
     if @host.save
       flash[:notice] = 'Host was successfully created.'
       redirect_to :action => 'list'
@@ -33,11 +33,11 @@ class HostsController < ApplicationController
   end
 
   def edit
-    @host = Host.find(params[:id])
+    @host = Hosts.find(params[:id])
   end
 
   def update
-    @host = Host.find(params[:id])
+    @host = Hosts.find(params[:id])
     if @host.update_attributes(params[:host])
       flash[:notice] = 'Host was successfully updated.'
       redirect_to :action => 'show', :id => @host
@@ -47,7 +47,7 @@ class HostsController < ApplicationController
   end
 
   def destroy
-    Host.find(params[:id]).destroy
+    Hosts.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
   
@@ -55,7 +55,7 @@ class HostsController < ApplicationController
     session[:host] = nil
     id = params[:id]
     if (id)
-      host = Host.find(id)
+      host = Hosts.find(id)
       if host
 #	session[:host] = _host2hash host
 	session[:host] = host
@@ -74,9 +74,9 @@ class HostsController < ApplicationController
       name = host[:name]
       fqdn = host[:fqdn]
       if name
-	host = Host.find_by_name( name )
+	host = Hosts.find_by_name( name )
       elsif fqdn
-        host = Host.find_by_fqdn( fqdn )
+        host = Hosts.find_by_fqdn( fqdn )
       end
     end
     unless host

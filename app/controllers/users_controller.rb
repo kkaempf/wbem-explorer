@@ -13,15 +13,15 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = Users.find(params[:id])
   end
 
   def new
-    @user = User.new
+    @user = Users.new
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = Users.new(params[:user])
     if @user.save
       flash[:notice] = 'User was successfully created.'
       redirect_to :action => 'list'
@@ -31,11 +31,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = Users.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = Users.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:notice] = 'User was successfully updated.'
       redirect_to :action => 'show', :id => @user
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    Users.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
 
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     user = params[:user]
     name = user[:login]
     password = user[:password]
-    user = User.find_by_login( name )
+    user = Users.find_by_login( name )
     unless user
       flash[:alert] = 'Unknown user.'
       redirect_to :action => 'login'
