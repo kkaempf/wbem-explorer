@@ -33,7 +33,7 @@
   @nav = [
     { :name => "home", :controller => "start" },
     { :name => "users", :controller => "user" },
-    { :name => "hosts", :controller => "host" },
+    { :name => "hosts", :controller => "hosts" },
     { :name => "intro", :controller => "intro" },
     { :name => "about", :controller => "about", :last => true }
   ]
@@ -73,8 +73,8 @@
 			       active = Hash.new
 			       active[:class] = "active" if (n[:controller] == @nav_active)
 			       -%>
-			    <%= n[:last]?'<li class="last">':'<li>' -%>
-			      <%= link_to "<em>" + name[0,1] + "</em>" + name[1..-1],
+			    <%= raw(n[:last]?'<li class="last">':'<li>') -%>
+			      <%= link_to raw("<em>" + name[0,1] + "</em>" + name[1..-1]),
 				   { :controller => n[:controller],
 				     :action => n[:action] || "index" }, active %>
 			    </li>
@@ -124,25 +124,24 @@ href="www.rubyonrails.org">Ruby On Rails</a> application utilizing
 <a href="http://www.dmtf.org/standards/wbem/wsman">Web Services for
 Management</a>
 				</p>
-				
+
 				<p>
 					Created by <a
 href="mailto:kkaempf@suse.de">Klaus K&auml;mpf</a>
 				</p>
-				
+
 				<h2>Links</h2>
 				    <ul>
 					<li><a href="http://www.ruby-lang.org">Ruby</a></li>
 					<li><a href="http://www.rubyonrails.org">Ruby On Rails</a></li>
 					<li><a href="http://www.dmtf.org">DMTF</a></li>
 					<li><a href="http://www.openwsman.org">Openwsman</a></li>
-					<li><a href="http://rwsman.rubyforge.org">rwsman - Ruby bindings</a></li>
 				    </ul>
 
                                 <h2>Sponsors</h2>
 				
 				<ul>
-					<li><a href="http://www.novell.com">Novell</a></li>
+					<li><a href="http://www.suse.com">SUSE</a></li>
 					<li><a href="http://www.opensuse.org">OpenSUSE</a></li>
 					<li><a href="http://www.intel.com">Intel</a></li>
 				</ul>

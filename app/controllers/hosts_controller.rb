@@ -1,4 +1,4 @@
-class HostController < ApplicationController
+class HostsController < ApplicationController
   helper :start
   
   def _host2hash host

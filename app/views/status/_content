@@ -17,6 +17,6 @@
     <%= h[:name] -%> <%= h[:fqdn] -%>
   <% else -%>
      Not connected&nbsp;&nbsp;
-    <%= link_to "Connect", :controller => "host", :action => "connect" -%>
+    <%= link_to "Connect", :controller => "hosts", :action => "connect" -%>
   <% end -%>
 </p>
