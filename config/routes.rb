@@ -50,8 +50,8 @@ WbemExplorer::Application.routes.draw do
   # just remember to delete public/index.html.
   root :to => 'start#index'
 
-  map.resources :hosts
-  map.resources :users
+  resources :hosts
+  resources :users
 
   # See how all your routes lay out with "rake routes"
 
