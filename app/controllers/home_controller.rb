@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   require "lib/wsclient.rb"
-  require_dependency 'users'
   
   # initial view, builds up main window with
   # sub-windows for Host, Function, View and Detail

@@ -2,11 +2,6 @@ class ViewController < ApplicationController
   require "lib/wsclient.rb"
   require "cim"
 
-  require_dependency 'users'
-  require_dependency 'cimclasses'
-  require_dependency 'features'
-  require_dependency 'featureviews'
-
   helper :start
   
   def instances

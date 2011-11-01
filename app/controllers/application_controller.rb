@@ -3,6 +3,4 @@ class ApplicationController < ActionController::Base
   layout 'main'
   helper :status
   
-  require_dependency 'users'
-  require_dependency 'hosts'
 end

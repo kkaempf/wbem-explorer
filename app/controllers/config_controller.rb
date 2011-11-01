@@ -2,9 +2,6 @@
 # configuration controller
 #
 class ConfigController < ApplicationController
-  require_dependency 'cimclasses'
-  require_dependency 'features'
-  require_dependency 'featureviews'
 	
   helper :start
 
