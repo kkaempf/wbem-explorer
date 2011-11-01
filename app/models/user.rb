@@ -1,4 +1,4 @@
-class Users < ActiveRecord::Base
+class User < ActiveRecord::Base
   validates_uniqueness_of :login
 
   def to_s

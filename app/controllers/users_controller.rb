@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  require_dependency 'users'
-  require_dependency 'hosts'
   require 'will_paginate'
 
   def index
@@ -9,28 +7,28 @@ class UsersController < ApplicationController
   end
 
   def list
-    @users = Users.paginate :per_page => 10, :page => 1
+    @users = User.paginate :per_page => 10, :page => 1
   end
 
   def find
-    @users = Users.paginate :per_page => 10, :page => params[:page], :order => 'updated_at DESC'
+    @users = User.paginate :per_page => 10, :page => params[:page], :order => 'updated_at DESC'
   end
 
   def show
-    @user = Users.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def new
-    @user = Users.new
+    @user = User.new
   end
 
   def create
     user = params[:user]
-    if Users.find_by_login(user[:login])
+    if User.find_by_login(user[:login])
       flash[:error] = 'User already exists.'
       redirect_to new_user_path
     end
-    @user = Users.new(user)
+    @user = User.new(user)
     if @user.save
       flash[:notice] = 'User was successfully created.'
       redirect_to users_path
@@ -41,11 +39,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = Users.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def update
-    @user = Users.find(params[:id])
+    @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:notice] = 'User was successfully updated.'
       redirect_to user_path(@user)
@@ -55,7 +53,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = Users.find(params[:id])
+    @user = User.find(params[:id])
     if @user
       @user.destroy
     else

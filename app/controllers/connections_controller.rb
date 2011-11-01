@@ -1,6 +1,6 @@
 class ConnectionsController < ApplicationController
   def index
-    @connections = Connections.paginate :per_page => 10, :page => 1
+    @connections = Connection.paginate :per_page => 10, :page => 1
   end
 
   def find
@@ -9,16 +9,17 @@ class ConnectionsController < ApplicationController
 
   def connect
     @mode = :connect
-    @connections = Connections.paginate :per_page => 10, :page => 1
+    @connections = Connection.paginate :per_page => 10, :page => 1
     render :index
   end
 
   def new
     session[:connection] = nil
+    @connection = Connection.new
   end
 
   def create
-    @connection = Connections.new(params[:connection])
+    @connection = Connection.new(params[:connection])
     if @connection && @connection.save
       flash[:notice] = 'Connection was successfully created.'
       redirect_to connections_path
@@ -29,15 +30,15 @@ class ConnectionsController < ApplicationController
   end
   
   def show
-    @connection = Connections.find(params[:id])
+    @connection = Connection.find(params[:id])
   end
 
   def edit
-    @connection = Connections.find(params[:id])
+    @connection = Connection.find(params[:id])
   end
   
   def update
-    @connection = Connections.find(params[:id])
+    @connection = Connection.find(params[:id])
     unless @connection
       flash[:error] = 'No such connection to update.'
     else
@@ -55,7 +56,7 @@ class ConnectionsController < ApplicationController
     if (params[:id] == session[:connection])
       flash[:error] = "Can't delete active connection."
     else
-      @connection = Connections.find(params[:id])
+      @connection = Connection.find(params[:id])
       unless @connection
 	flash[:error] = 'No such connection to delete.'
       else

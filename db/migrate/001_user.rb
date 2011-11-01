@@ -1,4 +1,4 @@
-class Users < ActiveRecord::Migration
+class User < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
       t.column :login, :string, :limit => 16, :null => false

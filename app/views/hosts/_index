@@ -14,7 +14,7 @@
   <td>&nbsp;&nbsp;&nbsp;</td>
     <td><%= link_to 'Details', host_path(host) %>&nbsp;</td>
     <td><%= link_to 'Edit', edit_host_path(host) %>&nbsp;</td>
-    <td><%= link_to 'Destroy', host_path(host), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= button_to 'Delete', host_path(host), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

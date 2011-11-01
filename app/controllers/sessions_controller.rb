@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   def create
     name = params[:login]
     password = params[:password]
-    user = Users.find_by_login( name )
+    user = User.find_by_login( name )
     unless user
       flash[:alert] = "Unknown user '#{name}'."
       redirect_to new_session_path

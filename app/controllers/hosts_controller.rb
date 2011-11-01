@@ -5,23 +5,23 @@ class HostsController < ApplicationController
   end
 
   def index
-    @hosts = Hosts.paginate :per_page => 10, :page => 1
+    @hosts = Host.paginate :per_page => 10, :page => 1
   end
 
   def find
-    @hosts = Hosts.paginate :per_page => 10, :page => params[:page], :order => 'updated_at DESC'
+    @hosts = Host.paginate :per_page => 10, :page => params[:page], :order => 'updated_at DESC'
   end
 
   def show
-    @host = Hosts.find(params[:id])
+    @host = Host.find(params[:id])
   end
 
   def new
-    @host = Hosts.new
+    @host = Host.new
   end
 
   def create
-    @host = Hosts.new(params[:host])
+    @host = Host.new(params[:host])
     if @host.save
       flash[:notice] = 'Host was successfully created.'
       redirect_to hosts_path
@@ -31,24 +31,33 @@ class HostsController < ApplicationController
   end
 
   def edit
-    @host = Hosts.find(params[:id])
+    @host = Host.find(params[:id])
   end
 
   def update
-    @host = Hosts.find(params[:id])
-    if @host.update_attributes(params[:host])
-      flash[:notice] = 'Host was successfully updated.'
-      redirect_to host_path(@host)
+    @host = Host.find(params[:id])
+    unless @host
+      flash[:error] = "No such host to update"
     else
-      render edit_host_path(params[:id])
+      if @host.update_attributes(params[:host])
+	flash[:notice] = 'Host was successfully updated.'
+      else
+	render edit_host_path(params[:id])
+	return
+      end
     end
+    redirect_to host_path
   end
 
   def destroy
-    host = Hosts.find(params[:id])
-    unless host.destroy
-      flash[:error] = "No such host to delete"
-    end      
+    @host = Host.find(params[:id])
+    unless @host
+      flash[:warning] = "No such host to delete"
+    else
+      unless @host.destroy
+	flash[:error] = "Cannot delete host"
+      end
+    end
     redirect_to hosts_path
   end
   

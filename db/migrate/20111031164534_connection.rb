@@ -1,4 +1,4 @@
-class Connections < ActiveRecord::Migration
+class Connection < ActiveRecord::Migration
   def up
     create_table :connections do |t|
       t.column :host_id, :integer, :null => false

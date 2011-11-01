@@ -34,6 +34,8 @@
   @nav = [
     { :name => "home", :path => home_path },
     { :name => "connections", :path => connections_path },
+    { :name => "hosts", :path => hosts_path },
+    { :name => "users", :path => users_path },
     { :name => "intro", :path => intro_path },
     { :name => "about", :path => about_path, :last => true }
   ]

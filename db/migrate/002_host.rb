@@ -1,4 +1,4 @@
-class Hosts < ActiveRecord::Migration
+class Host < ActiveRecord::Migration
   def self.up
     create_table :hosts do |t|
       t.column :name, :string, :limit => 32, :null => false  # user readable name
