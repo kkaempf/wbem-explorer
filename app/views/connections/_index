@@ -1,6 +1,6 @@
 <table>
   <tr>
-    <% for column in Connections.content_columns %>
+    <% for column in Connection.content_columns %>
       <th><%= column.human_name %></th>
     <% end %>
     <th>&nbsp;&nbsp;&nbsp;</th>
@@ -8,7 +8,7 @@
   
 <% for connection in @connections %>
   <tr>
-    <% for column in Connections.content_columns %>
+    <% for column in Connection.content_columns %>
       <td><%=h connection.send(column.name) %></td>
     <% end %>
     <td>&nbsp;&nbsp;&nbsp;</td>

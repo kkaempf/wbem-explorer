@@ -1,14 +1,14 @@
 
 <table>
   <tr>
-  <% for column in Users.content_columns %>
+  <% for column in User.content_columns %>
     <th><%= column.human_name %></th>
   <% end %>
   </tr>
   
 <% for user in @users %>
   <tr>
-  <% for column in Users.content_columns %>
+  <% for column in User.content_columns %>
     <td><%=h user.send(column.name) %></td>
   <% end %>
     <td><%= link_to 'Show', user_path(user) %></td>

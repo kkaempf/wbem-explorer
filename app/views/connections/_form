@@ -1,7 +1,7 @@
 <!--[form:connections]-->
-    Host: <%= @c.collection_select(:host_id, Hosts.all, :id, :name, :prompt => true )  %>
+    Host: <%= @c.collection_select(:host_id, Host.all, :id, :name, :prompt => true )  %>
 <br/>
-    User: <%= @c.collection_select(:user_id, Users.all, :id, :login, :prompt => true )  %>
+    User: <%= @c.collection_select(:user_id, User.all, :id, :login, :prompt => true )  %>
 <br/>
 
 Protocol: <%= @c.radio_button("protocol", "wsman") %> wsman
