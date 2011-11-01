@@ -52,14 +52,18 @@ class ConnectionsController < ApplicationController
   end
 
   def destroy
-    @connection = Connections.find(params[:id])
-    unless @connection
-      flash[:error] = 'No such connection to delete.'
+    if (params[:id] == session[:connection])
+      flash[:error] = "Can't delete active connection."
     else
-      unless @connection.destroy
-	flash[:error] = "Connection deletion failed"
+      @connection = Connections.find(params[:id])
+      unless @connection
+	flash[:error] = 'No such connection to delete.'
+      else
+	unless @connection.destroy
+	  flash[:error] = "Connection deletion failed"
+	end
       end
-    end      
+    end
     redirect_to connections_path
   end
 end

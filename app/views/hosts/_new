@@ -1,4 +1,5 @@
-<%= form_tag hosts_path, :method => :post do %>
+<%= form_for @host do |h| %>
+  <% @h = h %>
   <%= render :partial => 'form' %>
   <%= submit_tag "Add" %>
 <% end %>

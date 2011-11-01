@@ -16,7 +16,7 @@
     <% unless @mode == :connect -%>
       <td><%= link_to 'Show', connection_path(connection) %>&nbsp;</td>
       <td><%= link_to 'Edit', edit_connection_path(connection) %>&nbsp;</td>
-      <td><%= link_to 'Destroy', connection_path(connection), :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= button_to 'Destroy', connection_path(connection), :confirm => 'Are you sure?', :method => :delete %></td>
     <% end -%>
   </tr>
 <% end %>

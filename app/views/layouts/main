@@ -27,6 +27,8 @@
     <!-- my script -->
     <script><%= @my_script %></script>
     <% end %>
+    
+    <%= csrf_meta_tag %>
 
 <%
   @nav = [
@@ -146,8 +148,15 @@ href="mailto:kkaempf@suse.de">Klaus K&auml;mpf</a>
 		</div>
 		
 		<div id="view">
-		   <h1><%= @view_title %></h1>
-		   <%= render :partial => @view_partial %>
+		  <% if flash[:notice] -%>
+		    <div id="notice" class="fade"><%= flash[:notice] %></div>
+		  <% end -%>
+		  <% if flash[:alert] -%>
+		    <div id="alert" class="fade"><%= flash[:alert] %></div>
+		  <% end -%>
+
+		  <h1><%= @view_title %></h1>
+		  <%= render :partial => @view_partial %>
 		</div>
 
                 <% if @detail_partial -%>
