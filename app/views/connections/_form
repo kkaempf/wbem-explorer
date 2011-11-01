@@ -1,20 +1,19 @@
 <!--[form:connections]-->
-<p><label for="connection_host">Host</label>
-<%= collection_select(:connection, :host_id, Hosts.all, :id, :name, {:prompt => true})  %></p>
+    Host: <%= @c.collection_select(:host_id, Hosts.all, :id, :name, :prompt => true )  %>
+<br/>
+    User: <%= @c.collection_select(:user_id, Users.all, :id, :login, :prompt => true )  %>
+<br/>
 
-<p><label for="connection_user">User</label>
-<%= collection_select(:connection, :user_id, Users.all, :id, :login, {:prompt => true})  %></p>
+Protocol: <%= @c.radio_button("protocol", "wsman") %> wsman
+          <%= @c.radio_button("protocol", "cimxml") %> cimxml
+<br/>
 
-<p><label for="connection_protocol">Protocol</label>
-<%= text_field 'connection', 'protocol'  %></p>
+  Secure: <%= @c.check_box :secure %>
+<br/>
 
-<p><label for="connection_secure">Secure</label>
-<checkbox id="connection_secure" name="connection[secure]"></p>
+    Port: <%= @c.text_field :port %>
+<br/>
 
-<p><label for="connection_port">Port</label>
-<%= text_field 'connection', 'port'  %></p>
-
-<p><label for="connection_path">Path</label>
-<%= text_field 'connection', 'path'  %></p>
+    Path: <%= @c.text_field :path %>
 <!--[eoform:connections]-->
 

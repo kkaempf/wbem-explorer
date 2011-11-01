@@ -18,8 +18,8 @@ class ConnectionsController < ApplicationController
   end
 
   def create
-    connection = Connections.new(params[:connection])
-    if connection && connection.save
+    @connection = Connections.new(params[:connection])
+    if @connection && @connection.save
       flash[:notice] = 'Connection was successfully created.'
       redirect_to connections_path
     else
@@ -33,11 +33,33 @@ class ConnectionsController < ApplicationController
   end
 
   def edit
+    @connection = Connections.find(params[:id])
   end
   
   def update
+    @connection = Connections.find(params[:id])
+    unless @connection
+      flash[:error] = 'No such connection to update.'
+    else
+      if @connection.update_attributes(params[:host])
+	flash[:notice] = 'Connection was successfully updated.'
+      else
+	render edit_connection_path(params[:id])
+	return
+      end
+    end
+    redirect_to connections_path
   end
 
   def destroy
+    @connection = Connections.find(params[:id])
+    unless @connection
+      flash[:error] = 'No such connection to delete.'
+    else
+      unless @connection.destroy
+	flash[:error] = "Connection deletion failed"
+      end
+    end      
+    redirect_to connections_path
   end
 end

@@ -1,6 +1,7 @@
-<%= form_tag @host do %>
+<%= form_for @host do |h| %>
+  <% @h = h %>
   <%= render :partial => 'form' %>
-  <%= submit_tag 'Edit' %>
+  <%= submit_tag "Update" %>
 <% end %>
 
 <%= link_to 'Show', host_path(@host) %>

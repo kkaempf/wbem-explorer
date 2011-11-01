@@ -1,6 +1,7 @@
-<%= form_tag @user do %>
+<%= form_for @user do |u| %>
+  <% @u = u %>
   <%= render :partial => 'form' %>
-  <%= submit_tag 'Edit' %>
+  <%= submit_tag "Update" %>
 <% end %>
 
 <%= link_to 'Show', :action => 'show', :id => @user %>
