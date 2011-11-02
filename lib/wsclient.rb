@@ -5,7 +5,9 @@ class WsClient
     client = Openwsman::Client.new uri
     if client
       client.transport.timeout = 5
-      options = Openwsman::ClientOption.new
+      client.transport.auth_method = Openwsman::BASIC_AUTH_STR
+	  
+      options = Openwsman::ClientOptions.new
       return client,options
     end
     return nil

@@ -5,10 +5,13 @@ gem 'rails', '3.1.1'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
+# CIM metamodel
 gem 'cim'
 
+# Pagination support for long lists
 gem 'will_paginate'
 
+# Database
 gem 'sqlite3'
 
 gem 'json'
@@ -21,9 +24,18 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+# Use jQuery JavaScript lib
 gem 'jquery-rails'
 
+# compass CSS framework
+gem 'compass'
+
+# Haml to write HTML pages
+gem 'haml'
+
+# Run JavaScript from Ruby
 gem 'execjs'
+# Use Google V8 as JavaScript engine
 gem 'therubyracer'
 
 # To use ActiveModel has_secure_password
