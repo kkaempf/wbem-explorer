@@ -32,18 +32,22 @@ form.bp {
   @include blueprint-scaffolding; }
 
 // Page layout can be done using mixins applied to your semantic classes and IDs:
-body.two-col {
+body.wbem-explorer {
   #container {
     @include container; }
   #header, #footer {
     @include column($blueprint-grid-columns); }
-  #sidebar {
-    // One third of the grid columns, rounding down. With 24 cols, this is 8.
-    $sidebar-columns: floor($blueprint-grid-columns / 3);
+  #left-sidebar {
+    // One eights of the grid columns, rounding down. With 24 cols, this is 3.
+    $sidebar-columns: floor($blueprint-grid-columns / 8);
     @include column($sidebar-columns); }
   #content {
-    // Two thirds of the grid columns, rounding up.
-    // With 24 cols, this is 16.
-    $content-columns: ceil(2 * $blueprint-grid-columns / 3);
+    // Six eights of the grid columns, rounding up.
+    // With 24 cols, this is 18.
+    $content-columns: ceil(6 * $blueprint-grid-columns / 8);
     // true means it's the last column in the row
     @include column($content-columns, true); } }
+  #right-sidebar {
+    // One eights of the grid columns, rounding down. With 24 cols, this is 3.
+    $sidebar-columns: floor($blueprint-grid-columns / 8);
+    @include column($sidebar-columns); }

@@ -1,0 +1,9 @@
+%h1= @view_title
+= render :partial => @view_partial
+
+
+- if @detail_partial
+  %div#detail
+  %h1 = @detail_title
+  %div#detail_content
+    = render :partial => @detail_partial
