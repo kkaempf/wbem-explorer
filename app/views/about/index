@@ -9,4 +9,4 @@
 
 <% @view_title = "About"
    @view_partial = "about" -%>
-<!-- its all in the 'main' layout -->
+<!-- its all in the 'application' layout -->

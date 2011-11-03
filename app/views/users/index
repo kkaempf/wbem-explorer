@@ -6,4 +6,4 @@
     { :name => "Create", :path => new_user_path },
     { :name => "Search", :path => users_path }
     ] -%>
-<!-- its all in the 'main' layout -->
+<!-- its all in the 'application' layout -->

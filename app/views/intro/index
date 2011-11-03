@@ -10,4 +10,4 @@
 
 <% @view_title = "Introduction"
    @view_partial = "intro" -%>
-<!-- its all in the 'main' layout -->
+<!-- its all in the 'application' layout -->

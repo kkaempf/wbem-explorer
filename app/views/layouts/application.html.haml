@@ -1,15 +1,136 @@
 !!!
 %html
   %head
-    %title WBEM-Explorer
+    %title= @title
     = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
     = stylesheet_link_tag 'compiled/print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
-      = csrf_meta_tags
+    = csrf_meta_tag
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
 
+    - if @head_partial
+      = render :partial => "#{@head_partial}"
+
+    - if @more_stylesheets
+      - @more_stylesheets.each do |stylesheet|
+        = stylesheet_link_tag "#{stylesheet}"
+
+    - if @more_javascripts
+      - @more_javascripts.each do |javascript|
+        = javascript_include_tag "#{javascript}"
+
+    = javascript_include_tag "debug"
+    = javascript_include_tag "tooltip"
+    
+    - if @my_script
+      %script "#{@my_script}"
+
+    - @nav = [ { :name => "home", :path => home_path },
+        { :name => "connections", :path => connections_path },
+        { :name => "hosts", :path => hosts_path },
+        { :name => "users", :path => users_path },
+        { :name => "intro", :path => intro_path },
+        { :name => "about", :path => about_path, :last => true } ]
+
+
+
   %body.bp
-    #container
-      = yield
+    %div#wrapper
+      %div#innerwrapper
+        %div#header
+
+          / Icons on right of header
+
+          %div#icons
+            = link_to( image_tag( "geeko.jpg", :size => "130x85", :border => 0), "http://www.opensuse.org" )
+
+
+          / Heading and Subheading text
+          %h1 WBEM Explorer
+          %h2 Explore Linux, Unix and Windows systems
+          / Main navigation
+          %ul#nav
+            - @nav.each do |n|
+              - name = n[:name].capitalize
+              - options = Hash.new
+              - options[:class] = "active" if (n[:name] == @nav_active)
+              - options[:method] = n[:method] if n[:method]
+              = raw(n[:last]?'<li class="last">':'<li>')
+              = link_to raw("<em>" + name[0,1] + "</em>" + name[1..-1]), n[:path], options
+                
+          / Sub navigation
+
+          - if @subnav
+            %ul#subnav
+              - @subnav.each do |sn|
+                %li
+                  = link_to sn[:name], sn[:path], sn[:options]
+
+        / Sidebar
+
+        %div#sidebar
+
+          %h2 Status
+          =render :partial => 'status/content'
+                                
+          %h2 Actions
+          = render :partial => 'function/content'
+                                
+          %h2 Search
+          = form_tag search_host_path do
+            = text_field( "search", "Search", { :value => "Search" } )
+                
+        %div#sidebarright
+                
+          %h2 Info
+          %p
+            This demo shows a
+            %a{:href=>"www.rubyonrails.org"} Ruby On Rails
+            application utilizing
+            %a{:href=>"http://www.dmtf.org/standards/wbem/wsman"} Web Services for Management
+            
+          %p
+            Created by
+            %a{:href=>"mailto:kkaempf@suse.de"} Klaus K&auml;mpf
+
+
+          %h2 Links
+          %ul
+            %li
+              %a{:href=>"http://www.ruby-lang.org"} Ruby
+            %li
+              %a{:href=>"http://www.rubyonrails.org"} Ruby On Rails
+            %li
+              %a{:href=>"http://www.dmtf.org"} DMTF
+            %li
+              %a{:href=>"http://www.openwsman.org"} Openwsman
+
+          %h2 Sponsors
+          %ul
+            %li
+              %a{:href=>"http://www.suse.com"} SUSE
+            %li
+              %a{:href=>"http://www.opensuse.org"} OpenSUSE
+            %li
+              %a{:href=>"http://www.intel.com"} Intel
+
+                
+        %div#view
+          - if flash[:notice]
+            %div#notice.fade = flash[:notice]
+          - if flash[:alert]
+            %div#alert.fade = flash[:alert]
+
+          %h1= @view_title
+          = render :partial => @view_partial
+
+
+          - if @detail_partial
+            %div#detail
+              %h1 = @detail_title
+              %div#detail_content
+                = render :partial => @detail_partial
+                
+          %div#footer © All your copyright information here.

@@ -28,8 +28,8 @@ end
 gem 'jquery-rails'
 
 # compass CSS framework
-gem 'compass'
-
+gem 'compass', ">= 0.11.5"
+    
 # Haml to write HTML pages
 gem 'haml'
 
