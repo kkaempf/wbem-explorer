@@ -2,8 +2,8 @@
 %html
   %head
     %title= @title
-    = stylesheet_link_tag 'web_app_theme'
-    = javascript_include_tag :defaults
+    = stylesheet_link_tag 'wbem_explorer'
+    = javascript_include_tag 'wbem_explorer'
     = csrf_meta_tag
     - if @head_partial
       = render :partial => "#{@head_partial}"

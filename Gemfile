@@ -10,6 +10,8 @@ gem 'cim'
 
 # Pagination support for long lists
 gem 'will_paginate'
+# Alternative:
+gem 'kaminari'
 
 # Database
 gem 'sqlite3'
