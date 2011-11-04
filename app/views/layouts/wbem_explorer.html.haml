@@ -47,9 +47,9 @@
         #main-navigation
           %ul.wat-cf
             %li{ :class => (params[:controller] == "home" ? "first active" : "first") }
-	      = link_to "Home", root_path
-            %li{ :class => (params[:controller] == "blog_entries" ? "active" : nil) }
-              = link_to "Blog Entries", blog_entries_path
+              = link_to "Home", root_path
+            %li{ :class => (params[:controller] == "hosts" ? "active" : nil) }
+              = link_to "Hosts", hosts_path
 
       %div#left-sidebar
         =render :partial => 'layouts/left-sidebar'
@@ -60,7 +60,7 @@
             %div{:class => "message #{type}"}
               %p= message
         #main
-          =render :partial => 'layouts/content'
+          =yield
           #footer
             .block
               %p
