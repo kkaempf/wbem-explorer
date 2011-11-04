@@ -5,11 +5,7 @@ class HostsController < ApplicationController
   end
 
   def index
-    @hosts = Host.paginate :per_page => 10, :page => 1
-  end
-
-  def find
-    @hosts = Host.paginate :per_page => 10, :page => params[:page], :order => 'updated_at DESC'
+    @hosts = Host.page(params[:page])
   end
 
   def show

@@ -1,9 +1,0 @@
-<!--[form:host]-->
-<p><label for="host_name">Name</label>
-<%= text_field 'host', 'name'  %></p>
-
-<p><label for="host_fqdn">Host</label>
-<%= text_field 'host', 'fqdn'  %></p>
-
-<!--[eoform:host]-->
-

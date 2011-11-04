@@ -1,7 +1,0 @@
-<% for column in Host.content_columns %>
-<p>
-  <b><%= column.human_name %>:</b> <%=h @host.send(column.name) %>
-</p>
-<% end %>
-
-<%= link_to 'Edit', edit_host_path(@host) %>

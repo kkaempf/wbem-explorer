@@ -43,8 +43,13 @@
               %a{:href => "#"}= t("web-app-theme.settings", :default => "Settings")
             %li
               %a.logout{:href => "/logout"}= t("web-app-theme.logout", :default => "Logout")
+
         #main-navigation
           %ul.wat-cf
+            %li{ :class => (params[:controller] == "home" ? "first active" : "first") }
+	      = link_to "Home", root_path
+            %li{ :class => (params[:controller] == "blog_entries" ? "active" : nil) }
+              = link_to "Blog Entries", blog_entries_path
 
       %div#left-sidebar
         =render :partial => 'layouts/left-sidebar'

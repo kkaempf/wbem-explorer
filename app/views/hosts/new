@@ -1,8 +1,0 @@
-<% @title = "WS-Browser - Host Management"
-   @nav_active = "hosts"
--%>
-
-<% @subnav = subnav_for_hosts -%>
-
-<% @view_title = "New host"
-   @view_partial = "new" %>
