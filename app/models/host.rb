@@ -1,6 +1,6 @@
 class Host < ActiveRecord::Base
-  validates_uniqueness_of :fqdn
-  paginates_per 10
+  validates_uniqueness_of :name
+  paginates_per 5
 
   def to_s
     "#{name} [#{fqdn}]"

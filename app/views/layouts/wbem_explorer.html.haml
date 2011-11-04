@@ -22,18 +22,12 @@
     - if @my_script
       %script "#{@my_script}"
 
-    - @nav = [ { :name => "home", :path => home_path },
-        { :name => "connections", :path => connections_path },
-        { :name => "hosts", :path => hosts_path },
-        { :name => "users", :path => users_path },
-        { :name => "intro", :path => intro_path },
-        { :name => "about", :path => about_path, :last => true } ]
-
 
   %body
     #container
       #header
         =render :partial => 'layouts/header'
+
 
         #user-navigation
           %ul.wat-cf
@@ -50,26 +44,23 @@
               = link_to "Home", root_path
             %li{ :class => (params[:controller] == "hosts" ? "active" : nil) }
               = link_to "Hosts", hosts_path
-
-      %div#left-sidebar
-        =render :partial => 'layouts/left-sidebar'
+            %li{ :class => (params[:controller] == "users" ? "active" : nil) }
+              = link_to "Users", users_path
 
       #wrapper.wat-cf
         .flash
           - flash.each do |type, message|
             %div{:class => "message #{type}"}
               %p= message
+
+        #l_sidebar.sidebar
+          =render(:partial => 'left-sidebar')
+
         #main
           =yield
           #footer
             .block
-              %p
-                Copyright &copy; #{Time.now.year} Web App.
-        #sidebar
-          = yield :sidebar
+              =render :partial => 'layouts/footer'
 
-      %div#right-sidebar
-        =render :partial => 'layouts/right-sidebar'
-
-      %div#footer
-        =render :partial => 'layouts/footer'
+        #r_sidebar.sidebar
+          = yield :r_sidebar

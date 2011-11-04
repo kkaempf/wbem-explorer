@@ -70,10 +70,6 @@ hr {
   color: white;
 }
 
-#main {
-  width: 77%;
-  float: left;
-}
 #main .block {
   padding-top: 0px;
   background-color: white;
@@ -189,11 +185,7 @@ hr {
   text-align: center;
 }
 
-#sidebar {
-  width: 20%;
-  float: right;
-}
-#sidebar .block {
+.sidebar .block {
   padding-top: 2px;
   padding-bottom: 2px;
   -moz-border-radius: 6px;
@@ -201,11 +193,11 @@ hr {
   border-radius: 6px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
 }
-#sidebar .block h4 {
+.sidebar .block h4 {
   font-weight: normal;
   font-family: "Museo700", helvetica, arial, sans-serif;
 }
-#sidebar .notice {
+.sidebar .notice {
   color: white;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
   background-color: rgba(0, 0, 0, 0.3);
@@ -218,7 +210,7 @@ hr {
   -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
   -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
 }
-#sidebar .warning {
+.sidebar .warning {
   padding-left: 10px;
   padding-right: 10px;
   color: #222222;
@@ -231,24 +223,24 @@ hr {
   -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
-#sidebar h3 {
+.sidebar h3 {
   padding-left: 25px;
   color: #111111;
   border-bottom: 1px solid #261f1f;
 }
-#sidebar ul li {
+.sidebar ul li {
   background-position: 0 11px;
   background-repeat: no-repeat;
   background-image: url("images/arrow.png");
   border-bottom: 1px dashed #777777;
   list-style-type: none;
 }
-#sidebar ul li a {
+.sidebar ul li a {
   margin-left: 10px;
   text-decoration: none;
   text-shadow: 0 1px 0 white;
 }
-#sidebar ul li.active a {
+.sidebar ul li.active a {
   color: #a4a4a4;
 }
 

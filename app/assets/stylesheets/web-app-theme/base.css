@@ -53,7 +53,9 @@ body {
 }
 
 #main {  
-  width: 70%;
+  padding-left: 2%;
+  padding-right: 2%;
+  width: 56%;
   float: left;    
 }
 
@@ -71,32 +73,37 @@ body {
   padding: 1px 0;
 }
 
-#sidebar {
-  width: 25%;
+#l_sidebar {
+  width: 20%;
+  float: left;
+}
+
+#r_sidebar {
+  width: 20%;
   float: right;      
 }
 
-#sidebar h3 {  
+.sidebar h3 {  
   padding: 10px 15px;
   margin: 0;
   font-size: 13px;
 }
 
-#sidebar .block {
+.sidebar .block {
   margin-bottom: 20px;
   padding-bottom: 10px;
 }
 
-#sidebar .block .content {
+.sidebar .block .content {
   padding: 0 15px;
 }
 
-#sidebar ul.navigation li a:link, #sidebar ul.navigation li a:visited {
+.sidebar ul.navigation li a:link, .sidebar ul.navigation li a:visited {
   display: block;
   padding: 10px 15px;
 }
 
-#sidebar .block .sidebar-block, #sidebar .notice {
+.sidebar .block .sidebar-block, .sidebar .notice {
   padding:10px;
 }
 
@@ -124,10 +131,11 @@ body {
 }
 
 #main-navigation {
+  margin-left: 20%;
   width: 100%;
 }
 
-#user-navigation ul, #main-navigation ul, .secondary-navigation ul, #sidebar ul.navigation {
+#user-navigation ul, #main-navigation ul, .secondary-navigation ul, .sidebar ul.navigation {
   margin: 0;
   padding: 0;
   list-style-type: none;

@@ -13,6 +13,8 @@
           %th.first ID
           %th
             = t("activerecord.attributes.host.name", :default => t("activerecord.labels.name", :default => "Name"))
+          %th
+            = t("activerecord.attributes.host.fqdn", :default => t("activerecord.labels.fqdn", :default => "FQDN or IP"))
           %th= t("web-app-theme.created_at", :default => "Created at")
           %th.last &nbsp;
         - @hosts.each do |host|
@@ -21,6 +23,8 @@
               = host.id
             %td
               = link_to host.name, host_path(host)
+            %td
+              = host.fqdn
             %td
               = host.created_at
             %td.last
@@ -31,4 +35,4 @@
       .actions-bar.wat-cf
         .actions
         = paginate @hosts
-- content_for :sidebar, render(:partial => 'sidebar')
+- content_for :r_sidebar, render(:partial => 'sidebar')

@@ -2,16 +2,7 @@ class UsersController < ApplicationController
   require 'will_paginate'
 
   def index
-    list
-    render :action => 'list'
-  end
-
-  def list
-    @users = User.paginate :per_page => 10, :page => 1
-  end
-
-  def find
-    @users = User.paginate :per_page => 10, :page => params[:page], :order => 'updated_at DESC'
+    @users = Users.page(params[:page])
   end
 
   def show

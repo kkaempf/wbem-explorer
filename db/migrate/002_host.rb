@@ -3,6 +3,7 @@ class Host < ActiveRecord::Migration
     create_table :hosts do |t|
       t.column :name, :string, :limit => 32, :null => false  # user readable name
       t.column :fqdn, :string, :limit => 64, :null => false  # IP or FQDN
+      t.column :created_at, :date
     end
   end
 

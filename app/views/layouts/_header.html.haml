@@ -1,25 +1,3 @@
-%div#top
-  %div#heading
-    / Heading and Subheading text
-    %h1#main-heading WBEM Explorer
-    %h2#sub-heading Explore Linux, Unix and Windows systems
-
-%div#nav
-  / Main navigation
-  %ul.main-nav
-    - @nav.each do |n|
-      - name = n[:name].capitalize
-      - options = Hash.new
-      - options[:class] = "active" if (n[:name] == @nav_active)
-      - options[:method] = n[:method] if n[:method]
-      %li{:class => (n[:last])?"last":"" }
-        = link_to raw("<em>" + name[0,1] + "</em>" + name[1..-1]), n[:path], options
-                
-  / Sub navigation
-
-  - if @subnav
-    %div#sub-nav
-      %ul.sub-nav
-      - @subnav.each do |sn|
-        %li
-        = link_to sn[:name], sn[:path], sn[:options]
+/ Heading and Subheading text
+%h1#main-heading WBEM Explorer
+%h2#sub-heading Explore Linux, Unix and Windows systems
