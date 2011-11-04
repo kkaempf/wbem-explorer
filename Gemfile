@@ -28,8 +28,13 @@ end
 gem 'jquery-rails'
 
 # compass CSS framework
-gem 'compass', ">= 0.12.alpha"
-    
+#gem 'compass', ">= 0.12.alpha"
+
+# web-app CSS framework
+gem 'web-app-theme', '~> 0.8.0'
+gem 'hpricot'
+gem 'ruby_parser'
+
 # Haml to write HTML pages
 gem 'haml'
 
