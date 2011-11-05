@@ -4,6 +4,7 @@ class User < ActiveRecord::Migration
       t.column :login, :string, :limit => 16, :null => false
       t.column :fullname, :string, :limit => 64
       t.column :password, :string, :limit => 64
+      t.column :created_at, :date
     end
   end
 
