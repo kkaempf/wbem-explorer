@@ -18,14 +18,22 @@ class UsersController < ApplicationController
     if User.find_by_login(user[:login])
       flash[:error] = 'User already exists.'
       redirect_to new_user_path
+      return
     end
-    @user = User.new(user)
-    if @user.save
-      flash[:notice] = 'User was successfully created.'
-      redirect_to users_path
-    else
-      flash[:error] = 'User creation failed.'
+    unless user[:password] == user[:password_confirmation]
+      flash[:error] = 'Passwords did not match.'
       redirect_to new_user_path
+      return
+    else
+      user.delete :password_confirmation
+      user = User.new(user)
+      if user.save
+	flash[:notice] = 'User was successfully created.'
+	redirect_to users_path
+      else
+	flash[:error] = 'User creation failed.'
+	redirect_to new_user_path
+      end
     end
   end
 
@@ -34,12 +42,25 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      flash[:notice] = 'User was successfully updated.'
-      redirect_to user_path(@user)
+    user = params[:user]
+    unless user[:password] == user[:password_confirmation]
+      flash[:error] = 'Passwords did not match.'
+      redirect_to edit_user_path(@user)
+      return
     else
-      render edit_user_path(@user)
+      @user = User.find(user[:login])
+      unless @user
+	flash[:error] = 'User does not exist.'
+	redirect_to users_path
+	return
+      end
+      user.delete :password_confirmation
+      if @user.update_attributes(user)
+	flash[:notice] = 'User was successfully updated.'
+	redirect_to user_path(@user)
+      else
+	render edit_user_path(@user)
+      end
     end
   end
 

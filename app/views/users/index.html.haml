@@ -13,6 +13,8 @@
           %th.first ID
           %th
             = t("activerecord.attributes.user.login", :default => t("activerecord.labels.login", :default => "Login"))
+          %th
+            = t("activerecord.attributes.user.fullname", :default => t("activerecord.labels.fullname", :default => "Full name"))
           %th= t("web-app-theme.created_at", :default => "Created at")
           %th.last &nbsp;
         - @users.each do |user|
@@ -21,6 +23,8 @@
               = user.id
             %td
               = link_to user.login, user_path(user)
+            %td
+              = user.fullname
             %td
               = user.created_at
             %td.last
@@ -31,4 +35,4 @@
       .actions-bar.wat-cf
         .actions
         = paginate @users
-- content_for :sidebar, render(:partial => 'sidebar')
+- content_for :r_sidebar, render(:partial => 'sidebar')

@@ -1,15 +1,19 @@
 .group
   = f.label :login, t("activerecord.attributes.user.login", :default => "Login"), :class => :label
   = f.text_field :login, :class => 'text_field'
-  %span.description Ex: a simple text
+  %span.description Login name
 .group
   = f.label :fullname, t("activerecord.attributes.user.fullname", :default => "Fullname"), :class => :label
   = f.text_field :fullname, :class => 'text_field'
-  %span.description Ex: a simple text
+  %span.description Full name or explanation
 .group
   = f.label :password, t("activerecord.attributes.user.password", :default => "Password"), :class => :label
-  = f.text_field :password, :class => 'text_field'
-  %span.description Ex: a simple text
+  = f.password_field :password, :class => 'text_field'
+  %span.description Password for login
+.group
+  = f.label :password_confirmation, "Password confirmation", :class => :label
+  = f.password_field :password_confirmation, :class => 'text_field'
+  %span.description Repeat password as confirmation
 .group.navform.wat-cf
   %button.button{:type => "submit"}
     = image_tag("web-app-theme/icons/tick.png", :alt => "#{t("web-app-theme.save", :default => "Save")}")
