@@ -1,10 +1,10 @@
 class User < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
-      t.column :login, :string, :limit => 16, :null => false
-      t.column :fullname, :string, :limit => 64
-      t.column :password, :string, :limit => 64
-      t.column :created_at, :date
+      t.string :login, :limit => 16, :null => false
+      t.string :fullname, :limit => 64
+      t.string :password, :limit => 64
+      t.timestamps
     end
   end
 
