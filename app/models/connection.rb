@@ -9,7 +9,7 @@ class Connection < ActiveRecord::Base
     if login && !login.empty?
       s << "#{login}@"
     end
-    s << "#{h})"
+    s << "#{h}:#{port})"
 
   end
 

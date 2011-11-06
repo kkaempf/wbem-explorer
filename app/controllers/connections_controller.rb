@@ -1,22 +1,42 @@
 class ConnectionsController < ApplicationController
+  private
+  def _disconnect
+    session[:connection] = nil
+    session[:url] = nil
+  end
+
+  public
   def connect
     require 'wbem_client'
     id = params[:connection_id]
     connection = Connection.find(id)
-    url = connection.to_uri
-    c = WbemClient.connect url
     unless connection
       flash[:error] = "Connect failed: no such connection"
-    else
-      session[:connection] = id
-      session[:url] = url
+      redirect_to request.referer
+      return
+    end
+
+    _disconnect
+
+    url = connection.to_uri
+    begin
+      c = WbemClient.connect url
+      STDERR.puts "Client at #{c}"
+      begin
+	c.identify
+	session[:connection] = id
+	session[:url] = url
+      rescue Exception => e
+	flash[:error] = "Cannot access #{connection}"
+      end
+    rescue Exception => e
+      flash[:error] = "Connect failed: #{e}"
     end
     redirect_to request.referer
   end
 
   def disconnect
-    session[:connection] = nil
-    session[:url] = nil
+    _disconnect
     redirect_to home_path
   end
 
