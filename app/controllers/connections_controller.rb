@@ -1,16 +1,31 @@
 class ConnectionsController < ApplicationController
+  def connect
+    require 'wbem_client'
+    id = params[:connection_id]
+    connection = Connection.find(id)
+    url = connection.to_uri
+    c = WbemClient.connect url
+    unless connection
+      flash[:error] = "Connect failed: no such connection"
+    else
+      session[:connection] = id
+      session[:url] = url
+    end
+    redirect_to request.referer
+  end
+
+  def disconnect
+    session[:connection] = nil
+    session[:url] = nil
+    redirect_to home_path
+  end
+
   def index
     @connections = Connection.paginate :per_page => 10, :page => 1
   end
 
   def find
     @hosts = Hosts.paginate :per_page => 10, :page => params[:page], :order => 'updated_at DESC'
-  end
-
-  def connect
-    @mode = :connect
-    @connections = Connection.paginate :per_page => 10, :page => 1
-    render :index
   end
 
   def new

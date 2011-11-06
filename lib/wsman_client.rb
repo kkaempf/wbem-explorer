@@ -1,6 +1,6 @@
-class WsClient
+class WsmanClient
   require "openwsman"
-  def self.create uri
+  def self.connect uri
 #    WsMan::debug = -1
     client = Openwsman::Client.new uri
     if client

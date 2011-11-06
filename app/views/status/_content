@@ -1,8 +1,0 @@
-<p>
-  <% if session[:connection] -%>
-    Connected to <%= Connection.find(session[:connection]) -%>
-  <% else -%>
-    Not connected
-  <% end -%>
-
-</p>

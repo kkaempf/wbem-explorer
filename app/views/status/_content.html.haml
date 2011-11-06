@@ -1,0 +1,12 @@
+- @my_script = "select_connection"
+
+%p
+  - if session[:connection]
+    Connected to
+    = Connection.find(session[:connection])
+    = form_for :connection do |c|
+      = link_to "Disconnect", disconnect_path
+  - else
+    = form_for :connection do |c|
+      = c.label :to, "Connect to"
+      = c.collection_select(:connection, Connection.all, :id, :name, :prompt => true )

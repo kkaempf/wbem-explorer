@@ -5,7 +5,29 @@ class Connection < ActiveRecord::Base
 
   def to_s
     h = Host.find(host) rescue "none"
-    "#{name}: #{login}@#{h}"
+    s = "#{name} ("
+    if login && !login.empty?
+      s << "#{login}@"
+    end
+    s << "#{h})"
+
   end
 
+  def to_uri
+    h = Host.find(host)
+    uri = protocol.to_s + (secure? ? "s" : "") + "://"
+    if login
+      uri += login
+      if password
+	uri += ":"
+	uri += password
+      end
+      uri += "@"
+    end
+    uri += h.fqdn
+    uri += ":"
+    uri += port.to_s
+    uri += path
+    uri
+  end
 end
