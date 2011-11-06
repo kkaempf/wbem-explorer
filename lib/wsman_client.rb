@@ -1,7 +1,20 @@
+require "openwsman"
+
+class AuthError < StandardError
+end
+
+module Openwsman
+  class Transport
+    def Transport.auth_request_callback( client, auth_type )
+      STDERR.puts "\t *** Transport.auth_request_callback"
+      raise AuthError
+    end
+  end
+end
+
 class WsmanClient < WbemClient
-  require "openwsman"
   def initialize uri
-#    WsMan::debug = -1
+    Openwsman::debug = -1
     @client = Openwsman::Client.new uri.to_s
     raise "Cannot create Openwsman client" unless @client
     @client.transport.timeout = 5

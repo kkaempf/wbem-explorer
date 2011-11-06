@@ -24,6 +24,6 @@ class CimxmlClient < WbemClient
     if @namespaces.empty?
       return nil
     end
-    "CIM/XML client at #{uri.host}"
+    "CIM/XML client at #{@uri.host}:#{@uri.port}"
   end
 end

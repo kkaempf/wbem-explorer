@@ -26,6 +26,8 @@ class ConnectionsController < ApplicationController
 	c.identify
 	session[:connection] = id
 	session[:url] = url
+      rescue AuthError
+	flash[:error] = "Wrong credentials for #{connection}"
       rescue Exception => e
 	flash[:error] = "Cannot access #{connection}"
       end
