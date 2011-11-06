@@ -1,11 +1,11 @@
 class Connection < ActiveRecord::Base
   has_many :hosts
-  has_many :users
+  validates_uniqueness_of :name
+  paginates_per 5
 
   def to_s
-    host = Host.find(host_id) rescue "none"
-    user = User.find(user_id) rescue ""
-    "#{host} as #{user}"
+    h = Host.find(host) rescue "none"
+    "#{name}: #{login}@#{h}"
   end
 
 end

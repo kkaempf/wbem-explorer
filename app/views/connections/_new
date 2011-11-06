@@ -1,5 +1,0 @@
-<%= form_for @connection do |c| %>
-  <% @c = c %>
-  <%= render :partial => 'form' %>
-  <%= submit_tag "Add" %>
-<% end %>
