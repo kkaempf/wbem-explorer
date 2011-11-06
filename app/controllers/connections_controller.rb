@@ -77,7 +77,7 @@ class ConnectionsController < ApplicationController
     unless @connection
       flash[:error] = 'No such connection to update.'
     else
-      if @connection.update_attributes(params[:host])
+      if @connection.update_attributes(params[:connection])
 	flash[:notice] = 'Connection was successfully updated.'
       else
 	render edit_connection_path(params[:id])
