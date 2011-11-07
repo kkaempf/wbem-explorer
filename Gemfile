@@ -9,7 +9,7 @@ gem 'rails', '3.1.1'
 gem 'cim'
 
 # Ruby SFCC (for cimxml)
-gem 'sfcc' #, :git => "https://github.com/dmacvicar/ruby-sfcc.git"
+gem 'sfcc', '>= 0.2.1' #, :git => "https://github.com/dmacvicar/ruby-sfcc.git"
 
 # Openwsman (for wsman)
 #gem 'openwsman'
