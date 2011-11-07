@@ -7,7 +7,7 @@ module Openwsman
   class Transport
     def Transport.auth_request_callback( client, auth_type )
       STDERR.puts "\t *** Transport.auth_request_callback"
-      raise AuthError
+      return nil
     end
   end
 end
@@ -15,6 +15,7 @@ end
 class WsmanClient < WbemClient
   def initialize uri
     Openwsman::debug = -1
+    STDERR.puts "\n\t*** WsmanClient #{uri}\n"
     @client = Openwsman::Client.new uri.to_s
     raise "Cannot create Openwsman client" unless @client
     @client.transport.timeout = 5
@@ -28,7 +29,7 @@ class WsmanClient < WbemClient
     STDERR.puts "Identify client #{@client} with #{@options}"
     doc = @client.identify( @options )
     unless doc
-      raise
+      raise AuthError
     end
     if doc.fault?
       fault = doc.fault
