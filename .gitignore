@@ -6,3 +6,4 @@ tmp/
 .sass-cache/
 db/schema.rb
 app/assets/stylesheets/screen.css
+Gemfile.lock
