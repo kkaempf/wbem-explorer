@@ -16,8 +16,13 @@ class CimxmlClient < WbemClient
     ["CIM_Namespace", "__Namespace"].each do |cn|
       ['root/cimv2', 'Interop', 'interop', 'root', 'root/interop'].each do |ns|
 	op = Sfcc::Cim::ObjectPath.new(ns, cn)
-	@client.instance_names(op).each do |path|
-	  @namespaces << path.Name
+	puts "trying #{op}"
+	begin
+	  @client.instance_names(op).each do |path|
+	    @namespaces << path.Name
+	    puts "got #{path.Name}"
+	  end
+	rescue Sfcc::Cim::ErrorInvalidClass, Sfcc::Cim::ErrorInvalidNamespace
 	end
       end
     end

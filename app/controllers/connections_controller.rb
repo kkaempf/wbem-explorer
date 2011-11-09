@@ -29,7 +29,7 @@ class ConnectionsController < ApplicationController
       rescue AuthError
 	flash[:error] = "Wrong credentials for #{connection}"
       rescue Exception => e
-	flash[:error] = "Cannot access #{connection}"
+	flash[:error] = "Cannot access #{connection}: #{e.class} #{e}"
       end
     rescue Exception => e
       flash[:error] = "Connect failed: #{e}"
