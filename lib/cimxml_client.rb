@@ -1,9 +1,9 @@
 class CimxmlClient < WbemClient
   require "sfcc"
 
-  def initialize uri
-    super uri
-    @client = Sfcc::Cim::Client.connect uri
+  def initialize url
+    super url
+    @client = Sfcc::Cim::Client.connect url
   end
   
   #
@@ -29,6 +29,6 @@ class CimxmlClient < WbemClient
     if @namespaces.empty?
       return nil
     end
-    "CIM/XML client at #{@uri.host}:#{@uri.port}"
+    "CIM/XML client at #{@url.host}:#{@url.port}"
   end
 end
