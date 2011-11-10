@@ -1,4 +1,5 @@
 %div#tree
+  / display:none during load, will be enable by document.ready
   %ul#treeData{:style => "display: none;"}
     %li#id1{:title=>"Look, a tool tip!"}
       item1 with key and tooltip
@@ -22,7 +23,7 @@
             %li#id3.2.2
               Sub-item 3.2.2
     %li#id4{ :class=>"expanded" }
-      Document with some children (expanded on init)
+      Document with some children
       %ul
         %li#id4.1{ :class=>"active focused" }
           Sub-item 4.1 (active and focus on init)
