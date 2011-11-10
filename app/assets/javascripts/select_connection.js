@@ -7,4 +7,7 @@ $(document).ready(function() {
   {
     window.location.replace("/connections/" + $(this).val() + "/connect");
   });
+  $('#tree').dynatree({
+    // using default options
+  });
 });
