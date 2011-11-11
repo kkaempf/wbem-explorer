@@ -62,12 +62,6 @@ WbemExplorer::Application.routes.draw do
   resources :connections do
     get 'connect' => 'connections#connect'
   end
-  # clean up later
-  match 'inventory' => 'function#inventory'
-  match 'status' => 'function#status'
-  match 'browse' => 'function#browse'
-  match 'hal' => 'function#hal'
-  match 'yast' => 'function#yast'
 
   # See how all your routes lay out with "rake routes"
 
