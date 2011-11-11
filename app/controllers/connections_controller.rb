@@ -23,7 +23,7 @@ class ConnectionsController < ApplicationController
       c = WbemClient.connect url
       STDERR.puts "Client at #{c}"
       begin
-	c.identify
+	flash[:notice] = c.identify
 	session[:connection] = id
 	session[:url] = url
       rescue AuthError

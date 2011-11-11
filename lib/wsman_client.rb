@@ -37,8 +37,6 @@ class WsmanClient < WbemClient
       raise fault.to_s
     end
     root = doc.root
-    prot_version = root.ProtocolVersion
-    prod_vendor = root.ProductVendor
-    prod_version = root.ProductVersion		    
+    "Protocol: #{root.ProtocolVersion}, Vendor #{root.ProductVendor}, Version #{root.ProductVersion}"
   end
 end
