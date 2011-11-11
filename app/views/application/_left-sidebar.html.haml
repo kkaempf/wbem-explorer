@@ -1,6 +1,7 @@
 %div.sidebar
   .block.notice
     %h2 Status
-    =render :partial => 'status/content'
+    %div#status
+      =render :partial => 'status/content'
 
 = render :partial => 'tree'
