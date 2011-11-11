@@ -9,32 +9,41 @@ class ConnectionsController < ApplicationController
   def connect
     require 'wbem_client'
     id = params[:connection_id]
-    connection = Connection.find(id)
-    unless connection
-      flash[:error] = "Connect failed: no such connection"
-      redirect_to request.referer
-      return
-    end
-
-    _disconnect
-
-    url = connection.to_uri
     begin
-      c = WbemClient.connect url
-      STDERR.puts "Client at #{c}"
-      begin
-	flash[:notice] = c.identify
-	session[:connection] = id
-	session[:url] = url
-      rescue AuthError
-	flash[:error] = "Wrong credentials for #{connection}"
-      rescue Exception => e
-	flash[:error] = "Cannot access #{connection}: #{e.class} #{e}"
+      connection = Connection.find(id)
+      unless connection
+	flash[:error] = "Connect failed: no such connection"
+	raise
       end
-    rescue Exception => e
-      flash[:error] = "Connect failed: #{e}"
+
+      _disconnect
+
+      url = connection.to_uri
+      begin
+	c = WbemClient.connect url
+	begin
+	  flash[:notice] = c.identify
+	  session[:connection] = id
+	  session[:url] = url
+	rescue AuthError
+	  flash[:error] = "Wrong credentials for #{connection}"
+	  raise
+	rescue Exception => e
+	  flash[:error] = "Cannot access #{connection}: #{e.class} #{e}"
+	  raise
+	end
+      rescue Exception => e
+	flash[:error] = "Connect failed: #{e}"
+	raise
+      end
+    rescue
     end
-    redirect_to request.referer
+    if params[:mode] == "dynatree"
+      render :nothing => true
+      return
+    else
+      redirect_to request.referer
+    end
   end
 
   def disconnect
@@ -43,8 +52,13 @@ class ConnectionsController < ApplicationController
   end
 
   def index
-    
-    @connections = Connection.paginate :per_page => 10, :page => 1
+    if params[:mode] == "dynatree"
+      @connections = Connection.all
+      render :partial => "dynatree"
+      return
+    else
+      @connections = Connection.paginate :per_page => 10, :page => 1
+    end
   end
 
   def find

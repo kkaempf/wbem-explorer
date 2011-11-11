@@ -16,25 +16,32 @@ $(function(){
 
 $("#tree").dynatree({
   onClick: function(node, event) {
-//    alert('clicked ' + node.getEventTargetType(event));
+    var e = node.getEventTargetType(event);
+    if (e == "title") {
+      var k = node.data.key;
+      if (k != "connections") {
+        node.activateSilently();
+        $.get(
+          "/"+node.data.key,
+	  { mode: "dynatree", format: "json"},
+          function(data) { }
+        );
+      }
+    }
   },
   onLazyRead: function(node){
     node.appendAjax({
       url: "/"+node.data.key,
-      data: {"format": 'json',
-             "key": node.data.key, // Optional url arguments
+      data: {"format": "json",
+             "key": node.data.key,
              "mode": "dynatree" },
 
-      // (Optional) use JSONP to allow cross-site-requests
-      // (must be supported by the server):
-//      dataType: "jsonp",
-      success: function(node) { // Called after nodes have been created and the waiting icon was removed.
-                               // 'this' is the options for this Ajax
-			       request
-                              },
-      error: function(node, XMLHttpRequest, textStatus, errorThrown) { // Called on error, after error icon was created.
-                               },
-      cache: false // Append random '_' argument to url to prevent caching.
+      success: function(node) {
+	      request
+      },
+      error: function(node, XMLHttpRequest, textStatus, errorThrown) { },
+      cache: false
     });
-  }});
+  }
+});
 });
