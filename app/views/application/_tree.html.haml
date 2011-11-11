@@ -4,7 +4,7 @@
     - if Connection.count > 0
       %li#connections{:class=>"folder", :title=>"Choose a connection", :data=>"icon: false, isLazy: true" }
         Connections
-    %li#namespaces{:data=>"icon: false"}
+    %li#namespaces{:class=>"folder", :title=>"Available namespaces", :data=>"icon: false, isLazy: true" }
       Namespaces
-    %li#profiles{:data=>"icon: false"}
+    %li#profiles{:class=>"folder", :title=>"Available profiles", :data=>"icon: false, isLazy: true" }
       Profiles

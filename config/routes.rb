@@ -53,6 +53,9 @@ WbemExplorer::Application.routes.draw do
   get 'intro' => 'intro#index'
   get 'about' => 'about#index'
 
+  get 'namespaces' => 'namespaces#index'
+  get 'profiles' => 'profiles#index'
+
   get 'search_host' => 'hosts#search'
   resources :hosts
   get 'search_user' => 'users#search'

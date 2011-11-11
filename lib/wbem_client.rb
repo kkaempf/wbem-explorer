@@ -41,4 +41,7 @@ class WbemClient
     end
   end
 
+  def namespaces
+    []
+  end
 end

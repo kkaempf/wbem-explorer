@@ -19,14 +19,19 @@ $("#tree").dynatree({
     var e = node.getEventTargetType(event);
     if (e == "title") {
       var k = node.data.key;
-      if (k != "connections") {
-        node.activateSilently();
-        $.get(
-          "/"+node.data.key,
-	  { mode: "dynatree", format: "json"},
-          function(data) { }
-        );
-      }
+      switch (k) {
+        case "connections":
+        case "namespaces":
+        case "profiles":
+          break;
+        default:
+          node.activateSilently();
+          $.get(
+            "/"+node.data.key,
+	    { mode: "dynatree", format: "json"},
+            function(data) { }
+          );
+      };
     }
   },
   onLazyRead: function(node){
