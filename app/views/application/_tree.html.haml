@@ -1,8 +1,7 @@
 %div#tree
   / display:none during load, will be enable by document.ready
   %ul{:id=>"treeData", :style => "display: none;"}
-    - connections = Connection.all
-    - unless connections.empty?
+    - if Connection.count > 0
       %li#connections{:class=>"folder", :title=>"Choose a connection", :data=>"icon: false, isLazy: true" }
         Connections
     %li#namespaces{:data=>"icon: false"}
