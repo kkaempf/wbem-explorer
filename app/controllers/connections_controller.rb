@@ -43,6 +43,7 @@ class ConnectionsController < ApplicationController
   end
 
   def index
+    
     @connections = Connection.paginate :per_page => 10, :page => 1
   end
 
