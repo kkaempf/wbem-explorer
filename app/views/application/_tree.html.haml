@@ -1,8 +1,15 @@
 %div#tree
   / display:none during load, will be enable by document.ready
   %ul#treeData{:style => "display: none;"}
-    %li#connections{:title=>"Choose a connection", :data=>"icon: false"}
-      Connections
+    - connections = Connection.all
+    - unless connections.empty?
+      %li#connections{:class=>"folder", :title=>"Choose a connection", :data=>"icon: false"}
+        Connections
+        %ul
+          - sorted_connections = connections.each.sort{|c1,c2| c1.name <=> c2.name }
+          - sorted_connections.each do |conn|
+            %li{:id=>"conn#{conn.id}", :data=>"icon: false"}
+              = conn.name
     %li#namespaces{:data=>"icon: false"}
       Namespaces
     %li#profiles{:data=>"icon: false"}
