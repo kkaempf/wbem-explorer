@@ -41,7 +41,13 @@ class WbemClient
     end
   end
 
+  # return list of namespaces
   def namespaces
-    []
+    raise "#{self.class}.namespaces not implemented"
+  end
+  
+  # return list of classnames for namespace ns
+  def classnames ns
+    raise "#{self.class}.classnames not implemented"
   end
 end

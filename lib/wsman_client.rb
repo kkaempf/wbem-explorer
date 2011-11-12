@@ -62,4 +62,23 @@ class WsmanClient < WbemClient
     ret
   end
 
+  def classnames namespace
+    @options.flags = Openwsman::FLAG_ENUMERATION_OPTIMIZATION
+    @options.max_elements = 999
+    @options.cim_namespace = namespace
+    method = Openwsman::CIM_ACTION_ENUMERATE_CLASS_NAMES
+    uri = Openwsman::XML_NS_CIM_INTRINSIC
+    result = @client.invoke( @options, uri, method )
+    if result.fault?
+      STDERR.puts "ENUMERATE_CLASS_NAMES unsupported"      
+      return []
+    end
+    output = result.body[method]
+    classes = []
+    output.each do |c|
+      classes << c.to_s
+    end
+    return classes
+  end
+
 end
