@@ -41,17 +41,23 @@ class WsmanClient < WbemClient
   end
   
   def namespaces
+    STDERR.puts "Namespaces client #{@client} with #{@options}"
     @options.flags = Openwsman::FLAG_ENUMERATION_OPTIMIZATION
     @options.max_elements = 999
     prefix = "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/"
     ret = []
     ["CIM_Namespace", "__Namespace"].each do |cn|
-#      ['root/cimv2', 'Interop', 'interop', 'root', 'root/interop'].each do |ns|
-	result = @client.enumerate( @options, nil, prefix + cn )
+      ['root/cimv2', 'Interop', 'interop', 'root', 'root/interop'].each do |ns|
+	@options.cim_namespace = ns
+        resource = prefix + cn
+	STDERR.puts "Enumerate '#{@options.cim_namespace}: '#{resource}'"
+	result = @client.enumerate( @options, nil, resource )
+	next unless result
+	STDERR.puts "Result '#{result.to_xml}'"
 	result.body.EnumerateResponse.Items.each do |path|
-	  ret << path.Name
-	end
-#      end
+	  ret << path.Name.to_s
+	end rescue nil
+      end
     end
     ret
   end
