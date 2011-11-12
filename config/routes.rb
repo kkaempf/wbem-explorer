@@ -55,6 +55,7 @@ WbemExplorer::Application.routes.draw do
 
   get 'namespaces' => 'namespaces#index'
   get 'profiles' => 'profiles#index'
+  get 'status/update' => 'status#update'
 
   get 'search_host' => 'hosts#search'
   resources :hosts

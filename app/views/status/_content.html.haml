@@ -1,8 +1,9 @@
-%p
-  - if session[:connection]
-    Connected to
-    = Connection.find(session[:connection])
-    = form_for :connection do |c|
-      = link_to "Disconnect", disconnect_path
-  - else
-    Not connected
+%div#status
+  %p
+    - if session[:connection]
+      Connected to
+      = Connection.find(session[:connection])
+      = form_for :connection do |c|
+        = link_to "Disconnect", disconnect_path
+    - else
+      Not connected

@@ -1,4 +1,6 @@
 class ConnectionsController < ApplicationController
+  respond_to :html, :json
+
   private
   def _disconnect
     session[:connection] = nil
@@ -36,11 +38,12 @@ class ConnectionsController < ApplicationController
 	flash[:error] = "Connect failed: #{e}"
 	raise
       end
-    rescue
+    rescue Exception => e
+      STDERR.puts "Connection.connect: #{e}"
+      flash[:error] = "Oops: #{e}"
     end
     if params[:mode] == "dynatree"
-      render :nothing => true
-      return
+      respond_with({:data => connection.to_s})      # triggers Ajax 'success' function
     else
       redirect_to request.referer
     end

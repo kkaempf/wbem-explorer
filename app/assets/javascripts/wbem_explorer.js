@@ -19,6 +19,20 @@
 //});
 
 
+var update_status = function(data) {
+  console.log("update_status "+data.data);
+  console.log("sending to "+$("#status").get());
+  $.ajax({
+    url: "/status/update",
+    data: {status: data.data, format: "html"},
+    success: function(data) {
+      console.log ("Status: " + data);
+      $("#status").replaceWith(data);
+    },
+    cache: false
+  });
+}
+  
 $(function(){
 
 $("#tree").dynatree({
@@ -33,11 +47,17 @@ $("#tree").dynatree({
           break;
         default:
           node.activateSilently();
-          $.get(
-            "/"+node.data.key,
-	    { mode: "dynatree", format: "json"},
-            function(data) { }
-          );
+	  console.log("getting /"+k);
+          $.ajax({
+            url: "/"+k,
+	    data: { mode: "dynatree", format: "json" },
+            success: function(data) { // gets the data from respond_with
+	      console.log("onClick: success for " + data);
+	      update_status(data);
+	    },
+	    cache: false
+          });
+	  console.log("done with getting /"+k);
       };
     }
   },
@@ -48,9 +68,7 @@ $("#tree").dynatree({
              "key": node.data.key,
              "mode": "dynatree" },
 
-      success: function(node) {
-	      request
-      },
+      success: function(data) { },
       error: function(node, XMLHttpRequest, textStatus, errorThrown) { },
       cache: false
     });
