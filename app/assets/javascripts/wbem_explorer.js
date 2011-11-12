@@ -12,6 +12,13 @@
 //= require_self
 //= require_tree .
 
+//$(document).ready(function() {
+//  $('#tree').dynatree({
+//    // using default options
+//  });
+//});
+
+
 $(function(){
 
 $("#tree").dynatree({
