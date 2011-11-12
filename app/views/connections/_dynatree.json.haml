@@ -8,7 +8,9 @@
     ,
   :plain
       {
-        "key": "connections/#{c.id}/connect",
+        "key": { "controller": "connections",
+                 "id" : "#{c.id}",
+                 "action": "connect" },
         "icon": false,
         "title": "#{c.name}"
       }
