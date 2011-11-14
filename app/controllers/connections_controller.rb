@@ -65,7 +65,7 @@ class ConnectionsController < ApplicationController
   end
 
   def find
-    @hosts = Hosts.paginate :per_page => 10, :page => params[:page], :order => 'updated_at DESC'
+    @connections = Connection.paginate :per_page => 10, :page => params[:page], :order => 'updated_at DESC'
   end
 
   def new
