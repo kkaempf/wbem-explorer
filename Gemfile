@@ -15,7 +15,7 @@ gem 'sfcc', '>= 0.2.1' #, :git => "https://github.com/dmacvicar/ruby-sfcc.git"
 #gem 'openwsman'
 
 # Pagination support for long lists
-gem 'will_paginate'
+# gem 'will_paginate'
 # Alternative:
 gem 'kaminari'
 

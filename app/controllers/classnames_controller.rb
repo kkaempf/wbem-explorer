@@ -5,6 +5,6 @@ class ClassnamesController < ApplicationController
     puts "Classnames#index for #{params.inspect}"
     url = session[:url]
     c = WbemClient.connect url
-    @classnames = Classname.new(c.classnames(params[:ns]).sort).page(params[:page])
+    @classnames = Kaminari.paginate_array(c.classnames(params[:ns]).sort).page(params[:page]).per(20)
   end
 end
