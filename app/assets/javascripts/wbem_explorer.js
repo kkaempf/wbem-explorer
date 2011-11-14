@@ -9,6 +9,7 @@
 //= require jquery-ui-1.8.16.custom.min
 //= require jquery.cookie
 //= require jquery.dynatree
+//= require arbor
 //= require_self
 //= require_tree .
 

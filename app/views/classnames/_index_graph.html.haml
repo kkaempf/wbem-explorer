@@ -1,0 +1,5 @@
+%h1 &nbsp;Classnames
+%div#classnames_data{:style=>"display:none"}
+  - @classnames.each do |cn|
+    %div#classname{:name=>cn}
+%canvas#viewport{:width=>"800", :height=>"600"}
