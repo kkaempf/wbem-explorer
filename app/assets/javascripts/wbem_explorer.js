@@ -40,7 +40,6 @@ $("#tree").dynatree({
       if (!k) {
         return false;
       }
-      console.log("onClick: "+k.controller);
       switch (k.controller) {
         case "connections":
           node.activateSilently();
@@ -52,23 +51,15 @@ $("#tree").dynatree({
 	    },
 	    cache: false
           });
-        case "namespaces":
-          $.ajax({
-            url: "/classnames/index?ns="+k.ns,
-	    data: { mode: "dynatree", format: "html" },
-            success: function(data) { // gets the data from respond_with
-	      console.log("Classnames "+data);
-	      $("#view").replaceWith(data);
-	    },
-	    cache: false
-          });
+        case "classnames":
+	  window.location.href = "/classnames/index?ns="+k.ns
         case "profiles":
           break;
         default:
       };
     }
   },
-  onLazyRead: function(node){
+  onLazyRead: function(node) {
     node.appendAjax({
       url: "/"+node.data.key,
       data: {"format": "json",

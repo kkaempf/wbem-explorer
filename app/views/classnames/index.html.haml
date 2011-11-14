@@ -1,6 +1,29 @@
-#view
-  %p
-    %ul
-      - @classnames.sort.each do |name|
-        %li
-          = name
+#view.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active= link_to "#{t("web-app-theme.list", :default => "List")}", hosts_path
+      %li= link_to "#{t("web-app-theme.new", :default => "Tree")}", new_host_path
+      %li= link_to "#{t("web-app-theme.new", :default => "Graph")}", new_host_path
+  .content
+    %h2.title
+      = t("web-app-theme.all", :default => "All")
+      Class names
+    .inner
+      %table.table
+        %tr
+          %th.first
+            = t("Class")
+          %th
+            = t("Parent")
+          %th.last &nbsp;
+        - @classnames.each do |cn|
+          %tr{:class => cycle("odd", "even")}
+            %td
+              = cn
+            %td
+              = 'parent'
+            %td.last
+              = link_to "Instances", "/instances/#{cn}"
+      .actions-bar.wat-cf
+        .actions
+        = paginate @classnames

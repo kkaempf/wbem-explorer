@@ -5,7 +5,6 @@ class ClassnamesController < ApplicationController
     puts "Classnames#index for #{params.inspect}"
     url = session[:url]
     c = WbemClient.connect url
-    @classnames = c.classnames params[:ns]
-    render :partial => "index"
+    @classnames = Classname.new(c.classnames(params[:ns]).sort).page(params[:page])
   end
 end
