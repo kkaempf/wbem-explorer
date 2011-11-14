@@ -1,29 +1,14 @@
 #view.block
   .secondary-navigation
     %ul.wat-cf
-      %li.first.active= link_to "#{t("web-app-theme.list", :default => "List")}", hosts_path
-      %li= link_to "#{t("web-app-theme.new", :default => "Tree")}", new_host_path
-      %li= link_to "#{t("web-app-theme.new", :default => "Graph")}", new_host_path
+      %li.first{:class=>(@mode=="list"?"active":"")}= link_to "#{t("web-app-theme.list", :default => "List")}", classnames_index_path(:ns=>@ns, :mode => :list)
+      %li{:class=>(@mode=="tree"?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Tree")}", classnames_index_path(:ns=>@ns, :mode => :tree)
+      %li{:class=>(@mode=="graph"?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Graph")}", classnames_index_path(:ns=>@ns, :mode => :graph)
   .content
-    %h2.title
-      = t("web-app-theme.all", :default => "All")
-      Class names
-    .inner
-      %table.table
-        %tr
-          %th.first
-            = t("Class")
-          %th
-            = t("Parent")
-          %th.last &nbsp;
-        - @classnames.each do |cn|
-          %tr{:class => cycle("odd", "even")}
-            %td
-              = cn
-            %td
-              = 'parent'
-            %td.last
-              = link_to "Instances", "/instances/#{cn}"
-      .actions-bar.wat-cf
-        .actions
-        = paginate @classnames
+    - case @mode
+    - when "list"
+      = render :partial => "index_list"
+    - when "tree"
+      = render :partial => "index_tree"
+    - when "graph"
+      = render :partial => "index_graph"

@@ -1,0 +1,22 @@
+%h2.title
+  = t("web-app-theme.all", :default => "All")
+  Class names
+.inner
+  %table.table
+    %tr
+      %th.first
+        = t("Class")
+      %th
+        = t("Parent")
+      %th.last &nbsp;
+    - @classnames.each do |cn|
+      %tr{:class => cycle("odd", "even")}
+        %td
+          = cn
+        %td
+          = 'parent'
+        %td.last
+          = link_to "Instances", "/instances/#{cn}"
+  .actions-bar.wat-cf
+    .actions
+    = paginate @classnames

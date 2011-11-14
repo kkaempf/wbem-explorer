@@ -47,7 +47,7 @@ class WbemClient
   end
   
   # return list of classnames for namespace ns
-  def classnames ns
+  def classnames ns, deep_inheritance=false
     raise "#{self.class}.classnames not implemented"
   end
 end

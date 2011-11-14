@@ -62,7 +62,7 @@ class WsmanClient < WbemClient
     ret
   end
 
-  def classnames namespace
+  def classnames namespace, deep_inheritance
     @options.flags = Openwsman::FLAG_ENUMERATION_OPTIMIZATION
     @options.max_elements = 999
     @options.cim_namespace = namespace

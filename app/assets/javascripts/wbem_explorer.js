@@ -31,8 +31,9 @@ var update_status = function(data) {
 }
   
 $(function(){
+$("#classnames_tree").dynatree();
 
-$("#tree").dynatree({
+$("#left_sidebar_tree").dynatree({
   onClick: function(node, event) {
     var e = node.getEventTargetType(event);
     if (e == "title") {

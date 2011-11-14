@@ -37,11 +37,11 @@ class CimxmlClient < WbemClient
   #
   # Return list of classnames for given namespace
   #
-  def classnames namespace
+  def classnames namespace, deep_inheritance = false
     STDERR.puts "#{@client}.classnames(#{namespace})"
     ret = []
     op = Sfcc::Cim::ObjectPath.new(namespace)
-    flags = Sfcc::Flags::DeepInheritance
+    flags = deep_inheritance ? Sfcc::Flags::DeepInheritance : 0
     begin
       @client.class_names(op,flags).each do |name|
 	ret << name.to_s
