@@ -1,5 +1,7 @@
-%h1 &nbsp;Classnames
+- @my_script = "classnames_graph"
+
+%h1{:style=>"text-align: center"} Classnames
 %div#classnames_data{:style=>"display:none"}
   - @classnames.each do |cn|
-    %div#classname{:name=>cn}
-%canvas#viewport{:width=>"800", :height=>"600"}
+    %div{:class=>'graph classname',:id=>cn}
+%div#viewport{:width=>"800", :height=>"600"}

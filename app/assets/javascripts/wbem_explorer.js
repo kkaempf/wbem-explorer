@@ -9,7 +9,9 @@
 //= require jquery-ui-1.8.16.custom.min
 //= require jquery.cookie
 //= require jquery.dynatree
-//= require arbor
+//= require d3
+//= require d3.layout
+//= require d3.geom
 //= require_self
 //= require_tree .
 
@@ -42,6 +44,7 @@ $("#left_sidebar_tree").dynatree({
       if (!k) {
         return false;
       }
+      console.log("k.controller "+k.controller);
       switch (k.controller) {
         case "connections":
           node.activateSilently();
@@ -53,8 +56,10 @@ $("#left_sidebar_tree").dynatree({
 	    },
 	    cache: false
           });
+	  break;
         case "classnames":
 	  window.location.href = "/classnames/index?ns="+k.ns
+	  break;
         case "profiles":
           break;
         default:
