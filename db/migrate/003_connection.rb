@@ -2,7 +2,7 @@ class Connection < ActiveRecord::Migration
   def up
     create_table :connections do |t|
       t.string  :name # name of connection
-      t.integer :host, :null => false # foreign key to Hosts
+      t.references :host, :null => false # foreign key to Hosts
       t.string  :login, :null => false # access credentials
       t.string  :password
       t.string  :protocol, :default => "wsman"   # wsman or cimxml
