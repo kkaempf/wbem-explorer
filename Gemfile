@@ -6,7 +6,7 @@ gem 'rails', '3.1.1'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 # CIM metamodel
-gem 'cim'
+gem 'cim', '>= 1.3'
 
 # Ruby SFCC (for cimxml)
 gem 'sfcc', '>= 0.2.1' #, :git => "https://github.com/dmacvicar/ruby-sfcc.git"

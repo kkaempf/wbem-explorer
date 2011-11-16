@@ -1,0 +1,123 @@
+#!/usr/bin/env ruby
+#
+# Populate database from MOF
+#
+# Usage: mof-populate [<toplevel-mof-dir>]
+# <toplevel-mof-dir> defaults to /usr/share/mof/cim-current
+#
+#
+# Read
+# - toplevel directory names (CIM Schema)
+# - qualifiers.mof
+# - all */*.mof files
+#
+
+require 'rubygems'
+require 'mof'
+
+QUALIFIERS = "qualifiers.mof"
+
+#
+# Parse MOF file
+#  evtl. include QUALIFIERS
+#
+def parse_mof moffile
+  parser = MOF::Parser.new :style => :cim, :includes => [File.dirname(moffile)]
+  files = []
+  files << QUALIFIERS unless File.basename(moffile) == QUALIFIERS
+  files << moffile
+  begin
+    parser.parse files
+  rescue Exception => e
+    parser.error_handler e
+    raise
+  end
+end
+
+#
+# Populate cim_schemas
+#
+# Return Hash of Schema->Id
+#
+def populate_schemas mofdir
+  ret = {}
+  Dir.chdir(mofdir) do |dir|
+    Dir.glob("*") do |file|
+      next unless File.directory?(file)
+      puts "Schema #{file}"
+      schema = CimSchema.find_or_create_by_name file
+      ret[file] = schema
+    end
+  end
+  ret
+end
+
+#
+# Populate cim_qualifier_scopes
+#
+def populate_scopes
+  CIM::QualifierScopes::META_ELEMENTS.each do |name|
+    CimQualifierScope.find_or_create_by_name name.to_s
+  end
+end
+
+#
+# Populate cim_qualifier_flavors
+#
+def populate_flavors
+  CIM::QualifierFlavors::FLAVORS.each do |name|
+    CimQualifierFlavor.find_or_create_by_name name.to_s
+  end
+end
+
+#
+# Populate cim_types
+#
+def populate_types
+  CIM::Type::TYPES.each do |type|
+    CimType.find_or_create_by_name type.to_s
+  end
+end
+
+#
+# Parse & populate qualifiers
+#
+def populate_qualifiers mofdir
+  populate_types
+  populate_scopes
+  populate_flavors
+  Dir.chdir(mofdir) do |dir|
+    results = parse_mof QUALIFIERS
+    results.each do |name,result|
+      result.qualifiers.each do |q|
+	puts "Qualifier #{q.class}:#{q.inspect}"
+	scopes = q.scopes.map {|s| CimQualifierScope.find_by_name(s) } rescue []
+	flavors = q.flavors.map {|s| CimQualifierFlavor.find_by_name(s) } rescue []
+	type = CimType.find_by_name q.type
+	CimQualifier.find_or_create_by_name_and_type_and_default_and_scopes_and_flavors(q.name,type,q.default.to_s,scopes,flavors)
+      end
+    end
+  end
+end
+
+def populate_classes mofdir, schemas
+  Dir.chdir(mofdir) do |dir|
+    Dir.glob("**/*") do |file|
+      next unless File.extname(file) == ".mof"
+      name = File.basename(file,".mof")
+      schema = File.dirname(file)
+      puts "Schema #{schema}, Class #{name}"
+      CimClass.find_or_create_by_name_and_schema name, schemas[schema]
+    end
+  end
+end
+
+ENV['RAILS_ENV'] ||= 'development'
+require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+
+mofdir = ARGV.shift || "/usr/share/mof/cim-current"
+
+qualifiers = populate_qualifiers mofdir
+
+#schemas = populate_schemas mofdir
+#populate_classes mofdir, schemas
