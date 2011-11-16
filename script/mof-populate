@@ -91,10 +91,19 @@ def populate_qualifiers mofdir
     results.each do |name,result|
       result.qualifiers.each do |q|
 	puts "Qualifier #{q.class}:#{q.inspect}"
-	scopes = q.scopes.map {|s| CimQualifierScope.find_by_name(s) } rescue []
-	flavors = q.flavors.map {|s| CimQualifierFlavor.find_by_name(s) } rescue []
-	type = CimType.find_by_name q.type
-	CimQualifier.find_or_create_by_name_and_type_and_default_and_scopes_and_flavors(q.name,type,q.default.to_s,scopes,flavors)
+	scopes = (q.scopes||[]).map {|s| CimQualifierScope.find_by_name(s) }
+	flavors = (q.flavors||[]).map {|s| CimQualifierFlavor.find_by_name(s) }
+	type = CimType.find_by_name q.type.to_s
+	cq = CimQualifier.find_by_name(q.name)
+	unless cq
+	  cq = CimQualifier.new
+	  cq.name = q.name
+	  cq.cim_type = type
+	  cq.default = q.default.value.to_s if q.default
+	  cq.cim_qualifier_flavors = flavors
+	  cq.cim_qualifier_scopes = scopes
+	  cq.save!
+	end
       end
     end
   end
