@@ -7,14 +7,20 @@
       %th.first
         = t("Class")
       %th
+        = t("Model")
+      %th
         = t("Parent")
       %th.last &nbsp;
     - @classnames.each do |cn|
+      - c = CimClass.find_by_name(cn)
+      - STDERR.puts "#{cn} : #{c}"
       %tr{:class => cycle("odd", "even")}
         %td
           = cn
         %td
-          = 'parent'
+          = c.cim_model.name rescue ""
+        %td
+          = c.parent.name rescue ""
         %td.last
           = link_to "Instances", "/instances/#{cn}"
   .actions-bar.wat-cf
