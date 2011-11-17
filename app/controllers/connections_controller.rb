@@ -70,7 +70,9 @@ class ConnectionsController < ApplicationController
   end
 
   def create
-    @connection = Connection.new(params[:connection])
+    conn = params[:connection]
+    conn[:host] = Host.find(conn[:host])
+    @connection = Connection.new(conn)
     if @connection && @connection.save
       flash[:notice] = 'Connection was successfully created.'
       redirect_to connections_path
