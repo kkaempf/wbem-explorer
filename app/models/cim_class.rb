@@ -1,5 +1,5 @@
 class CimClass < ActiveRecord::Base
-  belongs_to :cim_schema
+  belongs_to :cim_model
   # self reference for parent
   belongs_to :parent, :class_name => "CimClass", :foreign_key => "parent_id"
   validates_uniqueness_of :name

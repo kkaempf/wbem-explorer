@@ -1,7 +1,7 @@
 class CimClass < ActiveRecord::Migration
   def self.up
     create_table :cim_classes do |t|
-      t.references :cim_schema # reference to cim_schema
+      t.references :cim_model # reference to cim_model
       t.string :name, :null => false
       t.references :parent, :through => :cim_class # reference to parent id in cim_classes
     end

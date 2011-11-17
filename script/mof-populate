@@ -7,7 +7,7 @@
 #
 #
 # Read
-# - toplevel directory names (CIM Schema)
+# - toplevel directory names (CIM Model)
 # - qualifiers.mof
 # - all */*.mof files
 #
@@ -37,18 +37,18 @@ def parse_mof moffile, mofdir = nil
 end
 
 #
-# Populate cim_schemas
+# Populate cim_models
 #
-# Return Hash of Schema->Id
+# Return Hash of Model->Id
 #
-def populate_schemas mofdir
+def populate_models mofdir
   ret = {}
   Dir.chdir(mofdir) do |dir|
     Dir.glob("*") do |file|
       next unless File.directory?(file)
-      puts "Schema #{file}"
-      schema = CimSchema.find_or_create_by_name file
-      ret[file] = schema
+      puts "Model #{file}"
+      model = CimModel.find_or_create_by_name file
+      ret[file] = model
     end
   end
   ret
@@ -115,24 +115,27 @@ end
 # Parse & populate classes
 #
 # mofdir: Directory to scan
-# schemas: Hash of "<schema>" -> CimSchema
-#          where <schema> is a sub-dir of mofdir
+# models: Hash of "<model>" -> CimModel
+#          where <model> is a sub-dir of mofdir
 #
-def populate_classes mofdir, schemas
+def populate_classes mofdir, models
   Dir.chdir(mofdir) do |dir|
     Dir.glob("**/*") do |file|
+      model = File.dirname(file)
+      next if model == "."
       next unless File.extname(file) == ".mof"
       name = File.basename(file,".mof")
-      schema = File.dirname(file)
-      puts "Schema #{schema}, Class #{name}"
+      puts "Model #{model}, Class #{name}"
       results = parse_mof file, dir
       results.each do |name,result|
 	result.classes.each do |c|
 	  puts "#{name}: Class #{c.name} : #{c.superclass}"
-	  parent = CimClass.find_or_create_by_name c.superclass
 	  cimclass = CimClass.find_or_create_by_name c.name
-	  cimclass.parent = parent unless cimclass.parent == parent
-	  cimclass.cim_schema = schemas[schema] unless cimclass.cim_schema == schemas[schema]
+	  if (c.superclass)
+	    parent = CimClass.find_or_create_by_name c.superclass
+	    cimclass.parent = parent unless cimclass.parent == parent
+	  end
+	  cimclass.cim_model = models[model] unless cimclass.cim_model == models[model]
 	  cimclass.save
 	end
       end
@@ -146,5 +149,5 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 mofdir = ARGV.shift || "/usr/share/mof/cim-current"
 
 qualifiers = populate_qualifiers mofdir
-schemas = populate_schemas mofdir
-populate_classes mofdir, schemas
+models = populate_models mofdir
+populate_classes mofdir, models
