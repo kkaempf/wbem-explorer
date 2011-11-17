@@ -1,5 +1,5 @@
 class Connection < ActiveRecord::Base
-  has_many :hosts
+  belongs_to :host
   validates_uniqueness_of :name
   paginates_per 5
 
