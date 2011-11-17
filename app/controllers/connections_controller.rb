@@ -60,12 +60,8 @@ class ConnectionsController < ApplicationController
       render :partial => "dynatree"
       return
     else
-      @connections = Connection.paginate :per_page => 10, :page => 1
+      @connections = Connection.page(params[:page])
     end
-  end
-
-  def find
-    @connections = Connection.paginate :per_page => 10, :page => params[:page], :order => 'updated_at DESC'
   end
 
   def new
