@@ -1,6 +1,6 @@
 %h2.title
-  = t("web-app-theme.all", :default => "All")
-  Class names
+  - conn = Connection.find(session[:connection])
+  = t("web-app-theme.all", :default => "Class names from '#{conn.name}'")
 .inner
   %table.table
     %tr
@@ -13,7 +13,6 @@
       %th.last &nbsp;
     - @classnames.each do |cn|
       - c = CimClass.find_by_name(cn)
-      - STDERR.puts "#{cn} : #{c}"
       %tr{:class => cycle("odd", "even")}
         %td
           = cn

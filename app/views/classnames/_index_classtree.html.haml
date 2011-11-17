@@ -1,6 +1,5 @@
 - keys = @tree.each_key.sort
 - s = keys.size
-- STDERR.puts "#{s} : [#{keys.join(', ')}]"
 - keys.each do |name|
   - next if name.empty?
   %li{:data=>"icon:false"}
