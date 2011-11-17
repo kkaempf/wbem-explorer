@@ -34,7 +34,9 @@ $(function(){
   console.log(links.length + " links");
   console.log("Available symbol types");
   var force = d3.layout.force()
-    .charge(-120)
+    .charge(-800)
+    .gravity(0.1)
+    .linkStrength(1)
     .linkDistance(30)
     .nodes(nodes)
     .links(links)
@@ -51,21 +53,30 @@ $(function(){
       .attr("x2", function(d) { return d.target.x; })
       .attr("y2", function(d) { return d.target.y; });
 
-  var node = vis.selectAll("circle.node")
+  var node = vis.selectAll("rect.node")
       .data(nodes)
-      .enter().append("svg:circle")
+      .enter().append("svg:rect")
       .attr("class", "node")
-      .attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; })
-      .attr("r", 10)
-      .style("fill", fill(5))
+      .attr("x", function(d) { return d.x; })
+      .attr("y", function(d) { return d.y; })
+      .attr("rx", 10)
+      .attr("ry", 10)
+      .attr("height", 30)
+      .attr("width", 150)
+      .style("fill", "orange")
       .call(force.drag);
 
-  node.append("svg:text")
-    .attr("class", "nodetext")
+  var text = vis.selectAll("text.name")
+    .data(nodes)
+    .enter().append("svg:text")
+    .attr("class", "name")
+    .attr("x", function(d) { return d.x; })
+    .attr("y", function(d) { return d.y; })
     .attr("dx", 12)
-    .attr("dy", ".5em")
-    .text(function(d) { return d.name; });
+    .attr("dy", "1.5em")
+    .style("fill", "black")
+    .text(function(d) { return d.name; })
+    .call(force.drag);
 
   force.on("tick", function() {
     link.attr("x1", function(d) { return d.source.x; })
@@ -73,8 +84,10 @@ $(function(){
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
+    node.attr("x", function(d) { return d.x; })
+        .attr("y", function(d) { return d.y; });
+    text.attr("x", function(d) { return d.x; })
+        .attr("y", function(d) { return d.y; });
   });
 	
 });
