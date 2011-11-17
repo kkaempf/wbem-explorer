@@ -54,5 +54,5 @@
               \#{link_to "#{t("web-app-theme.delete", :default => "Delete")}", connection_path(connection), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
       .actions-bar.wat-cf
         .actions
-        = will_paginate @connections
+        = paginate @connections
 - content_for :r_sidebar, render(:partial => 'sidebar')
