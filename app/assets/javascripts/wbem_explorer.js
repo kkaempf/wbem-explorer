@@ -58,7 +58,7 @@ $("#left_sidebar_tree").dynatree({
           });
 	  break;
         case "classnames":
-	  window.location.href = "/classnames/index?ns="+k.ns
+	  window.location.href = "/classnames?ns="+k.ns
 	  break;
         case "profiles":
           break;
