@@ -1,0 +1,14 @@
+- keys = @tree.each_key.sort
+- s = keys.size
+- STDERR.puts "#{s} : [#{keys.join(', ')}]"
+- keys.each do |name|
+  - next if name.empty?
+  %li{:data=>"icon:false"}
+    = "#{name}"
+    - if s < 2
+    - else
+      %ul{:class=>"folder", :data=>"icon:false"}
+        - save = @tree
+        - @tree = save[name]
+        = render :partial => "index_classtree"
+        - @tree = save
