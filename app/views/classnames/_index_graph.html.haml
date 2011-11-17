@@ -3,5 +3,6 @@
 %h1{:style=>"text-align: center"} Classnames
 %div#classnames_data{:style=>"display:none"}
   - @classnames.each do |cn|
-    %div{:class=>'graph classname',:id=>cn}
+    - c = CimClass.find_by_name(cn)
+    %div{:id=>cn,:parent=>"#{c.parent}"}
 %div#viewport{:width=>"800", :height=>"600"}
