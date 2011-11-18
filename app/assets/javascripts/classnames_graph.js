@@ -26,7 +26,7 @@ $(function(){
     var name_id = names[node.name];
     var parent_id = names[node.parent];
     console.log("Node " + i + ": " + node.name + "("+name_id+") -> " + node.parent + "(" + parent_id + ")");
-    if (parent_id) {
+    if (parent_id !== undefined) {
       link = {source: names[node.name], target: names[node.parent], value: 5};
       console.log("Link " + links.length + ": " + link.source + " -> " + link.target);
       links.push(link);
