@@ -22,9 +22,11 @@ $(function(){
   console.log("Extracting links of " + nodes.length + " nodes");
   var i;
   for (i=0; i < nodes.length; i += 1) {
-    node = nodes[i];
-//    console.log("Node " + i + ": " + node.name + " -> " + node.parent);
-    if (node.parent && names[node.parent]) {
+    var node = nodes[i];
+    var name_id = names[node.name];
+    var parent_id = names[node.parent];
+    console.log("Node " + i + ": " + node.name + "("+name_id+") -> " + node.parent + "(" + parent_id + ")");
+    if (parent_id) {
       link = {source: names[node.name], target: names[node.parent], value: 5};
       console.log("Link " + links.length + ": " + link.source + " -> " + link.target);
       links.push(link);
