@@ -4,6 +4,7 @@
     - inheritance = []
     - while cn
       - c = CimClass.find_by_name(cn, :include => :parent)
+      - raise "Can't find class '#{cn}' - did you mof-populate ?!" unless c
       - inheritance.unshift c
       - break unless c.parent
       - cn = c.parent.name
