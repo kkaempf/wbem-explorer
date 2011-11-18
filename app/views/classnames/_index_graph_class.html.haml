@@ -1,7 +1,8 @@
-- c = CimClass.find_by_name(name)
-- raise "Can't find class '#{cn}' - did you mof-populate ?!" unless c
-- @names << name unless @names.include? name
-- if c.parent
-  - unless @names.include? c.parent.name
-    =render :partial => "index_graph_class", :locals => { :name => c.parent.name }
-%div{:id=>name,:parent=>"#{c.parent}"}
+- unless @names.include? name
+  - c = CimClass.find_by_name(name)
+  - raise "Can't find class '#{cn}' - did you mof-populate ?!" unless c
+  - @names << name
+  - if c.parent
+    - unless @names.include? c.parent.name
+      =render :partial => "index_graph_class", :locals => { :name => c.parent.name }
+  %div{:id=>name,:parent=>"#{c.parent}"}
