@@ -2,7 +2,7 @@
 
 %h1{:style=>"text-align: center"} Classnames
 %div#classnames_data{:style=>"display:none"}
+  - @names = []
   - @classnames.each do |cn|
-    - c = CimClass.find_by_name(cn)
-    %div{:id=>cn,:parent=>"#{c.parent}"}
+    =render :partial => "index_graph_class", :locals => { :name => cn }
 %div#viewport{:width=>"800", :height=>"600"}

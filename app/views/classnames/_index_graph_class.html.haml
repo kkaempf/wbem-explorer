@@ -1,0 +1,6 @@
+- c = CimClass.find_by_name(name)
+- @names << name unless @names.include? name
+- if c.parent
+  - unless @names.include? c.parent.name
+    =render :partial => "index_graph_class", :locals => { :name => c.parent.name }
+%div{:id=>name,:parent=>"#{c.parent}"}
