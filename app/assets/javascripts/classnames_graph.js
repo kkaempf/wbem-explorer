@@ -49,7 +49,7 @@ $(function(){
       .data(links)
       .enter().append("svg:line")
       .attr("class", "link")
-      .style("stroke-width", 20)
+      .style("stroke-width", 4)
       .attr("x1", function(d) { return d.source.x; })
       .attr("y1", function(d) { return d.source.y; })
       .attr("x2", function(d) { return d.target.x; })
@@ -61,10 +61,10 @@ $(function(){
       .attr("class", "node")
       .attr("x", function(d) { return d.x; })
       .attr("y", function(d) { return d.y; })
-      .attr("rx", 10)
+      .attr("rx", 5)
       .attr("ry", 10)
-      .attr("height", 30)
-      .attr("width", 150)
+      .attr("height", 25)
+      .attr("width", function(d) { return d.name.length*0.8 + "em"; })
       .style("fill", "orange")
       .call(force.drag);
 
