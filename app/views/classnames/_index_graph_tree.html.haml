@@ -1,0 +1,4 @@
+- # Output tree structure
+%div{:name => name}
+  - children.each do |name,children|
+    =render :partial => "index_graph_tree", :locals => { :name => name, :children => children }
