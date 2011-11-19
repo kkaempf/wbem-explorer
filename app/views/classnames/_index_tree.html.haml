@@ -1,26 +1,3 @@
 %div#classnames_tree
-  - classtree = {} # Hash of parent -> {children}
-  - @classnames.each do |cn|
-    - inheritance = []
-    - while cn
-      - c = CimClass.find_by_name(cn, :include => :parent)
-      - raise "Can't find class '#{cn}' - did you mof-populate ?!" unless c
-      - inheritance.unshift c
-      - break unless c.parent
-      - cn = c.parent.name
-
-    - tree = classtree
-    - while c = inheritance.shift
-      - slot = tree[c.name]
-      - STDERR.puts "#{tree.object_id}[#{c.name}] => #{slot.class}"
-      - case slot
-        - when Hash
-          - tree = slot
-        - when NilClass
-          - tree = tree[c.name] = { "" => c }
-        - else
-          - raise "tree[#{c.name}] => #{slot} ??"
-
   %ul{:id=>"treeData"}
-    - @tree = classtree
     = render :partial => "index_classtree"

@@ -1,3 +1,28 @@
+- # convert Array of classnames to Tree hash
+- def mktree names
+  - result = {} # Hash of parent -> {children}
+  - names.each do |cn|
+    - inheritance = []
+    - while cn
+      - c = CimClass.find_by_name(cn, :include => :parent)
+      - raise "Can't find class '#{cn}' - did you mof-populate ?!" unless c
+      - inheritance.unshift c
+      - break unless c.parent
+      - cn = c.parent.name
+
+    - tree = result
+    - while c = inheritance.shift
+      - slot = tree[c.name]
+      - STDERR.puts "#{tree.object_id}[#{c.name}] => #{slot.class}"
+      - case slot
+        - when Hash
+          - tree = slot
+        - when NilClass
+          - tree = tree[c.name] = { "" => c }
+        - else
+          - raise "tree[#{c.name}] => #{slot} ??"
+  - result
+
 #view.block
   .secondary-navigation
     %ul.wat-cf
@@ -9,6 +34,8 @@
     - when "list"
       = render :partial => "index_list"
     - when "tree"
+      - @tree = mktree @classnames
       = render :partial => "index_tree"
     - when "graph"
+      - @tree = mktree @classnames
       = render :partial => "index_graph"

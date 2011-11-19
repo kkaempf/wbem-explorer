@@ -1,35 +1,8 @@
 -# @my_script = "classnames_graph_force"
 -#    =render :partial => "index_graph_force", :locals => { :name => cn }
 - @my_script = "classnames_graph_tree"
-
-- def add_class_by_name name, classes
-  - return if classes[name]
-  - c = CimClass.find_by_name(name)
-  - raise "Can't find class '#{name}' - did you mof-populate ?!" unless c
-  - classes[name] = c
-  - add_class_by_name(c.parent.name,classes) if c.parent
-
-- def add_class_to_nodes klass, nodes
-  - if klass.parent
-  - n = klass.name
-  - nodes[n] ||= {}
-    - pn = klass.parent.name
-    - nodes[pn] ||= {}
-    - unless nodes[pn][n]
-      - nodes[pn] << n
-      - add_class_to_nodes klass.parent, nodes
-
 %h1{:style=>"text-align: center"} Classnames
 %div#classnames_data{:style=>"display:none"}
-  - @classes = {}
-  - @classnames.each do |cn|
-    - add_class_by_name cn, @classes
-  - @nodes = {}
-  - @classes.each do |name,klass|
-    - add_class_to_nodes klass, @nodes
-
-  - @nodes.each do |name,children|
-    - STDERR.puts "#{name} => #{children.inspect}"
-    =render :partial => "index_graph_tree", :locals => { :name => name, :children => children }
+  = render :partial => "index_classtree"
 
 %div#viewport{:width=>"800", :height=>"600"}
