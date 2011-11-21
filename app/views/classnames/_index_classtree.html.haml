@@ -1,12 +1,14 @@
 - keys = @tree.each_key.sort
 - s = keys.size
-- keys.each do |name|
-  - next if name.empty?
-  %li{:data=>"icon:false"}
-    = "#{name}"
-    - if s < 2
-    - else
-      %ul{:class=>"folder", :data=>"icon:false"}
+-# return early if its just a 'self' pointer
+- return if s < 2
+%ul{:class=>"folder", :data=>"icon:false"}
+  - keys.each do |name|
+    -# skip 'self'
+    - next if name.empty?
+    %li{:data=>"icon:false"}
+      = name
+      - if @tree[name]
         - save = @tree
         - @tree = save[name]
         = render :partial => "index_classtree"
