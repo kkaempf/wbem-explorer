@@ -52,8 +52,8 @@ $(function(){
   var root = node_to_tree($('#classnames_data'));
   console.log("Root " + tree_to_console(root));
 
-  var w = 800,
-      h = 600;
+  var w = 1000,
+      h = 1200;
 
   var vis = d3.select("#viewport").append("svg:svg")
       .attr("width", w)
@@ -68,7 +68,7 @@ $(function(){
   var n = tree.nodes(root);
 
   var diagonal = d3.svg.diagonal()
-    .projection(function(d) { return [d.y, d.x]; });
+    .projection(function(d) { return [d.x, d.y]; });
 
   var link = vis.selectAll("path.link")
     .data(tree.links(n))
@@ -76,18 +76,27 @@ $(function(){
     .attr("class", "link")
     .attr("d", diagonal);
 
-  var node = vis.selectAll("g.node")
+  var node_width = function(d) { return d.name.length*4; };
+
+  var node = vis.selectAll("rect.node")
     .data(n)
-    .enter().append("svg:g")
+    .enter().append("svg:rect")
     .attr("class", "node")
-    .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+    .attr("rx", 5)
+    .attr("ry", 10)
+    .attr("fill", "orange")
+    .attr("height", 25)
+    .attr("width", node_width(d)/5 + "em")
+    .attr("transform", function(d) { return "translate(" + (d.x-node_width(d)) + "," + d.y + ")"; })
     
-  node.append("svg:circle")
-    .attr("r", 4.5);
-    
-  node.append("svg:text")
-    .attr("dx", function(d) { return d.children ? -8 : 8; })
-    .attr("dy", 3)
-    .attr("text-anchor", function(d) { return d.children ? "end" : "start"; })
+  var text = vis.selectAll("text.name")
+    .data(n)
+    .enter().append("svg:text")
+    .attr("class", "name")
+    .attr("x", function(d) { return d.x - node_width(d); })
+    .attr("y", function(d) { return d.y; })
+    .attr("dx", 12)
+    .attr("dy", "1.5em")
+    .style("fill", "black")
     .text(function(d) { return d.name; });
 });
