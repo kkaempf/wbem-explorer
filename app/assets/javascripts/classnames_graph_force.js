@@ -11,7 +11,7 @@ $(function(){
   var names = [];
   var nodes = [];
   var links = [];
-
+  console.log("Extracting nodes for d3.layout.force");
   $('#classnames_data > div').each(function(index) {
     n = $(this).attr('id');
     parent = $(this).attr('parent');

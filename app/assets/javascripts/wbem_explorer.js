@@ -13,7 +13,7 @@
 //= require d3.layout
 //= require d3.geom
 //= require_self
-//= require_tree .
+//#disabled: require_tree .
 
 //$(document).ready(function() {
 //  $('#tree').dynatree({
@@ -34,7 +34,6 @@ var update_status = function(data) {
 }
   
 $(function(){
-$("#classnames_tree").dynatree();
 
 $("#left_sidebar_tree").dynatree({
   onClick: function(node, event) {

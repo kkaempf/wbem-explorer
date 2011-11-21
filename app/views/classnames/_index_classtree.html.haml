@@ -1,4 +1,4 @@
-- keys = @tree.each_key.sort
+- keys = tree.each_key.sort
 - s = keys.size
 -# return early if its just a 'self' pointer
 - return if s < 2
@@ -6,10 +6,9 @@
   - keys.each do |name|
     -# skip 'self'
     - next if name.empty?
-    %li{:data=>"icon:false"}
+    -# pass as name attrib for d3
+    %li{:data=>"icon:false", :name=>name}
+      -# pass as text for dynatree
       = name
-      - if @tree[name]
-        - save = @tree
-        - @tree = save[name]
-        = render :partial => "index_classtree"
-        - @tree = save
+      - if tree[name]
+        = render :partial => "index_classtree", :locals => { :tree => tree[name] }

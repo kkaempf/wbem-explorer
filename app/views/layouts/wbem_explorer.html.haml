@@ -20,7 +20,7 @@
     = javascript_include_tag "tooltip"
     
     - if @my_script
-      %script "#{@my_script}"
+      = javascript_include_tag "#{@my_script}"
 
 
   %body
