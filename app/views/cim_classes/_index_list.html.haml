@@ -1,0 +1,23 @@
+%h2.title
+  - model = CimModel.find(@model)
+  = t("web-app-theme.all", :default => "Classes for model '#{model.name}'")
+.inner
+  %table.table
+    %tr
+      %th.first
+        = t("Class")
+      %th
+        = t("Model")
+      %th.last
+        = t("Parent")
+    - @cim_classes.each do |c|
+      %tr{:class => cycle("odd", "even")}
+        %td
+          = c.name
+        %td
+          = c.cim_model.name rescue ""
+        %td.last
+          = c.parent.name rescue ""
+  .actions-bar.wat-cf
+    .actions
+    = paginate @cim_classes

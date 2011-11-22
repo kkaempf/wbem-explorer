@@ -1,0 +1,8 @@
+-# @my_script = "classnames_graph_force"
+-#    =render :partial => "index_graph_force", :locals => { :name => cn }
+- @my_script = "classnames_graph_tree"
+%h1{:style=>"text-align: center"} Classnames
+%div#classnames_data{:style=>"display:none"}
+  = render :partial => "index_classtree", :locals => { :tree => @tree }
+
+%div#viewport{:width=>"800", :height=>"600"}
