@@ -1,0 +1,41 @@
+- # convert Array of Models to Tree hash
+- def mktree names
+  - result = {} # Hash of parent -> {children}
+  - names.each do |cn|
+    - inheritance = []
+    - while cn
+      - c = CimClass.find_by_name(cn, :include => :parent)
+      - raise "Can't find class '#{cn}' - did you mof-populate ?!" unless c
+      - inheritance.unshift c
+      - break unless c.parent
+      - cn = c.parent.name
+
+    - tree = result
+    - while c = inheritance.shift
+      - slot = tree[c.name]
+      - STDERR.puts "#{tree.object_id}[#{c.name}] => #{slot.class}"
+      - case slot
+        - when Hash
+          - tree = slot
+        - when NilClass
+          - tree = tree[c.name] = { "" => c }
+        - else
+          - raise "tree[#{c.name}] => #{slot} ??"
+  - result
+
+#view.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first{:class=>(@mode=="list"?"active":"")}= link_to "#{t("web-app-theme.list", :default => "List")}", models_path(:mode => :list)
+      %li{:class=>(@mode=="tree"?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Tree")}", models_path(:mode => :tree)
+      %li{:class=>(@mode=="graph"?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Graph")}", models_path(:mode => :graph)
+  .content
+    - case @mode
+    - when "list"
+      = render :partial => "index_list"
+    - when "tree"
+      - @tree = mktree @models
+      = render :partial => "index_tree"
+    - when "graph"
+      - @tree = mktree @models
+      = render :partial => "index_graph"

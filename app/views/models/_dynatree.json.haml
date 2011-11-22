@@ -1,0 +1,19 @@
+:plain
+[
+- first = true
+- models = CimModel.all.sort{ |m1,m2| m1.name <=> m2.name }
+- models.each do |m|
+  - if first
+    - first = false
+  - else
+    ,
+  :plain
+      {
+        "key": { "controller": "models",
+                 "id" : "#{m.id}",
+                 "action": "index" },
+        "icon": false,
+        "title": "#{m.name}"
+      }
+]
+
