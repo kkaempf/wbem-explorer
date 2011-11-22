@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
-  require 'will_paginate'
 
   def index
-    @users = User.page(params[:page])
+    @users = User.order(:login).page(params[:page])
   end
 
   def show

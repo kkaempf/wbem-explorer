@@ -56,11 +56,10 @@ class ConnectionsController < ApplicationController
 
   def index
     if params[:mode] == "dynatree"
-      @connections = Connection.all
       render :partial => "dynatree"
       return
     else
-      @connections = Connection.page(params[:page])
+      @connections = Connection.order(:name).page(params[:page])
     end
   end
 

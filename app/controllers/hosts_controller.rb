@@ -1,7 +1,7 @@
 class HostsController < ApplicationController
   
   def index
-    @hosts = Host.page(params[:page])
+    @hosts = Host.order(:name).page(params[:page])
   end
 
   def show

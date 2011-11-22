@@ -5,7 +5,7 @@ class ModelsController < ApplicationController
       render :partial => "dynatree"
       return
     else
-      @models = CimModel.page(params[:page])
+      @models = CimModel.order(:name).page(params[:page])
     end
   end
 end

@@ -7,6 +7,7 @@ class ClassnamesController < ApplicationController
     c = WbemClient.connect url
     @ns = params[:ns]
     @mode = params[:mode] || "list"
+    # Use Kaminari pagination with an array
     @classnames = Kaminari.paginate_array(c.classnames(@ns, true).sort).page(params[:page]).per(20)
   end
 end
