@@ -43,7 +43,6 @@ $("#left_sidebar_tree").dynatree({
       if (!k) {
         return false;
       }
-      console.log("k.controller "+k.controller);
       switch (k.controller) {
         case "connections":
           node.activateSilently();
@@ -59,7 +58,8 @@ $("#left_sidebar_tree").dynatree({
         case "classnames":
 	  window.location.href = "/classnames?ns="+k.ns
 	  break;
-        case "profiles":
+        case "models":
+	  window.location.href = "/cim_classes?model="+k.id
           break;
         default:
       };
