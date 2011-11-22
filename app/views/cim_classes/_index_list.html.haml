@@ -8,16 +8,19 @@
         = t("Class")
       %th
         = t("Model")
-      %th.last
+      %th
         = t("Parent")
     - @cim_classes.each do |c|
       %tr{:class => cycle("odd", "even")}
         %td
-          = c.name
+          = link_to c.name, cim_class_path(c)
         %td
           = c.cim_model.name rescue ""
-        %td.last
-          = c.parent.name rescue ""
+        %td
+          - parent = c.parent
+          - if parent
+            = link_to parent.name, cim_class_path(parent)
+
   .actions-bar.wat-cf
     .actions
     = paginate @cim_classes

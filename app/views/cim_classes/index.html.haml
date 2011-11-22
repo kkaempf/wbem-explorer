@@ -1,14 +1,12 @@
 - # convert Array of classes to Tree hash
-- def mktree names
+- def mktree classes
   - result = {} # Hash of parent -> {children}
-  - names.each do |cn|
+  - classes.each do |c|
     - inheritance = []
-    - while cn
-      - c = CimClass.find_by_name(cn, :include => :parent)
-      - raise "Can't find class '#{cn}' - did you mof-populate ?!" unless c
+    - while c
       - inheritance.unshift c
       - break unless c.parent
-      - cn = c.parent.name
+      - c = c.parent
 
     - tree = result
     - while c = inheritance.shift

@@ -1,0 +1,27 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "#{t("web-app-theme.list", :default => "List")}", cim_classes_path(:model => @model)
+      %li.active= link_to "#{t("web-app-theme.show", :default => "Show")}", cim_classes_path
+  .content
+    .inner
+      %p
+        %b
+          = t("activerecord.attributes.cim_class.name", :default => t("activerecord.labels.name", :default => "Name"))
+          \:
+        = @cim_class.name
+      %p
+        %b
+          = t("activerecord.attributes.cim_class.parent", :default => t("activerecord.labels.parent", :default => "Parent"))
+          \:
+        - parent = @cim_class.parent
+        - if parent
+          = link_to parent.name, cim_class_path(parent)
+      %p
+        %b
+          = t("activerecord.attributes.cim_class.model", :default => t("activerecord.labels.model", :default => "Model"))
+          \:
+        - model = CimModel.find(@cim_class.cim_model)
+        = model.name
+      .wat-cf
+

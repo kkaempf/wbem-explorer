@@ -59,6 +59,7 @@ $("#left_sidebar_tree").dynatree({
 	  window.location.href = "/classnames?ns="+k.ns
 	  break;
         case "models":
+          node.activateSilently();
 	  window.location.href = "/cim_classes?model="+k.id
           break;
         default:
