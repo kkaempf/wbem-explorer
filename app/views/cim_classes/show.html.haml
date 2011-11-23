@@ -5,23 +5,26 @@
       %li.active= link_to "#{t("web-app-theme.show", :default => "Show")}", cim_classes_path
   .content
     .inner
-      %p
-        %b
-          = t("activerecord.attributes.cim_class.name", :default => t("activerecord.labels.name", :default => "Name"))
-          \:
-        = @cim_class.name
-      %p
-        %b
-          = t("activerecord.attributes.cim_class.parent", :default => t("activerecord.labels.parent", :default => "Parent"))
-          \:
-        - parent = @cim_class.parent
-        - if parent
-          = link_to parent.name, cim_class_path(parent)
-      %p
-        %b
-          = t("activerecord.attributes.cim_class.model", :default => t("activerecord.labels.model", :default => "Model"))
-          \:
-        - model = CimModel.find(@cim_class.cim_model)
-        = model.name
-      .wat-cf
+      - @cim_class.attributes.each do |name,value|
+      - STDERR.puts "@cim_class #{name}: #{value}"
+        %p
+          %b
+            - case name
+              - when "id"
+                - next
+              - when "cim_model_id"
+                - value = CimModel.find(value).name
+                - name = "model"
+              - when "parent_id"
+                - parent_id = value
+                - value = CimClass.find(value).name rescue ""
+                - name = "parent"
+
+            = t("activerecord.attributes.cim_class.#{name}", :default => t("activerecord.labels.#{name}", :default => name.capitalize ))
+            \:
+            - case name
+              - when "parent"
+                = link_to value, cim_class_path(parent_id, :model => @model)
+              - else
+                = value
 
