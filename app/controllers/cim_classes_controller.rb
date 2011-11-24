@@ -1,9 +1,10 @@
 class CimClassesController < ApplicationController
   respond_to :json, :html
   def index
-    @model = params[:model]
+    model = params[:model]
+    @model = CimModel.find(model) rescue nil
     @mode = params[:mode] || "list"
-    @cim_classes = CimClass.where(:cim_model_id => @model).order(:name).page params[:page]
+    @cim_classes = CimClass.where(:cim_model_id => model).order(:name).page params[:page]
   end
   
   def show

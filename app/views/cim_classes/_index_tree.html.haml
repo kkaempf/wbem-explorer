@@ -1,3 +1,5 @@
+%h2.title
+  = t("web-app-theme.all", :default => "Classes for model '#{@model.name}'")
 - @my_script = "cim_classes_tree_tree"
 %div#classes_tree
   = render :partial => "index_classestree", :locals => { :tree => @tree }
