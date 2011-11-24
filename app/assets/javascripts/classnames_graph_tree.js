@@ -1,8 +1,5 @@
 $(function(){
 
-  var names = [];
-  var nodes = [];
-
   //
   // convert <li name="...">[<ul>...]
   // to { name: name, children: [...] }
@@ -49,54 +46,56 @@ $(function(){
     }
     return s + " }";
   }
-  var root = node_to_tree($('#classnames_data'));
-  console.log("Root " + tree_to_console(root));
 
-  var w = 1000,
-      h = 1200;
+  var data = node_to_tree($('#classnames_data'));
 
-  var vis = d3.select("#viewport").append("svg:svg")
-      .attr("width", w)
-      .attr("height", h)
-      .append("svg:g")
-      // shift 50px to right so root node doesn't get cut off
-      .attr("transform", "translate(50,0)");
+  var r = 1000 / 2;
 
   var tree = d3.layout.tree()
-    .size([w, h]);
+    .size([360, r])
+    .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
 
-  var n = tree.nodes(root);
+  var nodes = tree.nodes(data);
 
-  var diagonal = d3.svg.diagonal()
-    .projection(function(d) { return [d.x, d.y]; });
+  var diagonal = d3.svg.diagonal.radial()
+    .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
+
+  var vis = d3.select("#viewport").append("svg:svg")
+      .attr("width", r * 2)
+      .attr("height", r * 2)
+      .append("svg:g")
+      // shift 50px to right so root node doesn't get cut off
+      .attr("transform", "translate("+r+","+r+")");
+
+  nodes = $.map(nodes, function(n,i) { 
+    console.log("n["+i+"]: " + n.name);
+    return (n.name == "root" ? null : n); });
 
   var link = vis.selectAll("path.link")
-    .data(tree.links(n))
+    .data(tree.links(nodes))
     .enter().append("svg:path")
     .attr("class", "link")
     .attr("d", diagonal);
 
-  var node_width = function(d) { return d.name.length*4; };
-
-  var node = vis.selectAll("rect.node")
-    .data(n)
-    .enter().append("svg:rect")
+  var node = vis.selectAll("circle.node")
+    .data(nodes)
+    .enter().append("svg:circle")
     .attr("class", "node")
-    .attr("rx", 5)
-    .attr("ry", 10)
-    .attr("fill", "orange")
-    .attr("height", 25)
-    .attr("width", node_width(d)/5 + "em")
-    .attr("transform", function(d) { return "translate(" + (d.x-node_width(d)) + "," + d.y + ")"; })
-    
+    .attr("r", 4.5)
+    // this rotates the complete group (circle + text)
+    .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; });
+
   var text = vis.selectAll("text.name")
-    .data(n)
+    .data(nodes)
     .enter().append("svg:text")
     .attr("class", "name")
-    .attr("x", function(d) { return d.x - node_width(d); })
-    .attr("y", function(d) { return d.y; })
-    .attr("dx", 12)
-    .attr("dy", "1.5em")
-    .style("fill", "black")
+    .attr("dx", function(d) { return d.x < 180 ? 8 : -8; })
+    .attr("dy", ".31em")
+    .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+    // transform/rotate text within group
+    .attr("transform", function(d) {
+//       console.log(d.name + "@x:" + d.x + ",y:" + d.y);
+       return "rotate(" + (d.x-90) + ")translate(" + d.y + ")rotate("+(90-d.x)+")";
+    })
     .text(function(d) { return d.name; });
 });
