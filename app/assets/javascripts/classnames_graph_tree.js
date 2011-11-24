@@ -65,11 +65,9 @@ $(function(){
       .attr("height", r * 2)
       .append("svg:g")
       // shift 50px to right so root node doesn't get cut off
-      .attr("transform", "translate("+r+","+r+")");
+      .attr("transform", "translate("+(r+50)+","+r+")");
 
-  nodes = $.map(nodes, function(n,i) { 
-    console.log("n["+i+"]: " + n.name);
-    return (n.name == "root" ? null : n); });
+  nodes = $.map(nodes, function(n,i) { return (n.name == "root" ? null : n); });
 
   var link = vis.selectAll("path.link")
     .data(tree.links(nodes))
@@ -95,7 +93,7 @@ $(function(){
     // transform/rotate text within group
     .attr("transform", function(d) {
 //       console.log(d.name + "@x:" + d.x + ",y:" + d.y);
-       return "rotate(" + (d.x-90) + ")translate(" + d.y + ")rotate("+(90-d.x)+")";
+       return "rotate(" + (d.x-90) + ")translate(" + d.y + ")rotate("+(70-d.x)+")";
     })
     .text(function(d) { return d.name; });
 });
