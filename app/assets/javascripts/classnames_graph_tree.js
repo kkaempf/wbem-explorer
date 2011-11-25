@@ -64,6 +64,7 @@ $(function(){
       .attr("width", r * 2 + r/2)
       .attr("height", r * 2)
       .append("svg:g")
+      .attr("class", "group")
       // shift 150px to right so root node doesn't get cut off
       .attr("transform", "translate("+(r+150)+","+r+")");
 
@@ -80,7 +81,6 @@ $(function(){
     .enter().append("svg:circle")
     .attr("class", "node")
     .attr("r", 4.5)
-    // this rotates the complete group (circle + text)
     .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; });
 
   var text = vis.selectAll("text.name")
@@ -109,6 +109,10 @@ $(function(){
       vis.selectAll("text.name")
       .attr("transform", function(d) {
         return "rotate(" + (d.x-90) + ")translate(" + d.y + ")rotate("+(value-d.x)+")";
+      });
+      d3.select(".group")
+      .attr("transform", function(d) {
+        return "translate("+(r+150)+","+r+")rotate(" + value+")";
       });
     }
   });
