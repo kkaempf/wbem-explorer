@@ -4,7 +4,16 @@ class CimClassesController < ApplicationController
     model = params[:model]
     @model = CimModel.find(model) rescue nil
     @mode = params[:mode] || "list"
-    @cim_classes = CimClass.where(:cim_model_id => model).order(:name).page params[:page]
+    @title = "Classes"
+    @cim_classes = CimClass
+    if @model
+      @title << " for model '#{@model.name}'" if @model
+      @cim_classes = @cim_classes.where(:cim_model_id => model)
+    end
+    @cim_classes = @cim_classes.order(:name)
+    if @mode == "list"
+      @cim_classes = @cim_classes.page params[:page]
+    end
   end
   
   def show

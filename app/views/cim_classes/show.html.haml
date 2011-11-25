@@ -2,7 +2,7 @@
   .secondary-navigation
     %ul.wat-cf
       %li.first= link_to "#{t("web-app-theme.list", :default => "List")}", cim_classes_path(:model => @model)
-      %li.active= link_to "#{t("web-app-theme.show", :default => "Show")}", cim_classes_path
+      %li.active= link_to "#{t("web-app-theme.show", :default => "Show")}", cim_class_path(@cim_class)
   .content
     .inner
       - @cim_class.attributes.each do |name,value|

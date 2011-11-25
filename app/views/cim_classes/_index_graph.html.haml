@@ -2,7 +2,7 @@
 -#    =render :partial => "index_graph_force", :locals => { :name => cn }
 - @my_script = "classnames_graph_tree"
 %h2{:style=>"text-align: center"}
-  = t("web-app-theme.all", :default => "Classes for model '#{@model.name}'")
+  = t("web-app-theme.all", :default => @title)
 %div#classnames_data{:style=>"display:none"}
   = render :partial => "index_classestree", :locals => { :tree => @tree }
 
