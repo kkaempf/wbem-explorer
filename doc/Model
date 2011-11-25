@@ -1,0 +1,35 @@
+- Qualifier_Definition - Qualifier description
+- Classes
+  id
+  has_many qualifiers
+  has_many properties
+  has_many methods
+  has_many associations
+  has_many indications
+
+- features
+  - name
+  - type
+  - qualifiers
+
+- Qualifier (qualifier values)
+  - qualifier_declaration id
+  - qualifier value
+  - flavor id
+
+- Property
+  - feature id
+  - default value
+
+- class property
+  - class id
+  - feature id
+
+- class method
+  - class id
+  - feature id
+  - parameters
+
+- property_qualifiers
+  - property id
+  - qualifier id
