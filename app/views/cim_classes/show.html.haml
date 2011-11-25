@@ -1,10 +1,13 @@
 .block
   .secondary-navigation
     %ul.wat-cf
-      %li.first= link_to "#{t("web-app-theme.list", :default => "Qualifiers")}", cim_classes_path(:model => @cim_class.cim_model_id)
-      %li.active= link_to "#{t("web-app-theme.show", :default => "Properties")}", cim_class_path(@cim_class)
-      %li= link_to "#{t("web-app-theme.show", :default => "Methods")}", cim_class_path(@cim_class)
-      %li= link_to "#{t("web-app-theme.show", :default => "Associations")}", cim_class_path(@cim_class)
+      - if session[:connection]
+        %li.first= link_to "#{t("web-app-theme.instances", :default => "Instances")}", instance_path(@cim_class, :model => @cim_class.cim_model_id)
+
+      %li.first= link_to "#{t("web-app-theme.qualifiers", :default => "Qualifiers")}", cim_classes_path(:model => @cim_class.cim_model_id)
+      %li.active= link_to "#{t("web-app-theme.properties", :default => "Properties")}", cim_class_path(@cim_class)
+      %li= link_to "#{t("web-app-theme.methods", :default => "Methods")}", cim_class_path(@cim_class)
+      %li= link_to "#{t("web-app-theme.associations", :default => "Associations")}", cim_class_path(@cim_class)
   .content
     .inner
       - @cim_class.attributes.each do |name,value|

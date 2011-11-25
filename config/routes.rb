@@ -59,6 +59,7 @@ WbemExplorer::Application.routes.draw do
   resources :models, :only => [:index, :show]
   resources :classnames, :only => [:index, :show]
   resources :cim_classes, :only => [:index, :show]
+  resources :instances
 
   get 'search_host' => 'hosts#search'
   resources :hosts
