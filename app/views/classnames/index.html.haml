@@ -2,10 +2,13 @@
 - def mktree names
   - result = {} # Hash of parent -> {children}
   - names.each do |cn|
+    - STDERR.puts "#{cn}"
     - inheritance = []
     - while cn
       - c = CimClass.find_by_name(cn, :include => :parent)
-      - raise "Can't find class '#{cn}' - did you mof-populate ?!" unless c
+      - unless c
+        - STDERR.puts "Can't find class '#{cn}' - did you mof-populate ?!"
+        - c = CimClass.new(:name => cn)
       - inheritance.unshift c
       - break unless c.parent
       - cn = c.parent.name
@@ -30,6 +33,8 @@
       %li{:class=>(@mode=="tree"?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Tree")}", classnames_path(:ns=>@ns, :mode => :tree)
       %li{:class=>(@mode=="graph"?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Graph")}", classnames_path(:ns=>@ns, :mode => :graph)
   .content
+    %h2.title
+      = t("web-app-theme.all", :default => @title)
     - case @mode
     - when "list"
       = render :partial => "index_list"

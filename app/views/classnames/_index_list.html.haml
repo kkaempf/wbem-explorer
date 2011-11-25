@@ -1,6 +1,3 @@
-%h2.title
-  - conn = Connection.find(session[:connection])
-  = t("web-app-theme.all", :default => "Class names from '#{conn.name}'")
 .inner
   %table.table
     %tr
@@ -10,19 +7,17 @@
         = t("Model")
       %th
         = t("Parent")
-      %th.last &nbsp;
     - @classnames.each do |cn|
       - c = CimClass.find_by_name(cn)
-      - raise "Can't find class '#{cn}' - did you mof-populate ?!" unless c
+      - STDERR.puts "Can't find class '#{cn}' - did you mof-populate ?!" unless c
       %tr{:class => cycle("odd", "even")}
         %td
-          = cn
+          = link_to cn, "/instances/#{cn}"
         %td
           = c.cim_model.name rescue ""
         %td
           = c.parent.name rescue ""
         %td.last
-          = link_to "Instances", "/instances/#{cn}"
   .actions-bar.wat-cf
     .actions
     = paginate @classnames
