@@ -1,3 +1,15 @@
+var text_click = function(event) {
+  var target;
+  if (!event) var event = window.event;
+  if (event.target) target = event.target;
+  else if (event.srcElement) target = event.srcElement;
+  if (target.nodeType == 3) // Safari bug
+    target = target.parentNode;
+  name = $(target).attr('name');
+  console.log("text_click " + name);
+  window.location.href = "/cim_classes/"+name;
+}
+
 $(function(){
 
   //
@@ -89,7 +101,9 @@ $(function(){
     .attr("class", "name")
     .attr("dx", function(d) { return d.x < 180 ? 8 : -8; })
     .attr("dy", ".31em")
+    .attr("onclick", "text_click(evt)")
     .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+    .attr("name", function(d) { return d.name; })
     // transform/rotate text within group
     .attr("transform", function(d) {
 //       console.log(d.name + "@x:" + d.x + ",y:" + d.y);
