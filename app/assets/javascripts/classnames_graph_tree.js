@@ -93,7 +93,8 @@ $(function(){
     // transform/rotate text within group
     .attr("transform", function(d) {
 //       console.log(d.name + "@x:" + d.x + ",y:" + d.y);
-       return "rotate(" + (d.x-90) + ")translate(" + d.y + ")rotate("+(70-d.x)+")";
+//       return "rotate(" + (d.x-90) + ")translate(" + d.y + ")rotate("+(70-d.x)+")";
+       return "rotate(" + (d.x-90) + ")translate(" + d.y + ")rotate("+(90-d.x)+")";
     })
     .text(function(d) { return d.name; });
 
@@ -108,7 +109,7 @@ $(function(){
       var value = $( "#slider-vertical" ).slider("value" );
       vis.selectAll("text.name")
       .attr("transform", function(d) {
-        return "rotate(" + (d.x-90) + ")translate(" + d.y + ")rotate("+(value-d.x)+")";
+        return "rotate(" + (d.x-90) + ")translate(" + d.y + ")rotate("+((90-value)-d.x)+")";
       });
       d3.select(".group")
       .attr("transform", function(d) {
