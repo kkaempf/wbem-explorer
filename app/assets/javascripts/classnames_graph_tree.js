@@ -49,7 +49,7 @@ $(function(){
 
   var data = node_to_tree($('#classnames_data'));
 
-  var r = 1000 / 2;
+  var r = 600 / 2;
 
   var tree = d3.layout.tree()
     .size([360, r])
@@ -61,11 +61,11 @@ $(function(){
     .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
 
   var vis = d3.select("#viewport").append("svg:svg")
-      .attr("width", r * 2)
+      .attr("width", r * 2 + r/2)
       .attr("height", r * 2)
       .append("svg:g")
-      // shift 50px to right so root node doesn't get cut off
-      .attr("transform", "translate("+(r+50)+","+r+")");
+      // shift 150px to right so root node doesn't get cut off
+      .attr("transform", "translate("+(r+150)+","+r+")");
 
   nodes = $.map(nodes, function(n,i) { return (n.name == "root" ? null : n); });
 
@@ -96,4 +96,20 @@ $(function(){
        return "rotate(" + (d.x-90) + ")translate(" + d.y + ")rotate("+(70-d.x)+")";
     })
     .text(function(d) { return d.name; });
+
+  $( "#slider-vertical" ).slider({
+    orientation: "vertical",
+    range: "min",
+    min: 0,
+    max: 360,
+    value: 70,
+    slide: function( event, ui ) {
+//      var e = ui.getEventTargetType(event);
+      var value = $( "#slider-vertical" ).slider("value" );
+      vis.selectAll("text.name")
+      .attr("transform", function(d) {
+        return "rotate(" + (d.x-90) + ")translate(" + d.y + ")rotate("+(value-d.x)+")";
+      });
+    }
+  });
 });
