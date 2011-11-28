@@ -41,6 +41,10 @@ class WbemClient
     end
   end
 
+  def objectpath namespace, classname
+    raise "#{self.class}.objectpath not implemented"
+  end
+    
   # return list of namespaces
   def namespaces
     raise "#{self.class}.namespaces not implemented"
@@ -49,5 +53,9 @@ class WbemClient
   # return list of classnames for namespace ns
   def classnames ns, deep_inheritance=false
     raise "#{self.class}.classnames not implemented"
+  end
+  
+  def instance_names classname
+    raise "#{self.class}.instance_names not implemented"
   end
 end

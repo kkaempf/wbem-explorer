@@ -6,6 +6,10 @@ class CimxmlClient < WbemClient
     @client = Sfcc::Cim::Client.connect url
   end
   
+  def objectpath namespace, classname = nil
+    Sfcc::Cim::ObjectPath.new(namespace, classname)
+  end
+
   #
   # identify client
   # return identification string
@@ -14,7 +18,7 @@ class CimxmlClient < WbemClient
   def identify
     "CIM/XML client at #{@url.host}:#{@url.port}"
   end
-  
+
   #
   # Return list of namespaces
   #
@@ -47,6 +51,21 @@ class CimxmlClient < WbemClient
 	ret << name.to_s
       end
     rescue Sfcc::Cim::ErrorInvalidNamespace
+    end
+    ret
+  end
+
+  #
+  # Return list of instance_names (object pathes) for given objectpath
+  #
+  def instance_names objectpath
+    STDERR.puts "#{@client}.instance_names(#{objectpath})"
+    ret = []
+    begin
+      @client.instance_names(objectpath).each do |path|
+	ret << path
+      end
+    rescue Sfcc::Cim::ErrorInvalidClass, Sfcc::Cim::ErrorInvalidNamespace
     end
     ret
   end

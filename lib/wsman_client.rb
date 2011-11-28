@@ -10,6 +10,13 @@ module Openwsman
       return nil
     end
   end
+  class ObjectPath
+    attr_reader :namespace, :classname
+    def initialize namespace, classname = nil
+      @namespace = namespace
+      @classname = classname
+    end
+  end
 end
 
 class WsmanClient < WbemClient
@@ -23,6 +30,10 @@ class WsmanClient < WbemClient
     
     @options = Openwsman::ClientOptions.new
 	
+  end
+
+  def objectpath classname, namespace
+    Openwsman::ObjectPath.new classname, namespace
   end
 
   def identify
@@ -81,4 +92,27 @@ class WsmanClient < WbemClient
     return classes
   end
 
+  def instance_names object_path
+    @options.flags = Openwsman::FLAG_ENUMERATION_OPTIMIZATION
+    @options.max_elements = 999
+    @options.cim_namespace = object_path.namespace
+    # http://schemas.microsoft.com/wbem/wsman/1/wmi/root/cimv2/
+    # CIM=http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2
+    # OpenWBEM=http://schema.openwbem.org/wbem/wscim/1/cim-schema/2
+    # Linux=http://sblim.sf.net/wbem/wscim/1/cim-schema/2
+    # OMC=http://schema.omc-project.org/wbem/wscim/1/cim-schema/2
+    # PG=http://schema.openpegasus.org/wbem/wscim/1/cim-schema/2
+    uri = "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/"+object_path.classname
+    result = client.enumerate( @options, nil, uri )
+    if result.fault?
+      STDERR.puts "ENUMERATE_CLASS_NAMES unsupported"      
+      return []
+    end
+    output = result.body[method]
+    instances = []
+    output.each do |i|
+      instances << i.to_s
+    end
+    return instances
+  end
 end
