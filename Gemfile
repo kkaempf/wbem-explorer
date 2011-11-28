@@ -9,7 +9,7 @@ gem 'rails', '3.1.1'
 gem 'cim', '>= 1.3'
 
 # Ruby SFCC (for cimxml)
-gem 'sfcc', '>= 0.2.1' #, :git => "https://github.com/dmacvicar/ruby-sfcc.git"
+gem 'sfcc', '>= 0.3.0' #, :git => "https://github.com/kkaempf/ruby-sfcc.git"
 
 # Openwsman (for wsman)
 #gem 'openwsman'
@@ -45,6 +45,8 @@ gem 'ruby_parser'
 
 # Haml to write HTML pages
 gem 'haml'
+# Generator
+gem 'haml-rails'
 
 # Run JavaScript from Ruby
 gem 'execjs'
