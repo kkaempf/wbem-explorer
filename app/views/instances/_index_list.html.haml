@@ -1,0 +1,20 @@
+%h2.title
+  = t("web-app-theme.all", :default => @title)
+.inner
+  - inst = @instances.first
+  - keys = []
+  - if inst
+    - inst.each_key { |k| keys << k }
+
+  %table.table
+    %tr
+      - keys.each do |k|
+        %th= k
+    - @instances.each do |inst|
+      %tr{:class => cycle("odd", "even")}
+        - keys.each do |k|
+          %td= inst.send(k.to_sym)
+
+  .actions-bar.wat-cf
+    .actions
+    = paginate @instances

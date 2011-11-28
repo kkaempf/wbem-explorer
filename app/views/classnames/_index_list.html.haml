@@ -12,7 +12,7 @@
       - STDERR.puts "Can't find class '#{cn}' - did you mof-populate ?!" unless c
       %tr{:class => cycle("odd", "even")}
         %td
-          = link_to cn, "/instances/#{cn}"
+          = link_to cn, instances_path(:class => c)
         %td
           = c.cim_model.name rescue ""
         %td

@@ -1,0 +1,7 @@
+#view.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.active= link_to "#{t("web-app-theme.model", :default => "Instances")}", instances_path(:class => @class)
+      %li= link_to "#{t("web-app-theme.model", :default => "Model")}", cim_class_path(@class)
+  .content
+    = render :partial => "index_list"
