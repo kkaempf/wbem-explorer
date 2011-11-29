@@ -5,5 +5,7 @@
       = Connection.find(session[:connection])
       = form_for :connection do |c|
         = link_to "Disconnect", disconnect_path
+    - elsif @status
+      = @status
     - else
       Not connected

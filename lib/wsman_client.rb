@@ -30,37 +30,49 @@ class WsmanClient < WbemClient
     
     @options = Openwsman::ClientOptions.new
 	
+    root = identify.root
+    @protocol_version = root.ProtocolVersion
+    @product_vendor = root.ProductVendor
+    @product_version = root.ProductVersion
+    
+    if @product_vendor =~ /Microsoft/
+      @prefix = "http://schemas.microsoft.com/wbem/wsman/1/wmi/"
+    else
+      @prefix = "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/"
+    end
   end
 
   def objectpath classname, namespace
     Openwsman::ObjectPath.new classname, namespace
   end
 
+  #
+  # WS-Identify
+  # returns Openwsman::XmlDoc
+  #
   def identify
     STDERR.puts "Identify client #{@client} with #{@options}"
     doc = @client.identify( @options )
     unless doc
-      raise AuthError
+      raise RuntimeError.new "Identify failed: #{@client.last_error}:#{@client.fault_string}"
     end
     if doc.fault?
       fault = doc.fault
       STDERR.puts "Fault: #{fault.to_xml}"
       raise fault.to_s
     end
-    root = doc.root
-    "Protocol: #{root.ProtocolVersion}, Vendor #{root.ProductVendor}, Version #{root.ProductVersion}"
+    doc
   end
   
   def namespaces
     STDERR.puts "Namespaces client #{@client} with #{@options}"
     @options.flags = Openwsman::FLAG_ENUMERATION_OPTIMIZATION
     @options.max_elements = 999
-    prefix = "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/"
     ret = []
     ["CIM_Namespace", "__Namespace"].each do |cn|
-      ['root/cimv2', 'Interop', 'interop', 'root', 'root/interop'].each do |ns|
+      ['root/cimv2', 'Interop', 'interop', 'root', 'root/default', 'root/interop'].each do |ns|
 	@options.cim_namespace = ns
-        resource = prefix + cn
+        resource = @prefix + cn
 	STDERR.puts "Enumerate '#{@options.cim_namespace}: '#{resource}'"
 	result = @client.enumerate( @options, nil, resource )
 	next unless result
@@ -74,6 +86,11 @@ class WsmanClient < WbemClient
   end
 
   def classnames namespace, deep_inheritance
+    # enum_classnames is Openwsman-specific
+    unless @product_vendor =~ /Openwsman/ && @product_version >= "2.2"
+      STDERR.puts "ENUMERATE_CLASS_NAMES unsupported"      
+      return []
+    end
     @options.flags = Openwsman::FLAG_ENUMERATION_OPTIMIZATION
     @options.max_elements = 999
     @options.cim_namespace = namespace
@@ -81,7 +98,7 @@ class WsmanClient < WbemClient
     uri = Openwsman::XML_NS_CIM_INTRINSIC
     result = @client.invoke( @options, uri, method )
     if result.fault?
-      STDERR.puts "ENUMERATE_CLASS_NAMES unsupported"      
+      puts "Enumerate class names (#{uri}) failed:\n\tResult code #{@client.response_code}, Fault: #{@client.fault_string}"
       return []
     end
     output = result.body[method]
@@ -103,9 +120,9 @@ class WsmanClient < WbemClient
     # OMC=http://schema.omc-project.org/wbem/wscim/1/cim-schema/2
     # PG=http://schema.openpegasus.org/wbem/wscim/1/cim-schema/2
     uri = "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/"+object_path.classname
-    result = client.enumerate( @options, nil, uri )
+    result = @client.enumerate( @options, nil, uri )
     if result.fault?
-      STDERR.puts "ENUMERATE_CLASS_NAMES unsupported"      
+      puts "Enumerate instances (#{uri}) failed:\n\tResult code #{@client.response_code}, Fault: #{@client.fault_string}"
       return []
     end
     output = result.body[method]

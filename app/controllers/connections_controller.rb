@@ -24,12 +24,9 @@ class ConnectionsController < ApplicationController
       begin
 	c = WbemClient.connect url
 	begin
-	  flash[:notice] = c.identify
+	  flash[:notice] = c.identify.to_s
 	  session[:connection] = id
 	  session[:url] = url
-	rescue AuthError
-	  flash[:error] = "Wrong credentials for #{connection}"
-	  raise
 	rescue Exception => e
 	  flash[:error] = "Cannot access #{connection}: #{e.class} #{e}"
 	  raise
@@ -43,9 +40,13 @@ class ConnectionsController < ApplicationController
       flash[:error] = "Oops: #{e}"
     end
     if params[:mode] == "dynatree"
-      respond_with({:data => connection.to_s})      # triggers Ajax 'success' function
+      if session[:connection]
+        respond_with({:data => connection.to_s})      # triggers Ajax 'success' function
+      else
+        respond_with({:data => flash[:error]})      # triggers Ajax 'success' function
+      end
     else
-      redirect_to request.referer
+        redirect_to request.referer
     end
   end
 
