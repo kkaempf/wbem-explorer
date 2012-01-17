@@ -21,7 +21,9 @@
 //  });
 //});
 
-
+//
+// Update the 'connection' status
+//
 var update_status = function(data) {
   $.ajax({
     url: "/status/update",
@@ -35,6 +37,9 @@ var update_status = function(data) {
   
 $(function(){
 
+//
+// Update the menu tree in the left sidebar
+//
 $("#left_sidebar_tree").dynatree({
   onClick: function(node, event) {
     var e = node.getEventTargetType(event);
