@@ -1,18 +1,19 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1'
+gem 'rails', '3.1.3'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 # CIM metamodel
 gem 'cim', '>= 1.3'
+gem 'sfcc'
 
-# Ruby SFCC (for cimxml)
-gem 'sfcc', '>= 0.3.0' #, :git => "https://github.com/kkaempf/ruby-sfcc.git"
+# Ruby Wbem (for cimxml and wsman)
+gem 'wbem', '>= 0.1.0' #, :git => "https://github.com/kkaempf/ruby-wbem.git"
 
 # Openwsman (for wsman)
-#gem 'openwsman'
+#gem 'openwsman' # no gem format yet
 
 # Pagination support for long lists
 # gem 'will_paginate'
@@ -27,19 +28,16 @@ gem 'json'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.1.4'
-  gem 'coffee-rails', '~> 3.1.1'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
 end
 
 # Use jQuery JavaScript lib
 gem 'jquery-rails'
 
-# compass CSS framework
-#gem 'compass', ">= 0.12.alpha"
-
 # web-app CSS framework
-gem 'web-app-theme', '~> 0.8.0'
+gem 'web-app-theme'
 gem 'hpricot'
 gem 'ruby_parser'
 

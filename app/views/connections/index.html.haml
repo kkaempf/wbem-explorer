@@ -18,8 +18,6 @@
           %th
             = t("activerecord.attributes.connection.login", :default => t("activerecord.labels.login", :default => "Login"))
           %th
-            = t("activerecord.attributes.connection.protocol", :default => t("activerecord.labels.protocol", :default => "Protocol"))
-          %th
             = t("activerecord.attributes.connection.secure", :default => t("activerecord.labels.secure", :default => "SSL?"))
           %th
             = t("activerecord.attributes.connection.port", :default => t("activerecord.labels.port", :default => "Port"))
@@ -37,8 +35,6 @@
               = link_to connection.host, host_path(connection.host)
             %td
               = connection.login
-            %td
-              = connection.protocol
             %td
               = connection.secure
             %td

@@ -1,10 +1,10 @@
 class ClassnamesController < ApplicationController
   respond_to :json, :html
   def index
-    require 'wbem_client'
+    require 'wbem'
     puts "Classnames#index for #{params.inspect}"
     url = session[:url]
-    c = WbemClient.connect url
+    c = Wbem::Client.connect url
     @ns = params[:ns]
     @mode = params[:mode] || "list"
     @conn = Connection.find(session[:connection])

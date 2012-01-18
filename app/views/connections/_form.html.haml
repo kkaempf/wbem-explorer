@@ -15,14 +15,6 @@
   = f.password_field :password, :class => 'text_field'
   %span.description Password for login
 .group
-  = f.label :protocol, t("activerecord.attributes.connection.protocol", :default => "Protocol"), :class => :label
-  = f.radio_button :protocol, "wsman"
-  = f.label :protocol_wsman, "wsman"
-  = f.radio_button :protocol, "cimxml"
-  = f.label :protocol_cimxml, "cimxml"
-  %br
-  %span.description Protocol for connection
-.group
   = f.label :secure, t("activerecord.attributes.connection.secure", :default => "Use https"), :class => :label
   = f.check_box :secure, :class => 'check_box'
   %span.description Check for https

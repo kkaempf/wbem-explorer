@@ -9,8 +9,9 @@ class ConnectionsController < ApplicationController
 
   public
   def connect
-    require 'wbem_client'
+    require 'wbem'
     id = params[:connection_id]
+    client = nil
     begin
       connection = Connection.find(id)
       unless connection
@@ -22,9 +23,9 @@ class ConnectionsController < ApplicationController
 
       url = connection.to_uri
       begin
-	c = WbemClient.connect url
+	client = Wbem::Client.connect url
 	begin
-	  flash[:notice] = c.identify.to_s
+	  flash[:notice] = client.product
 	  session[:connection] = id
 	  session[:url] = url
 	rescue Exception => e
@@ -41,12 +42,12 @@ class ConnectionsController < ApplicationController
     end
     if params[:mode] == "dynatree"
       if session[:connection]
-        respond_with({:data => connection.to_s})      # triggers Ajax 'success' function
+        respond_with({:data => (connection.to_s + "[#{client.product}]") })      # triggers Ajax 'success' function
       else
         respond_with({:data => flash[:error]})      # triggers Ajax 'success' function
       end
     else
-        redirect_to request.referer
+      redirect_to request.referer
     end
   end
 

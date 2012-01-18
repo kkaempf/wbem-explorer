@@ -1,5 +1,5 @@
 class InstancesController < ApplicationController
-  require 'wbem_client'
+  require 'wbem'
   def index
     @class = params[:class]
     c = CimClass.find(@class)
@@ -7,7 +7,7 @@ class InstancesController < ApplicationController
     @ns = params[:ns] || "root/cimv2"
     @op = Sfcc::Cim::ObjectPath.new(@ns,c.name)
     url = session[:url]
-    client = WbemClient.connect url
+    client = Wbem::Client.connect url
     @instances = client.instance_names(@op)
     @instances = Kaminari.paginate_array(@instances).page(params[:page]||1).per(20)
   end

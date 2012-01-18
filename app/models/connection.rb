@@ -15,7 +15,7 @@ class Connection < ActiveRecord::Base
 
   def to_uri
     h = Host.find(host)
-    uri = protocol.to_s + (secure? ? "s" : "") + "://"
+    uri = "http" + (secure? ? "s" : "") + "://"
     if login
       uri += login
       if password

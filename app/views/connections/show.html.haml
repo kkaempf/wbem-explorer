@@ -23,11 +23,6 @@
         = @connection.login
       %p
         %b
-          = t("activerecord.attributes.connection.protocol", :default => t("activerecord.labels.protocol", :default => "Protocol"))
-          \:
-        = @connection.protocol
-      %p
-        %b
           = t("activerecord.attributes.connection.secure", :default => t("activerecord.labels.secure", :default => "Secure"))
           \:
         = @connection.secure
