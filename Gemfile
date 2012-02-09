@@ -10,10 +10,10 @@ gem 'cim', '>= 1.3'
 gem 'sfcc'
 
 # Ruby Wbem (for cimxml and wsman)
-gem 'wbem', '>= 0.1.0' #, :git => "https://github.com/kkaempf/ruby-wbem.git"
+gem 'wbem', '>= 0.1.1' #, :git => "https://github.com/kkaempf/ruby-wbem.git"
 
 # Openwsman (for wsman)
-#gem 'openwsman' # no gem format yet
+gem 'openwsman', '>= 2.3.0'
 
 # Pagination support for long lists
 # gem 'will_paginate'
