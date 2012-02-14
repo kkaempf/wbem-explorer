@@ -9,9 +9,10 @@ class ClassnamesController < ApplicationController
     @mode = params[:mode] || "list"
     @conn = Connection.find(session[:connection])
     @title = "#{@conn.name}: Class names for namespace #{@ns}"
-    # Use Kaminari pagination with an array
-    @classnames = c.classnames(@ns, true).sort
+    # retrieve with deep_inheritance
+    @classnames = c.class_names(@ns, true).sort
     if @mode == "list"
+      # Use Kaminari pagination with an array
       @classnames = Kaminari.paginate_array(@classnames).page(params[:page]).per(20)
     end
   end
