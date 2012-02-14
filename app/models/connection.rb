@@ -1,5 +1,6 @@
 class Connection < ActiveRecord::Base
   belongs_to :host
+  belongs_to :auth_scheme
   validates_uniqueness_of :name
   paginates_per 5
 

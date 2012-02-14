@@ -15,6 +15,10 @@
   = f.password_field :password, :class => 'text_field'
   %span.description Password for login
 .group
+  = f.label :auth_scheme, t("activerecord.attributes.connection.auth_scheme", :default => "Authentication scheme"), :class => :label
+  = f.collection_select(:auth_scheme, AuthScheme.all, :id, :scheme, :prompt => true )
+  %span.description Scheme to use for authentication
+.group
   = f.label :secure, t("activerecord.attributes.connection.secure", :default => "Use https"), :class => :label
   = f.check_box :secure, :class => 'check_box'
   %span.description Check for https

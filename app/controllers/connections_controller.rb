@@ -23,7 +23,7 @@ class ConnectionsController < ApplicationController
 
       url = connection.to_uri
       begin
-	client = Wbem::Client.connect url
+	client = Wbem::Client.connect url, connection.auth_scheme
 	begin
 	  flash[:notice] = client.product
 	  session[:connection] = id
@@ -73,6 +73,7 @@ class ConnectionsController < ApplicationController
   def create
     conn = params[:connection]
     conn[:host] = Host.find(conn[:host])
+    conn[:auth_scheme] = AuthScheme.find(conn[:auth_scheme])
     @connection = Connection.new(conn)
     if @connection && @connection.save
       flash[:notice] = 'Connection was successfully created.'
@@ -98,6 +99,7 @@ class ConnectionsController < ApplicationController
     else
       conn = params[:connection]
       conn[:host] = Host.find(conn[:host])
+      conn[:auth_scheme] = AuthScheme.find(conn[:auth_scheme])
       if @connection.update_attributes(params[:connection])
 	flash[:notice] = 'Connection was successfully updated.'
       else

@@ -4,14 +4,15 @@ class AddAuthScheme < ActiveRecord::Migration
       t.string :scheme, :null => false
       t.integer :value
     end
-    AuthScheme.create :scheme => "none", :value => Openwsman::NO_AUTH
-    AuthScheme.create :scheme => "basic", :value => Openwsman::BASIC_AUTH
-    AuthScheme.create :scheme => "digest", :value => Openwsman::DIGEST_AUTH
-    AuthScheme.create :scheme => "passport", :value => Openwsman::PASS_AUTH
-    AuthScheme.create :scheme => "ntlm", :value => Openwsman::NTLM_AUTH
-    AuthScheme.create :scheme => "gss", :value => Openwsman::GSSNEGOTIATE_AUTH
+    AuthScheme.create :scheme => "negotiate"
+    AuthScheme.create :scheme => "none"
+    AuthScheme.create :scheme => "basic"
+    AuthScheme.create :scheme => "digest"
+    AuthScheme.create :scheme => "passport"
+    AuthScheme.create :scheme => "ntlm"
+    AuthScheme.create :scheme => "gss"
     change_table :connections do |t|
-      t.references :auth_scheme, :default => "basic" # foreign key to auth_scheme
+      t.references :auth_scheme, :default => 1 # foreign key to auth_scheme
     end
   end
 

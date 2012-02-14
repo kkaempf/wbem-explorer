@@ -23,6 +23,11 @@
         = @connection.login
       %p
         %b
+          = t("activerecord.attributes.connection.auth_scheme", :default => t("activerecord.labels.auth_scheme", :default => "Authentication scheme"))
+          \:
+        = @connection.auth_scheme
+      %p
+        %b
           = t("activerecord.attributes.connection.secure", :default => t("activerecord.labels.secure", :default => "Secure"))
           \:
         = @connection.secure
