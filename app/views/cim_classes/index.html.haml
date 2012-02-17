@@ -4,7 +4,9 @@
     %ul.wat-cf
       %li.first{:class=>(@mode=="list"?"active":"")}= link_to "#{t("web-app-theme.list", :default => "List")}", cim_classes_path(:model=>@model, :mode => :list)
       %li{:class=>(@mode=="tree"?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Tree")}", cim_classes_path(:model=>@model, :mode => :tree)
-      %li{:class=>(@mode=="graph"?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Graph")}", cim_classes_path(:model=>@model, :mode => :graph)
+      %li{:class=>((@mode=="graph"&&@layout=="force")?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Graph (force)")}", cim_classes_path(:model=>@model, :mode => :graph, :layout => :force)
+      %li{:class=>((@mode=="graph"&&@layout=="tree")?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Graph (tree)")}", cim_classes_path(:model=>@model, :mode => :graph, :layout => :tree)
+      %li{:class=>((@mode=="graph"&&@layout=="indented")?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Graph (indented)")}", cim_classes_path(:model=>@model, :mode => :graph, :layout => :indented)
   .content
     - case @mode
     - when "list"
@@ -12,4 +14,4 @@
     - when "tree"
       = render :partial => "index_tree"
     - when "graph"
-      = render :partial => "index_graph"
+      = render :partial => "index_graph", :locals => { :layout => @layout, :model => @model }
