@@ -57,7 +57,9 @@ WbemExplorer::Application.routes.draw do
 
   resources :namespaces, :only => [:index, :show]
   resources :models, :only => [:index, :show]
+  get 'classnames/data' => 'classnames#data' # Ajax callback
   resources :classnames, :only => [:index, :show]
+  get 'cim_classes/data' => 'cim_classes#data' # Ajax callback
   resources :cim_classes, :only => [:index, :show]
   resources :instances
 

@@ -1,25 +1,3 @@
-- # convert Array of classes to Tree hash
-- def mktree classes
-  - result = {} # Hash of parent -> {children}
-  - classes.each do |c|
-    - inheritance = []
-    - while c
-      - inheritance.unshift c
-      - break unless c.parent
-      - c = c.parent
-
-    - tree = result
-    - while c = inheritance.shift
-      - slot = tree[c.name]
-      - STDERR.puts "#{tree.object_id}[#{c.name}] => #{slot.class}"
-      - case slot
-        - when Hash
-          - tree = slot
-        - when NilClass
-          - tree = tree[c.name] = { "" => c }
-        - else
-          - raise "tree[#{c.name}] => #{slot} ??"
-  - result
 
 #view.block
   .secondary-navigation
@@ -32,8 +10,6 @@
     - when "list"
       = render :partial => "index_list"
     - when "tree"
-      - @tree = mktree @cim_classes
       = render :partial => "index_tree"
     - when "graph"
-      - @tree = mktree @cim_classes
       = render :partial => "index_graph"

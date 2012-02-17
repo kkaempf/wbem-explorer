@@ -1,10 +1,10 @@
--# @my_script = "classnames_graph_force"
--#    =render :partial => "index_graph_force", :locals => { :name => cn }
-- @my_script = "classnames_graph_tree"
+
+= javascript_include_tag "classnames_data"
+- @my_script = "classes_graph_tree"
+
 %h2{:style=>"text-align: center"}
   = t("web-app-theme.all", :default => @title)
-%div#classnames_data{:style=>"display:none"}
-  = render :partial => "index_classestree", :locals => { :tree => @tree }
 
-%div#slider-vertical{:style=>"float:left; height: 600px"}
+%div#slider-zoom{:style=>"width: 600px"}
+%div#slider-orientation{:style=>"float:left; height: 600px"}
 %div#viewport

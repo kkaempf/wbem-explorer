@@ -1,0 +1,8 @@
+%ul{:class=>"folder", :data=>"icon:false"}
+  - tree.each do |item|
+    -# pass as name attrib for d3
+    %li{:data=>"icon:false", :name=>item[:name]}
+      -# pass as text for dynatree
+      = item[:name]
+      - if item[:children]
+        = render :partial => "index_classtree", :locals => { :tree => item[:children] }
