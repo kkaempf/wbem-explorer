@@ -1,7 +1,9 @@
 
-= javascript_include_tag "classnames_data"
--# @my_script = "classes_graph_tree"
-- @my_script = "classes_graph_force"
+:javascript
+  var graph_controller = function(){ return "cim_classes";};
+  var graph_model = function(){ return "#{model}"; };
+
+- @my_script = "classes_graph_#{layout}"
 
 %h2{:style=>"text-align: center"}
   = t("web-app-theme.all", :default => @title)
