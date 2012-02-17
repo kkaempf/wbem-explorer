@@ -1,7 +1,8 @@
 
 :javascript
   var graph_controller = function(){ return "#{controller}";};
-  var graph_model = function(){ return "#{model}"; };
+  var graph_model = function(){ return "#{model||nil}"; };
+  var graph_ns = function(){ return "#{ns||nil}"; };
 
 - @my_script = "classes_graph_#{layout}"
 - @my_style = "indented" if layout == "indented"

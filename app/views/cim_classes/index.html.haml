@@ -10,8 +10,8 @@
   .content
     - case @mode
     - when "list"
-      = render :partial => "index_list"
+      = render :partial => "index_list", :locals => { :model => @model, :controller => "cim_classes" }
     - when "tree"
-      = render :partial => "index_tree"
+      = render :partial => "index_tree", :locals => { :model => @model, :controller => "cim_classes" }
     - when "graph"
       = render :partial => "index_graph", :locals => { :layout => @layout, :model => @model, :controller => "cim_classes" }

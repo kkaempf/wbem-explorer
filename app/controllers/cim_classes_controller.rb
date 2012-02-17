@@ -103,7 +103,7 @@ public
     @mode = params[:mode] || "list"
     @layout = params[:layout] # for 'graph' mode
     @title = "Classes"
-
+    @controller = "cim_classes"
     # graph mode gets the class list via Ajax from 'data'
     return if @mode == "graph"
 

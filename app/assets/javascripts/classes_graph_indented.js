@@ -23,7 +23,7 @@ vis = d3.select("#viewport").append("svg:svg")
     .append("svg:g")
     .attr("transform", "translate(20,30)");
 
-d3.json(graph_controller()+"/data.json?model="+graph_model()+"&layout=indented", function(json) {
+d3.json(graph_controller()+"/data.json?model="+graph_model()+"&ns="+graph_ns()+"&layout=indented", function(json) {
   json.x0 = 0;
   json.y0 = 0;
   update(root = json);

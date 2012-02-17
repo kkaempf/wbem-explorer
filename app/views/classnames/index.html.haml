@@ -1,46 +1,17 @@
-- # convert Array of classnames to Tree hash
-- def mktree names
-  - result = {} # Hash of parent -> {children}
-  - names.each do |cn|
-    - STDERR.puts "#{cn}"
-    - inheritance = []
-    - while cn
-      - c = CimClass.find_by_name(cn, :include => :parent)
-      - unless c
-        - STDERR.puts "Can't find class '#{cn}' - did you mof-populate ?!"
-        - c = CimClass.new(:name => cn)
-      - inheritance.unshift c
-      - break unless c.parent
-      - cn = c.parent.name
-
-    - tree = result
-    - while c = inheritance.shift
-      - slot = tree[c.name]
-      - STDERR.puts "#{tree.object_id}[#{c.name}] => #{slot.class}"
-      - case slot
-        - when Hash
-          - tree = slot
-        - when NilClass
-          - tree = tree[c.name] = { "" => c }
-        - else
-          - raise "tree[#{c.name}] => #{slot} ??"
-  - result
 
 #view.block
   .secondary-navigation
     %ul.wat-cf
-      %li.first{:class=>(@mode=="list"?"active":"")}= link_to "#{t("web-app-theme.list", :default => "List")}", classnames_path(:ns=>@ns, :mode => :list)
-      %li{:class=>(@mode=="tree"?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Tree")}", classnames_path(:ns=>@ns, :mode => :tree)
-      %li{:class=>(@mode=="graph"?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Graph")}", classnames_path(:ns=>@ns, :mode => :graph)
+      %li.first{:class=>(@mode=="list"?"active":"")}= link_to "#{t("web-app-theme.list", :default => "List")}", classnames_path(:model=>@model, :mode => :list, :ns => @ns)
+      %li{:class=>(@mode=="tree"?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Tree")}", classnames_path(:model=>@model, :mode => :tree, :ns => @ns)
+      %li{:class=>((@mode=="graph"&&@layout=="force")?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Graph (force)")}", classnames_path(:model=>@model, :mode => :graph, :layout => :force, :ns => @ns)
+      %li{:class=>((@mode=="graph"&&@layout=="tree")?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Graph (tree)")}", classnames_path(:model=>@model, :mode => :graph, :layout => :tree, :ns => @ns)
+      %li{:class=>((@mode=="graph"&&@layout=="indented")?"active":"")}= link_to "#{t("web-app-theme.new", :default => "Graph (indented)")}", classnames_path(:model=>@model, :mode => :graph, :layout => :indented, :ns => @ns)
   .content
-    %h2.title
-      = t("web-app-theme.all", :default => @title)
     - case @mode
     - when "list"
-      = render :partial => "index_list"
+      = render :partial => "index_list", :locals => { :layout => @layout, :model => @model, :controller => @controller, :ns => @ns }
     - when "tree"
-      - @tree = mktree @classnames
-      = render :partial => "index_tree"
+      = render :partial => "index_tree", :locals => { :layout => @layout, :model => @model, :controller => @controller, :ns => @ns }
     - when "graph"
-      - @tree = mktree @classnames
-      = render :partial => "index_graph"
+      = render :partial => "index_graph", :locals => { :layout => @layout, :model => @model, :controller => @controller, :ns => @ns }

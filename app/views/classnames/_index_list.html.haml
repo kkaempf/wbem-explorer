@@ -1,23 +1,15 @@
+%h2.title
+  = t("web-app-theme.all", :default => @title)
 .inner
   %table.table
     %tr
       %th.first
         = t("Class")
-      %th
-        = t("Model")
-      %th
-        = t("Parent")
-    - @classnames.each do |cn|
-      - c = CimClass.find_by_name(cn)
-      - STDERR.puts "Can't find class '#{cn}' - did you mof-populate ?!" unless c
+    - @classes.each do |c|
       %tr{:class => cycle("odd", "even")}
         %td
-          = link_to cn, instances_path(:class => c)
-        %td
-          = c.cim_model.name rescue ""
-        %td
-          = c.parent.name rescue ""
-        %td.last
+          = link_to c, cim_class_path(c)
+
   .actions-bar.wat-cf
     .actions
-    = paginate @classnames
+    = paginate @classes

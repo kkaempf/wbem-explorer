@@ -28,7 +28,7 @@ $(function(){
       // shift 150px to right so root node doesn't get cut off
       .attr("transform", "translate("+(r+150)+","+r+")");
 
-  d3.json("cim_classes/data.json?model=3&layout=tree", function(json) {
+  d3.json(graph_controller()+"/data.json?model="+graph_model()+"&ns="+graph_ns()+"&layout=tree", function(json) {
 
     var nodes = tree.nodes(json);
 

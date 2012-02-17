@@ -9,7 +9,7 @@ $(function() {
       .attr("width", w)
       .attr("height", h);
 
-  d3.json("cim_classes/data.json?model=11&layout=force", function(json) {
+  d3.json(graph_controller()+"/data.json?model="+graph_model()+"&ns="+graph_ns()+"&layout=force", function(json) {
 
     var force = d3.layout.force()
       .charge(-300)

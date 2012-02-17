@@ -1,9 +1,15 @@
--# @my_script = "classnames_graph_force"
--#    =render :partial => "index_graph_force", :locals => { :name => cn }
-- @my_script = "classnames_graph_tree"
-%h1{:style=>"text-align: center"} Classnames
-%div#classnames_data{:style=>"display:none"}
-  = render :partial => "index_classtree", :locals => { :tree => @tree }
 
-%div#slider-vertical{:style=>"float:left; height: 600px"}
+:javascript
+  var graph_controller = function(){ return "#{controller}";};
+  var graph_model = function(){ return "#{model||nil}"; };
+  var graph_ns = function(){ return "#{ns||nil}"; };
+
+- @my_script = "classes_graph_#{layout}"
+- @my_style = "indented" if layout == "indented"
+
+%h2{:style=>"text-align: center"}
+  = t("web-app-theme.all", :default => @title)
+
+%div#slider-zoom{:style=>"width: 600px"}
+%div#slider-orientation{:style=>"float:left; height: 600px"}
 %div#viewport

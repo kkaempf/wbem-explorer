@@ -1,3 +1,7 @@
-- @my_script = "classnames_tree_tree"
-%div#classnames_tree
-  = render :partial => "index_classtree", :locals => { :tree => @tree }
+- @my_script = "classes_tree_tree"
+
+%h2.title
+  = t("web-app-theme.all", :default => @title)
+
+%div#classes_tree
+  = render :partial => "index_classtree", :locals => { :tree => @classes }
