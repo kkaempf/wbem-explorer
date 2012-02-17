@@ -11,6 +11,8 @@
     - if @more_stylesheets
       - @more_stylesheets.each do |stylesheet|
         = stylesheet_link_tag "#{stylesheet}"
+    - if @my_style
+      = stylesheet_link_tag "#{@my_style}"
 
     - if @more_javascripts
       - @more_javascripts.each do |javascript|
