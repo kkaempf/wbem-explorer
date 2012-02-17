@@ -110,10 +110,10 @@ public
     model = CimModel.find(@model) rescue nil
     @title << " for model '#{model.name}'" if model
 
-    @cim_classes = get_class_list model
+    @classes = get_class_list model
 
-    @cim_classes = @cim_classes.order(:name).page(params[:page]) if @mode == "list"
-    @cim_classes = convert_to_tree(@cim_classes) if @mode == "tree"
+    @classes = @classes.order(:name).page(params[:page]) if @mode == "list"
+    @classes = convert_to_tree(@classes) if @mode == "tree"
   end
   
   #

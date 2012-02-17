@@ -14,4 +14,4 @@
     - when "tree"
       = render :partial => "index_tree"
     - when "graph"
-      = render :partial => "index_graph", :locals => { :layout => @layout, :model => @model }
+      = render :partial => "index_graph", :locals => { :layout => @layout, :model => @model, :controller => "cim_classes" }

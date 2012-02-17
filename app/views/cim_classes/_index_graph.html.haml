@@ -1,10 +1,10 @@
 
 :javascript
-  var graph_controller = function(){ return "cim_classes";};
+  var graph_controller = function(){ return "#{controller}";};
   var graph_model = function(){ return "#{model}"; };
 
 - @my_script = "classes_graph_#{layout}"
-- @my_style = "indented"
+- @my_style = "indented" if layout == "indented"
 
 %h2{:style=>"text-align: center"}
   = t("web-app-theme.all", :default => @title)

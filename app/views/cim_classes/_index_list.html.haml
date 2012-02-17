@@ -9,7 +9,7 @@
         = t("Model")
       %th
         = t("Parent")
-    - @cim_classes.each do |c|
+    - @classes.each do |c|
       %tr{:class => cycle("odd", "even")}
         %td
           = link_to c.name, cim_class_path(c)
@@ -22,4 +22,4 @@
 
   .actions-bar.wat-cf
     .actions
-    = paginate @cim_classes
+    = paginate @classes
