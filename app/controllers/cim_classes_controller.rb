@@ -57,6 +57,19 @@ private
     result
   end
 
+  # Find all children of node and add them in 'force' layout to nodes and links
+  def children_as_force name, group, nodes, links, classlist
+    source = nodes.size
+    nodes << { :name => name, :group => group }
+    classlist.each do |c|
+      if c.parent && c.parent.name == name
+        target = nodes.size
+        links << { :source => source, :target => target }
+        children_as_force c.name, group, nodes, links, classlist
+      end
+    end
+  end
+  
   # Convert flat list of classes to d3.js 'force' layout
   # return hash of
   # { 
@@ -67,11 +80,16 @@ private
   #
   def convert_to_force classlist
     # extract root names first
-    roots = []   
+    nodes = []
+    links = []
+    group = 1
     classlist.each do |c|
       next if c.parent
-      roots << c.name
+      children_as_force c.name, group, nodes, links, classlist
+#      break
+      group += 1
     end
+    { :nodes => nodes, :links => links }
     
   end
 
@@ -119,6 +137,9 @@ public
       # d3.js expects an object
       render :json => { :name => "", :children => tree }
     when "force"
+      force = convert_to_force( get_class_list model ) # Hash
+      STDERR.puts "Force #{force.inspect}"
+      render :json => force
     else
       STDERR.puts "Unknown data layout '#{layout.inspect}'"
       render :nothing => true
