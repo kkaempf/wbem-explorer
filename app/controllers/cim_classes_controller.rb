@@ -99,15 +99,16 @@ public
   # Either as flat list, tree, or graph (-> params[:mode])
   #
   def index
-    model = params[:model]
+    @model = params[:model]
     @mode = params[:mode] || "list"
+    @layout = params[:layout] # for 'graph' mode
     @title = "Classes"
 
     # graph mode gets the class list via Ajax from 'data'
     return if @mode == "graph"
 
-    @model = CimModel.find(model) rescue nil
-    @title << " for model '#{@model.name}'" if @model
+    model = CimModel.find(@model) rescue nil
+    @title << " for model '#{model.name}'" if model
 
     @cim_classes = get_class_list model
 
@@ -132,9 +133,9 @@ public
     model = params[:model]
     layout = params[:layout]
     case layout
-    when "tree"
+    when "tree","indented"
       tree = convert_to_tree( get_class_list model ) # Array
-      # d3.js expects an object
+      # d3.js tree layout expects a single object
       render :json => { :name => "", :children => tree }
     when "force"
       force = convert_to_force( get_class_list model ) # Hash
