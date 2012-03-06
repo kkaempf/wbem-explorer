@@ -7,13 +7,15 @@ gem 'rails', '3.1.3'
 
 # CIM metamodel
 gem 'cim', '>= 1.3'
-gem 'sfcc'
 
-# Ruby Wbem (for cimxml and wsman)
-gem 'wbem', '>= 0.2.0' #, :git => "https://github.com/kkaempf/ruby-wbem.git"
+# Ruby SFCC for cimxml connections
+gem 'sfcc', '>= 0.4.0'
 
 # Openwsman (for wsman)
 gem 'openwsman', '>= 2.3.0'
+
+# Ruby Wbem (for abstracting cimxml vs wsman)
+gem 'wbem', '>= 0.2.0' #, :git => "https://github.com/kkaempf/ruby-wbem.git"
 
 # Pagination support for long lists
 # gem 'will_paginate'
