@@ -3,6 +3,13 @@
   = f.text_field :name, :class => 'text_field'
   %span.description Name of connection
 .group
+  = f.label :protocol, t("activerecord.attributes.connection.protocol", :default => "Connection protocol"), :class => :label
+  = f.radio_button(:protocol, "cimxml")
+  = f.label(:protocol_cimxml, "cim/xml")
+  = f.radio_button(:protocol, "wsman")
+  = f.label(:protocol_wsman, "wsman")
+  %span.description Protocol to use
+.group
   = f.label :host, t("activerecord.attributes.connection.host", :default => "Host"), :class => :label
   = f.collection_select(:host, Host.all, :id, :name, :prompt => true )
   %span.description Host to connect to

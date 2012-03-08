@@ -13,6 +13,11 @@
         = @connection.name
       %p
         %b
+          = t("activerecord.attributes.connection.protocol", :default => t("activerecord.labels.protocol", :default => "Protocol"))
+          \:
+        = @connection.protocol
+      %p
+        %b
           = t("activerecord.attributes.connection.host", :default => t("activerecord.labels.host", :default => "Host"))
           \:
         = Host.find(@connection.host).name rescue "**ERR**"

@@ -14,6 +14,8 @@
           %th
             = t("activerecord.attributes.connection.name", :default => t("activerecord.labels.name", :default => "Name"))
           %th
+            = t("activerecord.attributes.connection.protocol", :default => t("activerecord.labels.protocol", :default => "Protocol"))
+          %th
             = t("activerecord.attributes.connection.host", :default => t("activerecord.labels.host", :default => "Host"))
           %th
             = t("activerecord.attributes.connection.login", :default => t("activerecord.labels.login", :default => "Login"))
@@ -33,6 +35,8 @@
               = connection.id
             %td
               = link_to connection.name, connection_path(connection)
+            %td
+              = connection.protocol
             %td
               = link_to connection.host, host_path(connection.host)
             %td
