@@ -54,6 +54,7 @@ WbemExplorer::Application.routes.draw do
   get 'about' => 'about#index'
 
   get 'status/update' => 'status#update'
+  get 'status/connected' => 'status#connected'
 
   resources :namespaces, :only => [:index, :show]
   resources :models, :only => [:index, :show]

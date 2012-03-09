@@ -1,10 +1,27 @@
-%div#left_sidebar_tree
-  / display:none during load, will be enable by document.ready
-  %ul{:id=>"treeData", :style => "display: none;"}
-    - if Connection.count > 0
-      %li#connections{:class=>"folder", :title=>"Choose a connection", :data=>"icon: false, isLazy: true" }
-        Connections
-    %li#namespaces{:class=>"folder", :title=>"Available namespaces", :data=>"icon: false, isLazy: true" }
-      Namespaces
-    %li#models{:class=>"folder", :title=>"Known CIM models", :data=>"icon: false, isLazy: true" }
-      Models
+%div#left_sidebar_trees
+  / display:none during load, will be enabled by document.ready
+  %div#connections_tree
+    %ul{:id=>"connections", :style => "display: none;"}
+      - if Connection.count > 0
+        %li#connections{:class=>"folder", :title=>"Choose a connection", :data=>"icon: false, isLazy: true" }
+          Connections
+      - else
+        %div
+          Create a connection !
+
+  - views_tree_display = session[:connection] ? "block" : "none"
+  %div#views_tree{:style => "display: #{views_tree_display};"}
+    / display:none during load, will be enabled when connection is ready
+    %ul{:id=>"views"}
+      %li#namespaces{:class=>"folder", :title=>"Available namespaces", :data=>"icon: false, isLazy: true" }
+        Namespaces
+      %li#models{:class=>"folder", :title=>"Known CIM models", :data=>"icon: false, isLazy: true" }
+        Models
+      %li#models{:class=>"folder", :title=>"Systems", :data=>"icon: false, isLazy: true" }
+        Systems
+      %li#models{:class=>"folder", :title=>"Services", :data=>"icon: false, isLazy: true" }
+        Services
+      %li#models{:class=>"folder", :title=>"Network", :data=>"icon: false, isLazy: true" }
+        Network
+      %li#models{:class=>"folder", :title=>"Storage", :data=>"icon: false, isLazy: true" }
+        Storage

@@ -23,7 +23,7 @@ class ConnectionsController < ApplicationController
 
       url = connection.to_uri
       begin
-	client = Wbem::Client.connect url, connection.auth_scheme
+	client = Wbem::Client.connect url, connection.protocol.to_sym, connection.auth_scheme.to_s
 	begin
 	  flash[:notice] = client.product
 	  session[:connection] = id

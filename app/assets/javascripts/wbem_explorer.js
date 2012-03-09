@@ -15,32 +15,39 @@
 //= require_self
 //#disabled: require_tree .
 
-//$(document).ready(function() {
-//  $('#tree').dynatree({
-//    // using default options
-//  });
-//});
-
 //
 // Update the 'connection' status
 //
 var update_status = function(data) {
   $.ajax({
     url: "/status/update",
-    data: {status: data.data, format: "html"},
+    data: {format: "html"},
     success: function(data) {
       $("#status").replaceWith(data);
     },
     cache: false
   });
+  $.ajax({
+    url: "/status/connected",
+    data: {format: "json"},
+    success: function(data) {
+      if (data == true) {
+        $("#views_tree").css( 'display', 'block' );
+      }
+      else {
+        $("#views_tree").css( 'display', 'none' );
+      }
+    },
+    cache: false
+  });
 }
-  
+
+// run when document is ready
 $(function(){
 
-//
-// Update the menu tree in the left sidebar
-//
-$("#left_sidebar_tree").dynatree({
+// make the views_tree div a dynatree
+$("#views_tree").dynatree(
+{
   onClick: function(node, event) {
     var e = node.getEventTargetType(event);
     if (e == "title") {
@@ -48,18 +55,8 @@ $("#left_sidebar_tree").dynatree({
       if (!k) {
         return false;
       }
+      console.log("#views_tree " + k.controller);
       switch (k.controller) {
-        case "connections":
-          node.activateSilently();
-          $.ajax({
-            url: "/connections/"+k.id+"/"+k.action,
-	    data: { mode: "dynatree", format: "json" },
-            success: function(data) { // gets the data from respond_with
-	      update_status(data);
-	    },
-	    cache: false
-          });
-	  break;
         case "classnames":
 	  window.location.href = "/classnames?ns="+k.ns
 	  break;
@@ -71,7 +68,9 @@ $("#left_sidebar_tree").dynatree({
       };
     }
   },
+  // lazy read available namespaces, models, etc.
   onLazyRead: function(node) {
+    console.log("#views_tree onLazyRead " +node.data.key);
     node.appendAjax({
       url: "/"+node.data.key,
       data: {"format": "json",
@@ -84,4 +83,42 @@ $("#left_sidebar_tree").dynatree({
     });
   }
 });
-});
+
+//
+// Update the connections tree in the left sidebar
+//
+$("#connections_tree").dynatree({
+  onClick: function(node, event) {
+    var e = node.getEventTargetType(event);
+    if (e == "title") {
+      var k = node.data.key;
+      if (!k) {
+        return false;
+      }
+      node.activateSilently();
+      $.ajax({
+        url: "/connections/"+k.id+"/"+k.action,
+        data: { mode: "dynatree", format: "json" },
+        success: function(data) { // gets the data from respond_with
+	  update_status(data);
+        },
+        cache: false
+      });
+    }
+  },
+  // lazy read available connections
+  onLazyRead: function(node) {
+    node.appendAjax({
+      url: "/"+node.data.key,
+      data: {"format": "json",
+             "key": node.data.key,
+             "mode": "dynatree" },
+
+      success: function(data) { },
+      error: function(node, XMLHttpRequest, textStatus, errorThrown) { },
+      cache: false
+    });
+  }
+}); // #connections_tree
+
+}); // $(function()...
