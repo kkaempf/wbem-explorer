@@ -21,13 +21,12 @@ class ConnectionsController < ApplicationController
 
       _disconnect
 
-      url = connection.to_uri
       begin
-	client = Wbem::Client.connect url, connection.protocol.to_sym, connection.auth_scheme.to_s
+	client = connection.connect
 	begin
 	  flash[:notice] = client.product
 	  session[:connection] = id
-	  session[:url] = url
+	  session[:url] = connection.to_uri
 	rescue Exception => e
 	  flash[:error] = "Cannot access #{connection}: #{e.class} #{e}"
 	  raise

@@ -2,8 +2,8 @@ class NamespacesController < ApplicationController
   
   def index
     require 'wbem'
-    url = session[:url]
-    c = Wbem::Client.connect url
-    @namespaces = c.namespaces.sort
+    @conn = Connection.find(session[:connection])
+    client = @conn.connect
+    @namespaces = client.namespaces.sort
   end
 end

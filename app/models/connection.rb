@@ -31,4 +31,10 @@ class Connection < ActiveRecord::Base
     uri += path
     uri
   end
+  
+  def connect
+    client = Wbem::Client.connect to_uri, protocol, auth_scheme
+    raise "Connection #{self} failed" unless client
+    client
+  end
 end

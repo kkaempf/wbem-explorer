@@ -34,11 +34,10 @@ public
     @layout = params[:layout] # if mode == graph
     @controller = "classnames"
     @conn = Connection.find(session[:connection])
-    url = session[:url]
-    c = Wbem::Client.connect url
+    client = @conn.connect
     @title = "#{@conn.name}: Class names for namespace #{@ns}"
     # retrieve with deep_inheritance
-    @classes = c.class_names(@ns).sort
+    @classes = client.class_names(@ns).sort
     # Use Kaminari pagination with an array
     @classes = Kaminari.paginate_array(@classes).page(params[:page]).per(20) if @mode == "list"
     @classes = convert_to_tree(@classes) if @mode == "tree"
@@ -49,9 +48,9 @@ public
   def data
     ns = params[:ns]
     layout = params[:layout]
-    url = session[:url]
-    c = Wbem::Client.connect url
-    @classes = c.class_names(ns).sort
+    @conn = Connection.find(session[:connection])
+    client = @conn.connect
+    @classes = client.class_names(ns).sort
     case layout
     when "tree","indented"
       tree = convert_to_tree( @classes) # Array
