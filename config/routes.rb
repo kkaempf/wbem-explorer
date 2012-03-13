@@ -57,6 +57,11 @@ WbemExplorer::Application.routes.draw do
   get 'status/connected' => 'status#connected'
 
   resources :namespaces, :only => [:index, :show]
+  resources :systems, :only => [:index, :show]
+  resources :services, :only => [:index, :show]
+  resources :processes, :only => [:index, :show]
+  resources :networks, :only => [:index, :show]
+  resources :storages, :only => [:index, :show]
   resources :models, :only => [:index, :show]
   get 'classnames/data' => 'classnames#data' # Ajax callback
   resources :classnames, :only => [:index, :show]

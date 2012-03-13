@@ -1,0 +1,16 @@
+:plain
+[
+- first = true
+- @systems.each do |system|
+  - if first
+    - first = false
+  - else
+    ,
+  :plain
+      {
+        "key": { "controller": "instances", "ns":"#{system.namespace}" },
+        "icon": false,
+        "title": "#{system.Name}"
+      }
+]
+

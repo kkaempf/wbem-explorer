@@ -1,0 +1,16 @@
+:plain
+[
+- first = true
+- @storages.each do |storage|
+  - if first
+    - first = false
+  - else
+    ,
+  :plain
+      {
+        "key": { "controller": "instances", "ns":"#{storage.namespace}" },
+        "icon": false,
+        "title": "#{storage.Caption}"
+      }
+]
+

@@ -4,7 +4,7 @@ class ConnectionsController < ApplicationController
   private
   def _disconnect
     session[:connection] = nil
-    session[:url] = nil
+    session[:status] = nil
   end
 
   public
@@ -26,18 +26,18 @@ class ConnectionsController < ApplicationController
 	begin
 	  flash[:notice] = client.product
 	  session[:connection] = id
-	  session[:url] = connection.to_uri
 	rescue Exception => e
 	  flash[:error] = "Cannot access #{connection}: #{e.class} #{e}"
-	  raise
+          session[:status] = e.to_s
 	end
       rescue Exception => e
 	flash[:error] = "Connect failed: #{e}"
-	raise
+        session[:status] = e.to_s
       end
     rescue Exception => e
       STDERR.puts "Connection.connect: #{e}"
       flash[:error] = "Oops: #{e}"
+      session[:status] = e.to_s
     end
     if params[:mode] == "dynatree"
       if session[:connection]

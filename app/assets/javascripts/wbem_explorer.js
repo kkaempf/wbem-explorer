@@ -15,6 +15,14 @@
 //= require_self
 //#disabled: require_tree .
 
+var to_s = function(obj) {
+  var output = '';
+  for (property in obj) {
+    output += property + ': ' + obj[property]+'; ';
+  }
+  return output;
+}
+
 //
 // Update the 'connection' status
 //
@@ -52,19 +60,39 @@ $("#views_tree").dynatree(
     var e = node.getEventTargetType(event);
     if (e == "title") {
       var k = node.data.key;
+      console.log("#views_tree onClick >" + k + "< ");
       if (!k) {
         return false;
       }
-      console.log("#views_tree " + k.controller);
-      switch (k.controller) {
-        case "classnames":
-	  window.location.href = "/classnames?ns="+k.ns
-	  break;
-        case "models":
-          node.activateSilently();
-	  window.location.href = "/cim_classes?model="+k.id
+      switch (k) {
+        case "systems":
+          window.location.href = "/systems";
+          break;
+        case "services":
+          window.location.href = "/services";
+          break;
+        case "processes":
+          window.location.href = "/processes";
+          break;
+        case "network":
+          window.location.href = "/network";
+          break;
+        case "storage":
+          window.location.href = "/storage";
           break;
         default:
+          // expanded 'namespaces' and 'models' tree
+          switch (k.controller) {
+            case "classnames":
+              window.location.href = "/classnames?ns="+k.ns;
+              break;
+            case "models":
+              node.activateSilently();
+              window.location.href = "/cim_classes?model="+k.id;
+              break;
+            break;
+              default:
+          };
       };
     }
   },

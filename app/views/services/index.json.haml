@@ -1,0 +1,16 @@
+:plain
+[
+- first = true
+- @services.each do |service|
+  - if first
+    - first = false
+  - else
+    ,
+  :plain
+      {
+        "key": { "controller": "instances", "ns":"#{service.namespace}" },
+        "icon": false,
+        "title": "#{service.Name}"
+      }
+]
+
