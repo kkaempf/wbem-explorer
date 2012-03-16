@@ -4,6 +4,7 @@ class StoragesController < ApplicationController
     require 'wbem'
     @conn = Connection.find(session[:connection])
     client = @conn.connect
-    @storages = client.storages.sort
+    @names = client.storages.sort
+    @names = Kaminari.paginate_array(@names).page(params[:page]||1).per(20)
   end
 end

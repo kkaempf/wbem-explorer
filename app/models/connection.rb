@@ -33,7 +33,12 @@ class Connection < ActiveRecord::Base
   end
   
   def connect
-    client = Wbem::Client.connect to_uri, protocol, auth_scheme
+    begin
+      client = Wbem::Client.connect to_uri, protocol, auth_scheme
+    rescue Exception => e
+      STDERR.puts "Wbem::Client.connect(#{to_uri}, #{protocol}, #{auth_scheme}) failed with #{e}"
+      raise
+    end
     raise "Connection #{self} failed" unless client
     client
   end

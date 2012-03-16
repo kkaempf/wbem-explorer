@@ -4,6 +4,7 @@ class NetworksController < ApplicationController
     require 'wbem'
     @conn = Connection.find(session[:connection])
     client = @conn.connect
-    @networks = client.networks
+    @names = client.networks
+    @names = Kaminari.paginate_array(@names).page(params[:page]||1).per(20)
   end
 end

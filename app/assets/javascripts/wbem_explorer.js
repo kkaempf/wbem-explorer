@@ -74,11 +74,11 @@ $("#views_tree").dynatree(
         case "processes":
           window.location.href = "/processes";
           break;
-        case "network":
-          window.location.href = "/network";
+        case "networks":
+          window.location.href = "/networks";
           break;
-        case "storage":
-          window.location.href = "/storage";
+        case "storages":
+          window.location.href = "/storages";
           break;
         default:
           // expanded 'namespaces' and 'models' tree
