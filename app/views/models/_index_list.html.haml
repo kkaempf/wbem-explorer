@@ -1,6 +1,6 @@
 %h2.title
-  - conn = Connection.find(session[:connection])
-  = t("web-app-theme.all", :default => "Class names from '#{conn.name}'")
+  - client = Client.find(session[:connection])
+  = t("web-app-theme.all", :default => "Class names from '#{client.name}'")
 .inner
   %table.table
     %tr

@@ -56,6 +56,8 @@ WbemExplorer::Application.routes.draw do
   get 'status/update' => 'status#update'
   get 'status/connected' => 'status#connected'
 
+  resources :clients
+  resources :connections, :only => [:create, :destroy]
   resources :namespaces, :only => [:index, :show]
   resources :systems, :only => [:index, :show]
   resources :services, :only => [:index, :show]
@@ -73,11 +75,6 @@ WbemExplorer::Application.routes.draw do
   resources :hosts
   get 'search_user' => 'users#search'
   resources :users
-  get 'search_connection' => 'connections#search'
-  get 'disconnect' => 'connections#disconnect'
-  resources :connections do
-    get 'connect' => 'connections#connect'
-  end
 
   # See how all your routes lay out with "rake routes"
 

@@ -1,9 +1,9 @@
 %p
-  - if session[:connection]
-    -# connection established
+  - if session[:client]
+    -# client connection established
     Connected to
-    = Connection.find(session[:connection])
-    = form_for :connection do |c|
+    = Client.find(session[:client])
+    = form_for :client do |c|
       = link_to "Disconnect", disconnect_path
   - elsif @status
     -# connection error

@@ -1,9 +1,8 @@
 class NamespacesController < ApplicationController
   
   def index
-    require 'wbem'
-    @conn = Connection.find(session[:connection])
-    client = @conn.connect
-    @namespaces = client.namespaces.sort
+    require "lib/connection"
+    @connection = Connection.open(session[:client])
+    @namespaces = @connection.namespaces.sort
   end
 end

@@ -1,7 +1,7 @@
-class Connection < ActiveRecord::Migration
+class Client < ActiveRecord::Migration
   def up
-    create_table :connections do |t|
-      t.string  :name # name of connection
+    create_table :clients do |t|
+      t.string  :name # name of client
       t.references :host, :null => false # foreign key to Hosts
       t.string  :login, :null => false # access credentials
       t.string  :password
@@ -14,6 +14,6 @@ class Connection < ActiveRecord::Migration
   end
 
   def down
-    drop_table :connections
+    drop_table :clients
   end
 end

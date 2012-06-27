@@ -1,0 +1,62 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active= link_to "#{t("web-app-theme.list", :default => "List")}", clients_path
+      %li= link_to "#{t("web-app-theme.new", :default => "New")}", new_client_path
+  .content
+    %h2.title
+      = t("web-app-theme.all", :default => "All")
+      clients
+    .inner
+      %table.table
+        %tr
+          %th.first ID
+          %th
+            = t("activerecord.attributes.client.name", :default => t("activerecord.labels.name", :default => "Name"))
+          %th
+            = t("activerecord.attributes.client.protocol", :default => t("activerecord.labels.protocol", :default => "Protocol"))
+          %th
+            = t("activerecord.attributes.client.host", :default => t("activerecord.labels.host", :default => "Host"))
+          %th
+            = t("activerecord.attributes.client.login", :default => t("activerecord.labels.login", :default => "Login"))
+          %th
+            = t("activerecord.attributes.client.auth_scheme", :default => t("activerecord.labels.scheme", :default => "Auth scheme"))
+          %th
+            = t("activerecord.attributes.client.secure", :default => t("activerecord.labels.secure", :default => "SSL?"))
+          %th
+            = t("activerecord.attributes.client.port", :default => t("activerecord.labels.port", :default => "Port"))
+          %th
+            = t("activerecord.attributes.client.path", :default => t("activerecord.labels.path", :default => "Path"))
+          %th= t("web-app-theme.created_at", :default => "Created at")
+          %th.last &nbsp;
+        - @clients.each do |client|
+          %tr{:class => cycle("odd", "even")}
+            %td
+              = client.id
+            %td
+              = link_to client.name, client_path(client)
+            %td
+              = client.protocol
+            %td
+              = link_to client.host, host_path(client.host)
+            %td
+              = client.login
+            %td
+              = client.auth_scheme
+            %td
+              = client.secure
+            %td
+              = client.port
+            %td
+              = client.path
+            %td
+              = client.created_at
+            %td.last
+              = link_to "#{t("web-app-theme.show", :default => "Show")}", client_path(client)
+              |
+              \#{link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_client_path(client)} |
+              \#{link_to "#{t("web-app-theme.delete", :default => "Delete")}", client_path(client), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
+      .actions-bar.wat-cf
+        .actions
+        = paginate @clients
+- content_for :r_sidebar, render(:partial => 'sidebar')

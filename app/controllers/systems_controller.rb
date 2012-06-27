@@ -1,12 +1,11 @@
 class SystemsController < ApplicationController
   
   def index
-    require 'wbem'
-    @conn = Connection.find(session[:connection])
-    client = @conn.connect
+    require "lib/connection"
+    @connection = Connection.open(session[:client])
     @title = "ComputerSystem"
     @path = systems_path
-    @names = client.systems
+    @names = @connection.systems
     @names = Kaminari.paginate_array(@names).page(params[:page]||1).per(20)
   end
 end

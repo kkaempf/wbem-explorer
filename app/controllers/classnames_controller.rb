@@ -27,17 +27,16 @@ private
 public
 
   def index
-    require 'wbem'
+    require "lib/connection"
     puts "Classnames#index for #{params.inspect}"
     @ns = params[:ns]
     @mode = params[:mode] || "list"
     @layout = params[:layout] # if mode == graph
     @controller = "classnames"
-    @conn = Connection.find(session[:connection])
-    client = @conn.connect
-    @title = "#{@conn.name}: Class names for namespace #{@ns}"
+    @connection = Connection.open session[:client]
+    @title = "#{@connection.name}: Class names for namespace #{@ns}"
     # retrieve with deep_inheritance
-    @classes = client.class_names(@ns).sort
+    @classes = @connection.class_names(@ns).sort
     # Use Kaminari pagination with an array
     @classes = Kaminari.paginate_array(@classes).page(params[:page]).per(20) if @mode == "list"
     @classes = convert_to_tree(@classes) if @mode == "tree"
@@ -46,11 +45,11 @@ public
   # Ajax callback, retrieve classes as js
   # convert Array of classes to Tree hash
   def data
+    require "lib/connection"
     ns = params[:ns]
     layout = params[:layout]
-    @conn = Connection.find(session[:connection])
-    client = @conn.connect
-    @classes = client.class_names(ns).sort
+    @connection = Connection.open session[:client]
+    @classes = @connection.class_names(ns).sort
     case layout
     when "tree","indented"
       tree = convert_to_tree( @classes) # Array
@@ -67,4 +66,3 @@ public
   end
 
 end
-

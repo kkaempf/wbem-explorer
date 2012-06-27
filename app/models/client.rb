@@ -1,4 +1,4 @@
-class Connection < ActiveRecord::Base
+class Client < ActiveRecord::Base
   belongs_to :host
   belongs_to :auth_scheme
   validates_uniqueness_of :name
@@ -11,7 +11,6 @@ class Connection < ActiveRecord::Base
       s << "#{login}@"
     end
     s << "#{h}:#{port}) via #{protocol}"
-
   end
 
   def to_uri
@@ -32,14 +31,4 @@ class Connection < ActiveRecord::Base
     uri
   end
   
-  def connect
-    begin
-      client = Wbem::Client.connect to_uri, protocol, auth_scheme
-    rescue Exception => e
-      STDERR.puts "Wbem::Client.connect(#{to_uri}, #{protocol}, #{auth_scheme}) failed with #{e}"
-      raise
-    end
-    raise "Connection #{self} failed" unless client
-    client
-  end
 end

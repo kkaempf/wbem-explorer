@@ -1,13 +1,12 @@
 class InstancesController < ApplicationController
-  require 'wbem'
+  require "lib/connection"
   def index
     @class = params[:class]
     klass = CimClass.find(@class)
     @title = "Instances of class #{klass.name}"
     @ns = params[:ns] || "root/cimv2"
-    @conn = Connection.find(session[:connection])
-    client = @conn.connect
-    @instances = client.instance_names(@ns,klass.name)
+    @connection = Connection.open(session[:client])
+    @instances = @connection.instance_names(@ns,klass.name)
     @instances = Kaminari.paginate_array(@instances).page(params[:page]||1).per(20)
   end
   def show

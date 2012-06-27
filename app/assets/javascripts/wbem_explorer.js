@@ -113,9 +113,9 @@ $("#views_tree").dynatree(
 });
 
 //
-// Update the connections tree in the left sidebar
+// Update the clients tree in the left sidebar
 //
-$("#connections_tree").dynatree({
+$("#clients_tree").dynatree({
   onClick: function(node, event) {
     var e = node.getEventTargetType(event);
     if (e == "title") {
@@ -124,8 +124,8 @@ $("#connections_tree").dynatree({
         return false;
       }
       node.activateSilently();
-      $.ajax({
-        url: "/connections/"+k.id+"/"+k.action,
+      $.post({
+        url: "/connections/"+k.id,
         data: { mode: "dynatree", format: "json" },
         success: function(data) { // gets the data from respond_with
 	  update_status(data);
@@ -134,7 +134,7 @@ $("#connections_tree").dynatree({
       });
     }
   },
-  // lazy read available connections
+  // lazy read available clients
   onLazyRead: function(node) {
     node.appendAjax({
       url: "/"+node.data.key,
@@ -147,6 +147,6 @@ $("#connections_tree").dynatree({
       cache: false
     });
   }
-}); // #connections_tree
+}); // #clients_tree
 
 }); // $(function()...

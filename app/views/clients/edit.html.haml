@@ -1,0 +1,14 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "#{t("web-app-theme.list", :default => "List")}", clients_path
+      %li= link_to "#{t("web-app-theme.new", :default => "New")}", new_client_path
+      %li.active= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_client_path
+  .content
+    %h2.title
+      = t("web-app-theme.edit", :default => "Edit")
+      Client
+    .inner
+      = form_for @client, :url => client_path(@client), :html => { :class => :form } do |f|
+        = render :partial => "form", :locals => {:f => f}
+- content_for :sidebar, render(:partial => 'sidebar')

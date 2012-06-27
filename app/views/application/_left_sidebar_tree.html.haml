@@ -1,15 +1,15 @@
 %div#left_sidebar_trees
   / display:none during load, will be enabled by document.ready
-  %div#connections_tree
-    %ul{:id=>"connections", :style => "display: none;"}
-      - if Connection.count > 0
-        %li#connections{:class=>"folder", :title=>"Choose a connection", :data=>"icon: false, isLazy: true" }
-          Connections
+  %div#clients_tree
+    %ul{:id=>"clients", :style => "display: none;"}
+      - if Clients.count > 0
+        %li#clients{:class=>"folder", :title=>"Choose a client", :data=>"icon: false, isLazy: true" }
+          Clients
       - else
         %div
-          Create a connection !
+          Create a client !
 
-  - views_tree_display = session[:connection] ? "block" : "none"
+  - views_tree_display = session[:client] ? "block" : "none"
   %div#views_tree{:style => "display: #{views_tree_display};"}
     / display:none during load, will be enabled when connection is ready
     %ul{:id=>"views"}

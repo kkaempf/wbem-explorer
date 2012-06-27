@@ -9,6 +9,6 @@ class StatusController < ApplicationController
   # Ajax callback to get connection status
   def connected
     puts "Status#status"
-    render :json => (session[:connection] != nil)
+    render :json => (session[:client] != nil)
   end
 end

@@ -1,7 +1,7 @@
 :plain
 [
 - first = true
-- Connection.all.each do |c|
+- Client.all.each do |c|
   - if first
     - first = false
   - else
@@ -10,9 +10,8 @@
       {
         "key": { "controller": "connections",
                  "id" : "#{c.id}",
-                 "action": "connect" },
+                 "action": "create" },
         "icon": false,
         "title": "#{c.name}"
       }
 ]
-
