@@ -27,7 +27,6 @@ var to_s = function(obj) {
 // Update the 'connection' status
 //
 var update_status = function(data) {
-  console.log("update_status: " + data);
   $.ajax({
     url: "/status/update",
     data: {format: "html"},
@@ -63,7 +62,7 @@ $("#views_tree").dynatree(
     var e = node.getEventTargetType(event);
     if (e == "title") {
       var k = node.data.key;
-      console.log("#views_tree onClick >" + k + "< ");
+      console.log("#views_tree onClick >" + k + "<, controller " + k.controller);
       if (!k) {
         return false;
       }
@@ -101,13 +100,12 @@ $("#views_tree").dynatree(
   },
   // lazy read available namespaces, models, etc.
   onLazyRead: function(node) {
-    console.log("#views_tree onLazyRead " +node.data.key);
+    console.log("#views_tree onLazyRead " + node.data.key);
     node.appendAjax({
       url: "/"+node.data.key,
       data: {"format": "json",
              "key": node.data.key,
              "mode": "dynatree" },
-
       success: function(data) { },
       error: function(node, XMLHttpRequest, textStatus, errorThrown) { },
       cache: false
@@ -130,11 +128,9 @@ $("#clients_tree").dynatree({
         return false;
       }
       node.activateSilently();
-      console.log("#clients_tree onClick " + k.id);
       $("#connection_status").hide();
       $("#connecting").show();
       $.post("/connections.json?client="+k.id, function(data) { // gets the data from respond_with
-          console.log("#clients_tree onClick Success: " + data);
 	  update_status(data);
         }
       );
