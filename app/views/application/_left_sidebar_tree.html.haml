@@ -1,13 +1,10 @@
 %div#left_sidebar_trees
   / display:none during load, will be enabled by document.ready
-  %div#clients_tree
-    %ul{:id=>"clients", :style => "display: none;"}
-      - if Clients.count > 0
+  - if Client.count > 0
+    %div#clients_tree
+      %ul{:id=>"clients", :style => "display: none;"}
         %li#clients{:class=>"folder", :title=>"Choose a client", :data=>"icon: false, isLazy: true" }
           Clients
-      - else
-        %div
-          Create a client !
 
   - views_tree_display = session[:client] ? "block" : "none"
   %div#views_tree{:style => "display: #{views_tree_display};"}

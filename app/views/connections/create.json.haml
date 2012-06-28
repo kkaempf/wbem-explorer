@@ -1,0 +1,12 @@
+- STDERR.puts "create.json.haml"
+- if @connection
+  :plain
+    {
+      "product": "#{@connection.product}",
+      "client": "#{@client}"
+    }
+- else
+  :plain
+    {
+      "error": "#{@error}"
+    }

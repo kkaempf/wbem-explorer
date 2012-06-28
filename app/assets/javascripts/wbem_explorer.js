@@ -27,11 +27,14 @@ var to_s = function(obj) {
 // Update the 'connection' status
 //
 var update_status = function(data) {
+  console.log("update_status: " + data);
   $.ajax({
     url: "/status/update",
     data: {format: "html"},
     success: function(data) {
-      $("#status").replaceWith(data);
+      $("#connection_status").show();
+      $("#connecting").hide();
+      $("#connection_status").replaceWith(data);
     },
     cache: false
   });
@@ -123,15 +126,18 @@ $("#clients_tree").dynatree({
       if (!k) {
         return false;
       }
+      if (!k.id) {
+        return false;
+      }
       node.activateSilently();
-      $.post({
-        url: "/connections/"+k.id,
-        data: { mode: "dynatree", format: "json" },
-        success: function(data) { // gets the data from respond_with
+      console.log("#clients_tree onClick " + k.id);
+      $("#connection_status").hide();
+      $("#connecting").show();
+      $.post("/connections.json?client="+k.id, function(data) { // gets the data from respond_with
+          console.log("#clients_tree onClick Success: " + data);
 	  update_status(data);
-        },
-        cache: false
-      });
+        }
+      );
     }
   },
   // lazy read available clients

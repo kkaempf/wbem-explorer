@@ -4,7 +4,7 @@
     Connected to
     = Client.find(session[:client])
     = form_for :client do |c|
-      = link_to "Disconnect", disconnect_path
+      = link_to "Disconnect", "/connections/destroy", :method => :delete
   - elsif @status
     -# connection error
     = @status

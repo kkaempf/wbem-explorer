@@ -5,14 +5,15 @@
     %h2.title= @title
     .inner
       %p.first
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        = succeed "," do
-          %span.hightlight Excepteur sint occaecat cupidatat non proident
-        sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Hosts define remote Systems
       %p
-        %span.small Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+        Users provide authenticated access
+      %p
+        Clients combine both
+      %p
+        %span.small Once you have clients, you can connect to them and explore
       %hr/
       %p
-        %span.gray Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+        %span.gray Written by Klaus Kämpf &lt;kkaempf@suse.de&gt;
 
       - content_for :r_sidebar, render(:partial => 'right-sidebar')

@@ -1,7 +1,10 @@
 %div.sidebar
   .block.notice
     %h2 Status
-    %div#status
+    %div#connecting{ :style => "display: none;" }
+      %p
+        Connecting ...
+    %div#connection_status
       =render :partial => 'status/content'
 
 = render :partial => 'left_sidebar_tree'
