@@ -34,7 +34,7 @@ public
     @layout = params[:layout] # if mode == graph
     @controller = "classnames"
     @connection = Connection.open session[:client]
-    @title = "#{@connection.name}: Class names for namespace #{@ns}"
+    @title = "#{@connection}: Class names for namespace #{@ns}"
     # retrieve with deep_inheritance
     @classes = @connection.class_names(@ns).sort
     # Use Kaminari pagination with an array
