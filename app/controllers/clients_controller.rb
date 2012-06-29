@@ -27,7 +27,7 @@ class ClientsController < ApplicationController
     @client = Client.new(client)
     if @client && @client.save
       flash[:notice] = 'Client was successfully created.'
-      redirect_to client_path
+      redirect_to clients_path
     else
       flash[:error] = 'Client creation failed.'
       redirect_to new_client_path
