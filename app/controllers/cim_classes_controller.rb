@@ -108,6 +108,10 @@ public
     return if @mode == "graph"
 
     model = CimModel.find(@model) rescue nil
+    if @model && model.nil?
+      flash[:alert] = "No classes found for model #{@model}"
+      redirect_to home_path
+    end
     @title << " for model '#{model.name}'" if model
 
     @classes = get_class_list model
@@ -120,13 +124,22 @@ public
   # Show a single class
   #
   def show
-    if params[:id] =~ /\d+/
-      @cim_class = CimClass.find(params[:id])
+    id = params[:id]
+    if id =~ /\d+/
+      @cim_class = CimClass.find(id)
+      unless @cim_class
+        flash[:error] = "Class id #{id} not found"
+        redirect_to request.referer || home_path
+      end
     else
-      @cim_class = CimClass.find_by_name(params[:id])
+      @cim_class = CimClass.find_by_name(id)
+      unless @cim_class
+        flash[:error] = "Class #{id} not found"
+        redirect_to request.referer || home_path
+      end
     end
   end
-  
+
   # Ajax callback, retrieve classes as js
   # convert Array of classes to Tree hash
   def data
