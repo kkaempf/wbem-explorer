@@ -5,7 +5,6 @@ class Connection
   attr_reader :client
 
   def self.open client
-    STDERR.puts "Connection.open #{client.class}"
     if client.is_a? Client
       client = client
     else

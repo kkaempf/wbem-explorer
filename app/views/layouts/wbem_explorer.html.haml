@@ -34,8 +34,6 @@
           %ul.wat-cf
             %li{ :class => (params[:controller] == "home" ? "first active" : "first") }
               = link_to "Home", root_path
-            %li{ :class => (params[:controller] == "hosts" ? "active" : nil) }
-              = link_to "Hosts", hosts_path
             %li{ :class => (params[:controller] == "users" ? "active" : nil) }
               = link_to "Users", users_path
             %li{ :class => (params[:controller] == "clients" ? "active" : nil) }

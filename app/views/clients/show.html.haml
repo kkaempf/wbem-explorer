@@ -20,7 +20,7 @@
         %b
           = t("activerecord.attributes.client.host", :default => t("activerecord.labels.host", :default => "Host"))
           \:
-        = Host.find(@client.host).name rescue "**ERR**"
+        = @client.host
       %p
         %b
           = t("activerecord.attributes.client.login", :default => t("activerecord.labels.login", :default => "Login"))

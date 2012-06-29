@@ -22,7 +22,6 @@ class ClientsController < ApplicationController
 
   def create
     client = params[:client]
-    client[:host] = Host.find(client[:host])
     client[:auth_scheme] = AuthScheme.find(client[:auth_scheme])
     @client = Client.new(client)
     if @client && @client.save
@@ -48,7 +47,6 @@ class ClientsController < ApplicationController
       flash[:error] = 'No such client to update.'
     else
       client = params[:client]
-      client[:host] = Host.find(client[:host])
       client[:auth_scheme] = AuthScheme.find(client[:auth_scheme])
       if @client.update_attributes(params[:client])
 	flash[:notice] = 'Client was successfully updated.'

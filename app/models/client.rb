@@ -1,20 +1,17 @@
 class Client < ActiveRecord::Base
-  belongs_to :host
   belongs_to :auth_scheme
   validates_uniqueness_of :name
   paginates_per 5
 
   def to_s
-    h = Host.find(host) rescue "none"
     s = "#{name} ("
     if login && !login.empty?
       s << "#{login}@"
     end
-    s << "#{h}:#{port}) via #{protocol}"
+    s << "#{host}:#{port}) via #{protocol}"
   end
 
   def to_uri
-    h = Host.find(host)
     uri = "http" + (secure? ? "s" : "") + "://"
     if login
       uri += login
@@ -24,7 +21,7 @@ class Client < ActiveRecord::Base
       end
       uri += "@"
     end
-    uri += h.fqdn
+    uri += host
     uri += ":"
     uri += port.to_s
     uri += path

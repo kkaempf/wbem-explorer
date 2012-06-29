@@ -2,7 +2,7 @@ class Client < ActiveRecord::Migration
   def up
     create_table :clients do |t|
       t.string  :name # name of client
-      t.references :host, :null => false # foreign key to Hosts
+      t.string  :host, :null => false # fqdn/ip of host
       t.string  :login, :null => false # access credentials
       t.string  :password
       t.string  :protocol, :default => "wsman"   # wsman or cimxml

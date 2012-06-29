@@ -11,8 +11,8 @@
   %span.description Protocol to use
 .group
   = f.label :host, t("activerecord.attributes.client.host", :default => "Host"), :class => :label
-  = f.collection_select(:host, Host.all, :id, :name, :prompt => true )
-  %span.description Host to connect to
+  = f.text_field :host, :class => 'text_field'
+  %span.description IP or FQDN of host to connect to
 .group
   = f.label :login, t("activerecord.attributes.client.login", :default => "Login"), :class => :label
   = f.text_field :login, :class => 'text_field'
