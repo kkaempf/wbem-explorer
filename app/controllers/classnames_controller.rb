@@ -36,7 +36,7 @@ public
     @connection = Connection.open session[:client]
     @title = "#{@connection}: Class names for namespace #{@ns}"
     # retrieve with deep_inheritance
-    @classes = @connection.class_names(@ns).sort
+    @classes = @connection.class_names(@ns, true).sort
     # Use Kaminari pagination with an array
     @classes = Kaminari.paginate_array(@classes).page(params[:page]).per(20) if @mode == "list"
     @classes = convert_to_tree(@classes) if @mode == "tree"
@@ -49,7 +49,7 @@ public
     ns = params[:ns]
     layout = params[:layout]
     @connection = Connection.open session[:client]
-    @classes = @connection.class_names(ns).sort
+    @classes = @connection.class_names(ns, true).sort
     case layout
     when "tree","indented"
       tree = convert_to_tree( @classes) # Array
