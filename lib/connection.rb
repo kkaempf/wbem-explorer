@@ -14,9 +14,6 @@ class Connection
       connection = Wbem::Client.connect client.to_uri, client.protocol, client.auth_scheme
     rescue Exception => e
       STDERR.puts "Wbem::Client.connect(#{client.to_uri}, #{client.protocol}, #{client.auth_scheme}) failed with #{e}"
-      trace = $@.join("\n\t")
-      STDERR.puts "At #{trace}"
-      raise
     end
     raise "Connection to #{@client} failed" unless connection
     connection
