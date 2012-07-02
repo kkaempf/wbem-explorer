@@ -1,5 +1,8 @@
 class Client < ActiveRecord::Base
   belongs_to :auth_scheme
+  has_many :cached_namespaces
+  has_many :namespaces, :through => :cached_namespaces
+
   validates_uniqueness_of :name
   paginates_per 5
 
