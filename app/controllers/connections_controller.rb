@@ -39,7 +39,7 @@ public
 
   def destroy
     disconnect
-    redirect_to request.referer || home_path
+    redirect_to home_path
   end
 
 end
