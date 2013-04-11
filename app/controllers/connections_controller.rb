@@ -1,4 +1,5 @@
 class ConnectionsController < ApplicationController
+  require 'connection'
 private
   def disconnect
     session[:client] = nil
@@ -6,12 +7,11 @@ private
   end
 public
   def create
-#    require "connection"
 
     id = params[:client]
     begin
       @client = Client.find(id)
-      STDERR.puts "Connection.create(#{id}) => #{@client}"
+      Rails.logger.debug "Connection.create(#{id}) => #{@client}"
       unless @client
 	flash[:error] = "Connect failed: no such client"
 	raise
@@ -21,7 +21,7 @@ public
 
       begin
         @connection = Connection.open @client
-        STDERR.puts "Connection.open(#{@client}) => #{@connection}"
+        Rails.logger.debug "Connection.open(#{@client}) => #{@connection}"
         flash[:notice] = @connection.product
         session[:client] = id
       rescue Exception => e

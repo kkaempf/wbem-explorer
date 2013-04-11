@@ -13,7 +13,7 @@ class Connection
     begin
       connection = Wbem::Client.connect client.to_uri, client.protocol, client.auth_scheme
     rescue Exception => e
-      STDERR.puts "Wbem::Client.connect(#{client.to_uri}, #{client.protocol}, #{client.auth_scheme}) failed with #{e}"
+      Rails.logger.debug "Wbem::Client.connect(#{client.to_uri}, #{client.protocol}, #{client.auth_scheme}) failed with #{e}"
     end
     raise "Connection to #{@client} failed" unless connection
     connection
