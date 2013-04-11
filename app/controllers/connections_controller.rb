@@ -6,7 +6,7 @@ private
   end
 public
   def create
-    require "lib/connection"
+#    require "connection"
 
     id = params[:client]
     begin
