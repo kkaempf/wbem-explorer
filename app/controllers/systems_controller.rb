@@ -1,7 +1,6 @@
 class SystemsController < ApplicationController
   
   def index
-    require "lib/connection"
     @connection = Connection.open(session[:client])
     @title = "ComputerSystem"
     @path = systems_path

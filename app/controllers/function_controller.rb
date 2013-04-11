@@ -1,5 +1,5 @@
 class FunctionController < ApplicationController
-  require "lib/wsclient.rb"
+  require "wbem"
   require "cim"
 
   def _ensure_client

@@ -27,7 +27,6 @@ private
 public
 
   def index
-    require "lib/connection"
     puts "Classnames#index for #{params.inspect}"
     @ns = params[:ns]
     @mode = params[:mode] || "list"
@@ -45,7 +44,6 @@ public
   # Ajax callback, retrieve classes as js
   # convert Array of classes to Tree hash
   def data
-    require "lib/connection"
     ns = params[:ns]
     layout = params[:layout]
     @connection = Connection.open session[:client]

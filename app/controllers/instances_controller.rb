@@ -1,5 +1,4 @@
 class InstancesController < ApplicationController
-  require "lib/connection"
   def index
     @class = params[:class]
     klass = CimClass.find(@class)

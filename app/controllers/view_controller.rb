@@ -1,5 +1,5 @@
 class ViewController < ApplicationController
-  require "lib/wsclient.rb"
+  require "wbem"
   require "cim"
 
   helper :start

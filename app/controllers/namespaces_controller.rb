@@ -1,7 +1,6 @@
 class NamespacesController < ApplicationController
 private
   def _refresh
-    require "lib/connection"
     @client = Client.find(session[:client])
     existing = @client.namespaces
     if existing && !existing.empty?

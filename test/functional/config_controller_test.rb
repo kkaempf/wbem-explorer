@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'config_view_controller'
+require 'config_controller'
 
 # Re-raise errors caught by the controller.
-class ConfigViewController; def rescue_action(e) raise e end; end
+class ConfigController; def rescue_action(e) raise e end; end
 
-class ConfigViewControllerTest < Test::Unit::TestCase
+class ConfigControllerTest < Test::Unit::TestCase
   def setup
-    @controller = ConfigViewController.new
+    @controller = ConfigController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
