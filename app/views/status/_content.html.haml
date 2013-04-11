@@ -2,9 +2,10 @@
   - if session[:client]
     -# client connection established
     Connected to
-    = Client.find(session[:client])
+    = client = Client.find(session[:client])
     = form_for :client do |c|
       = link_to "Disconnect", "/connections/destroy", :method => :delete
+      = link_to "Refresh", "/namespaces/refresh/#{client.id}", :method => :post
   - elsif @status
     -# connection error
     = @status

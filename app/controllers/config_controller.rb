@@ -41,8 +41,8 @@ class ConfigController < ApplicationController
       }
       redirect_to :controller => "view", :action => "instances", :classid => classid
     rescue Exception => e
-      STDERR.puts "propertyview failed"
-      STDERR.puts e
+      Rails.logger.debug "propertyview failed"
+      Rails.logger.debug e
       redirect_to :controller => "config", :action => "classview", :classid => classid
     end
   end

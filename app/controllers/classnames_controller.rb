@@ -55,10 +55,10 @@ public
       render :json => { :name => "", :children => tree }
     when "force"
       force = convert_to_force( @classes ) # Hash
-      STDERR.puts "Force #{force.inspect}"
+      Rails.logger.debug "Force #{force.inspect}"
       render :json => force
     else
-      STDERR.puts "Unknown data layout '#{layout.inspect}'"
+      Rails.logger.debug "Unknown data layout '#{layout.inspect}'"
       render :nothing => true
     end
   end

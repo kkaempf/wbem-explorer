@@ -8,7 +8,7 @@ class ViewController < ApplicationController
     classid = params[:classid]
     @cimclass = Cimclass.find( classid )
     unless @cimclass
-        STDERR.puts "Class id #{classid} not found"
+        Rails.logger.debug "Class id #{classid} not found"
         redirect_to :controller => "function", :action => "browse"
 	return
     end
