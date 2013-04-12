@@ -24,18 +24,23 @@ private
     
     { :nodes => nodes, :links => links }
   end
+  
+  def get_classes connection, ns
+    # retrieve with swallow_inheritance
+    connection.class_names(ns).sort
+  end    
 public
 
   def index
-    puts "Classnames#index for #{params.inspect}"
+    Rails.logger.debug "Classnames#index for #{params.inspect}"
     @ns = params[:ns]
     @mode = params[:mode] || "list"
     @layout = params[:layout] # if mode == graph
     @controller = "classnames"
     @connection = Connection.open session[:client]
     @title = "#{@connection}: Class names for namespace #{@ns}"
-    # retrieve with deep_inheritance
-    @classes = @connection.class_names(@ns, true).sort
+    # retrieve with swallow_inheritance
+    @classes = get_classes @connection, @ns
     # Use Kaminari pagination with an array
     @classes = Kaminari.paginate_array(@classes).page(params[:page]).per(20) if @mode == "list"
     @classes = convert_to_tree(@classes) if @mode == "tree"
@@ -47,7 +52,7 @@ public
     ns = params[:ns]
     layout = params[:layout]
     @connection = Connection.open session[:client]
-    @classes = @connection.class_names(ns, true).sort
+    @classes = get_classes @connection, @ns
     case layout
     when "tree","indented"
       tree = convert_to_tree( @classes) # Array
