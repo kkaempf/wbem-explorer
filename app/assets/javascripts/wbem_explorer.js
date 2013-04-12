@@ -41,6 +41,7 @@ var update_status = function(data) {
     url: "/status/connected",
     data: {format: "json"},
     success: function(data) {
+      console.log("/status/connected returns " + data);
       if (data == true) {
         $("#views_tree").css( 'display', 'block' );
       }
@@ -60,13 +61,14 @@ $("#views_tree").dynatree(
 {
   onClick: function(node, event) {
     var e = node.getEventTargetType(event);
+    console.log("#views_tree onClick " + e);
     if (e == "title") {
-      var k = node.data.key;
-      console.log("#views_tree onClick >" + k + "<, controller " + k.controller);
-      if (!k) {
+      var d = node.data;
+      console.log("#views_tree onClick >" + d + "<, controller " + d.controller);
+      if (!d) {
         return false;
       }
-      switch (k) {
+      switch (d.key) {
         case "systems":
           window.location.href = "/systems";
           break;
@@ -84,13 +86,14 @@ $("#views_tree").dynatree(
           break;
         default:
           // expanded 'namespaces' and 'models' tree
-          switch (k.controller) {
+          console.log("#views_tree onClick d.controller >" + d.controller + "<");
+          switch (d.controller) {
             case "classnames":
-              window.location.href = "/classnames?ns="+k.ns;
+              window.location.href = "/classnames?ns="+d.ns;
               break;
             case "models":
               node.activateSilently();
-              window.location.href = "/cim_classes?model="+k.id;
+              window.location.href = "/cim_classes?model="+d.id;
               break;
             break;
               default:
@@ -98,7 +101,7 @@ $("#views_tree").dynatree(
       };
     }
   },
-  // lazy read available namespaces, models, etc.
+  // lazy read #views_tree items, like available namespaces, models, etc.
   onLazyRead: function(node) {
     console.log("#views_tree onLazyRead " + node.data.key);
     node.appendAjax({
@@ -120,17 +123,17 @@ $("#clients_tree").dynatree({
   onClick: function(node, event) {
     var e = node.getEventTargetType(event);
     if (e == "title") {
-      var k = node.data.key;
-      if (!k) {
+      var d = node.data;
+      if (!d) {
         return false;
       }
-      if (!k.id) {
+      if (!d.id) {
         return false;
       }
       node.activateSilently();
       $("#connection_status").hide();
       $("#connecting").show();
-      $.post("/connections.json?client="+k.id, function(data) { // gets the data from respond_with
+      $.post("/connections.json?client="+d.id, function(data) { // gets the data from respond_with
 	  update_status(data);
         }
       );
@@ -138,6 +141,7 @@ $("#clients_tree").dynatree({
   },
   // lazy read available clients
   onLazyRead: function(node) {
+    console.log("#clients_tree onLazyRead key >" + node.data.key + "<");
     node.appendAjax({
       url: "/"+node.data.key,
       data: {"format": "json",
