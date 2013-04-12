@@ -8,7 +8,7 @@
 //= require jquery_ujs
 //= require jquery-ui-1.8.16.custom.min
 //= require jquery.cookie
-//= require jquery.dynatree
+//= require jquery.dynatree-1.2.4
 //= require d3
 //= require d3.layout
 //= require d3.geom
