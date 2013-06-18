@@ -122,12 +122,14 @@ $("#views_tree").dynatree(
 $("#clients_tree").dynatree({
   onClick: function(node, event) {
     var e = node.getEventTargetType(event);
+    console.log("#clients_tree onClick >" + e + "<");
     if (e == "title") {
       var d = node.data;
       if (!d) {
         return false;
       }
       if (!d.id) {
+        node._expand(!node.isExpanded());
         return false;
       }
       node.activateSilently();
