@@ -1,17 +1,6 @@
 class StoragesController < ApplicationController
   
   def index
-    @connection = Connection.open(session[:client])
-    @title = "Storage"
-    @path = storages_path
-    begin
-      @names = @connection.storages.sort
-      @names = Kaminari.paginate_array(@names).page(params[:page]||1).per(20)
-    rescue Sfcc::Cim::ErrorNotSupported
-      session[:status] = "Operation not supported by CIMOM"
-    rescue Exception => e
-      session[:status] = "No storage found: #{e.inspect}"
-    end
-    redirect_to home_path unless @names
+    _index "Storage", storages_path, :storages, "No storage found"
   end
 end
