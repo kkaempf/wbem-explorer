@@ -73,4 +73,10 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  private
+
+  # http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
+  def user_params
+    params.require(:user).permit(:login, :fullname, :password, :password_confirmation)
+  end
 end
