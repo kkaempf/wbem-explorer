@@ -5,6 +5,9 @@ gem 'rails', '4.2.0'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
+# Class-level 'respond_to'
+gem 'responders', '~> 2.0'
+
 # CIM metamodel
 gem 'cim', '>= 1.4'
 

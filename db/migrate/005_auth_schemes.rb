@@ -11,13 +11,9 @@ class AddAuthScheme < ActiveRecord::Migration
     AuthScheme.create :scheme => "passport"
     AuthScheme.create :scheme => "ntlm"
     AuthScheme.create :scheme => "gss"
-    change_table :clients do |t|
-      t.references :auth_scheme, :default => 1 # foreign key to auth_scheme
-    end
   end
 
   def down
-    remove_column :clients, :auth_scheme
     drop_table :auth_schemes
   end
 end

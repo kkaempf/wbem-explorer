@@ -6,6 +6,11 @@ class ClientsController < ApplicationController
 
   private
 
+  # http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
+  def client_params
+    params.require(:client).permit(:name, :host, :login, :password, :protocol, :secure, :port, :path, :auth_scheme)
+  end
+
   public
   def index
     if params[:mode] == "dynatree"
@@ -21,7 +26,7 @@ class ClientsController < ApplicationController
   end
 
   def create
-    client = params[:client]
+    client = client_params()[:client] # get nested Hash
     client[:auth_scheme] = AuthScheme.find(client[:auth_scheme])
     @client = Client.new(client)
     if @client && @client.save
@@ -46,11 +51,13 @@ class ClientsController < ApplicationController
     unless @client
       flash[:error] = 'No such client to update.'
     else
-      client = params[:client]
+      client = client_params()[:client] # get nested Hash
       client[:auth_scheme] = AuthScheme.find(client[:auth_scheme])
-      if @client.update_attributes(params[:client])
+      if @client.update_attributes(client)
+        Rails.logger.debug "GOOD"
 	flash[:notice] = 'Client was successfully updated.'
       else
+        Rails.logger.debug "BAD"
 	render edit_client_path(params[:id])
 	return
       end

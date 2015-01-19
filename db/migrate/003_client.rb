@@ -1,4 +1,5 @@
 class Client < ActiveRecord::Migration
+  attr_accessible :name, :host, :login, :password, :protocol, :secure, :port, :path, :auth_scheme
   def up
     create_table :clients do |t|
       t.string  :name # name of client
@@ -9,6 +10,7 @@ class Client < ActiveRecord::Migration
       t.boolean :secure, :default => false      # true for https, else http
       t.integer :port, :default => 80
       t.string  :path, :default => "/wsman"
+      t.references :auth_scheme, :default => 1 # foreign key to auth_scheme
       t.timestamps
     end
   end

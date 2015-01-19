@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       return
     else
       user.delete :password_confirmation
-      user = User.new(user)
+      user = User.new(user_params)
       if user.save
 	flash[:notice] = 'User was successfully created.'
 	redirect_to users_path
@@ -47,9 +47,10 @@ class UsersController < ApplicationController
       redirect_to edit_user_path(@user)
       return
     else
-      @user = User.find(user[:login])
-      unless @user
-	flash[:error] = 'User does not exist.'
+      begin
+        @user = User.find(user[:login])
+      rescue ActiveRecord::RecordNotFound
+	flash[:error] = "User '#{user[:login]}' does not exist."
 	redirect_to users_path
 	return
       end
