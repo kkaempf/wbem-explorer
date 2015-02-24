@@ -26,7 +26,7 @@ class ClientsController < ApplicationController
   end
 
   def create
-    client = client_params()[:client] # get nested Hash
+    client = client_params()
     client[:auth_scheme] = AuthScheme.find(client[:auth_scheme])
     @client = Client.new(client)
     if @client && @client.save
