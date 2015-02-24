@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "wbem_explorer"
-  
+  require 'connection'
+
   def _index title, path, function, errmsg
     @connection = Connection.open(session[:client])
     @title = title
