@@ -202,4 +202,4 @@ DEPENDENCIES
   sqlite3
   therubyracer
   uglifier
-  wbem (>= 0.2.6)
+  wbem (~> 0.3)
