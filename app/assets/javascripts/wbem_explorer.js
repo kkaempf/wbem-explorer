@@ -72,6 +72,9 @@ $("#views_tree").dynatree(
         case "systems":
           window.location.href = "/systems";
           break;
+        case "profiles":
+          window.location.href = "/profiles";
+          break;
         case "services":
           window.location.href = "/services";
           break;

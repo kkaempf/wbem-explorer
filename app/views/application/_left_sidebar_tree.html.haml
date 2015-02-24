@@ -10,12 +10,15 @@
   %div#views_tree{:style => "display: #{views_tree_display};"}
     / display:none during load, will be enabled when connection is ready
     %ul{:id=>"views"}
+      / handled in wbem-explorer.js !
       %li#namespaces{:class=>"folder", :title=>"Available namespaces", :data=>"icon: false, isLazy: true" }
         Namespaces
       %li#models{:class=>"folder", :title=>"Known CIM models", :data=>"icon: false, isLazy: true" }
         Models
       %li#systems{:title=>"Systems", :data=>"icon: false" }
         Systems
+      %li#profiles{:title=>"Profiles", :data=>"icon: false" }
+        Profiles
       %li#services{:title=>"Services", :data=>"icon: false" }
         Services
       %li#processes{:title=>"Processes", :data=>"icon: false" }

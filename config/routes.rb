@@ -61,6 +61,7 @@ WbemExplorer::Application.routes.draw do
   resources :namespaces, :only => [:index, :show]
   match 'namespaces/refresh/:id' => 'namespaces#refresh', :via => :post
   resources :systems, :only => [:index, :show]
+  resources :profiles, :only => [:index, :show]
   resources :services, :only => [:index, :show]
   resources :processes, :only => [:index, :show]
   resources :networks, :only => [:index, :show]

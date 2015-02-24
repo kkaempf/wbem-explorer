@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   
   def index
-    Rails.logger.debug "Profiles#index for #{session.inspect}"
+    _index "RegisteredProfiles", profiles_path, :profiles, "No registered profiles found"
   end
 end
