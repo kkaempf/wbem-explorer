@@ -1,5 +1,4 @@
 class Client < ActiveRecord::Migration
-  attr_accessible :name, :host, :login, :password, :protocol, :secure, :port, :path, :auth_scheme
   def up
     create_table :clients do |t|
       t.string  :name # name of client
