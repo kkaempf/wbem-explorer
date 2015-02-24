@@ -12,8 +12,14 @@
         %th= k
     - @names.each do |name|
       %tr{:class => cycle("odd", "even")}
+        - first_key = true
         - keys.each do |k|
-          %td= name.send(k.to_sym)
+          - value = name.send(k.to_sym)
+          - if first_key
+            - first_key = false
+            %td= link_to(value, controller: "instances", action: "show", id: "_epr", epr: name.to_s)
+          - else
+            %td= value
 
   .actions-bar.wat-cf
     .actions
