@@ -12,7 +12,7 @@ private
     Rails.logger.debug "namespaces/refresh connection #{@connection.class}"
     @connection.namespaces.sort.each do |name|
       Rails.logger.debug "Refresh namespace #{name}"
-      namespace = Namespace.find_or_create_by_name name
+      namespace = Namespace.where(:name => name).first_or_create
       @client.namespaces << namespace
     end
   end
