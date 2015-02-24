@@ -51,7 +51,7 @@ class ClientsController < ApplicationController
     unless @client
       flash[:error] = 'No such client to update.'
     else
-      client = client_params()[:client] # get nested Hash
+      client = client_params()
       client[:auth_scheme] = AuthScheme.find(client[:auth_scheme])
       if @client.update_attributes(client)
         Rails.logger.debug "GOOD"
