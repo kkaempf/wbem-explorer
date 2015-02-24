@@ -1,5 +1,5 @@
-class AddAuthScheme < ActiveRecord::Migration
-  def up
+class AuthSchemes < ActiveRecord::Migration
+  def self.up
     create_table :auth_schemes do |t|
       t.string :scheme, :null => false
       t.integer :value
@@ -13,7 +13,7 @@ class AddAuthScheme < ActiveRecord::Migration
     AuthScheme.create :scheme => "gss"
   end
 
-  def down
+  def self.down
     drop_table :auth_schemes
   end
 end
