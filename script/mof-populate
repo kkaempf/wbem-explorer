@@ -47,7 +47,7 @@ def populate_models mofdir
     Dir.glob("*") do |file|
       next unless File.directory?(file)
       puts "Model #{file}"
-      model = CimModel.find_or_create_by_name file
+      model = CimModel.where(:name => file).first_or_create
       ret[file] = model
     end
   end
@@ -59,7 +59,7 @@ end
 #
 def populate_scopes
   CIM::QualifierScopes::META_ELEMENTS.each do |name|
-    CimQualifierScope.find_or_create_by_name name.to_s
+    CimQualifierScope.where(:name => name.to_s).first_or_create
   end
 end
 
@@ -68,7 +68,7 @@ end
 #
 def populate_flavors
   CIM::QualifierFlavors::FLAVORS.each do |name|
-    CimQualifierFlavor.find_or_create_by_name name.to_s
+    CimQualifierFlavor.where(:name => name.to_s).first_or_create
   end
 end
 
@@ -77,7 +77,7 @@ end
 #
 def populate_types
   CIM::Type::TYPES.each do |type|
-    CimType.find_or_create_by_name type.to_s
+    CimType.where(:name => type.to_s).first_or_create
   end
 end
 
@@ -130,9 +130,9 @@ def populate_classes mofdir, models
       results.each do |name,result|
 	result.classes.each do |c|
 	  puts "#{name}: Class #{c.name} : #{c.superclass}"
-	  cimclass = CimClass.find_or_create_by_name c.name
+	  cimclass = CimClass.where(:name => c.name).first_or_create
 	  if (c.superclass)
-	    parent = CimClass.find_or_create_by_name c.superclass
+	    parent = CimClass.where(:name => c.superclass).first_or_create
 	    cimclass.parent = parent unless cimclass.parent == parent
 	  end
 	  cimclass.cim_model = models[model] unless cimclass.cim_model == models[model]
