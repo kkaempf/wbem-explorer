@@ -9,7 +9,7 @@ gem 'rails', '4.2.0'
 gem 'responders', '~> 2.0'
 
 # CIM metamodel
-gem 'cim', '>= 1.4'
+gem 'cim', '>= 1.4.2'
 
 # Ruby SFCC for cimxml connections
 gem 'sfcc', '>= 0.6.0'
@@ -18,7 +18,7 @@ gem 'sfcc', '>= 0.6.0'
 gem 'openwsman', '>= 2.3.0'
 
 # Ruby Wbem (for abstracting cimxml vs wsman)
-gem 'wbem', '~> 0.3' #, :git => "https://github.com/kkaempf/ruby-wbem.git"
+gem 'wbem', '>= 0.3.1' #, :git => "https://github.com/kkaempf/ruby-wbem.git"
 
 group :development, :test do
   gem "rspec-rails", ">= 2.0.1"

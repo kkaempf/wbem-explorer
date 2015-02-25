@@ -173,7 +173,8 @@ GEM
     uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    wbem (0.3.0)
+    wbem (0.3.1)
+      cim (>= 1.4.2)
       openwsman (>= 2.3.2)
       sfcc (>= 0.4.1)
     xpath (2.0.0)
@@ -183,7 +184,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  cim (>= 1.4)
+  cim (>= 1.4.2)
   coffee-rails
   cucumber-rails
   database_cleaner
@@ -202,4 +203,4 @@ DEPENDENCIES
   sqlite3
   therubyracer
   uglifier
-  wbem (~> 0.3)
+  wbem (>= 0.3.1)
