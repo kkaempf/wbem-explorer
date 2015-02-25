@@ -1,35 +1,5 @@
 .block
-  .secondary-navigation
-    %ul.wat-cf
-      - if session[:connection]
-        %li.first= link_to "#{t("web-app-theme.instances", :default => "Instances")}", instance_path(@cim_class, :model => @cim_class.cim_model_id)
-
-      %li.first= link_to "#{t("web-app-theme.qualifiers", :default => "Qualifiers")}", cim_classes_path(:model => @cim_class.cim_model_id)
-      %li.active= link_to "#{t("web-app-theme.properties", :default => "Properties")}", cim_class_path(@cim_class)
-      %li= link_to "#{t("web-app-theme.methods", :default => "Methods")}", cim_class_path(@cim_class)
-      %li= link_to "#{t("web-app-theme.associations", :default => "Associations")}", cim_class_path(@cim_class)
   .content
     .inner
-      - @cim_class.attributes.each do |name,value|
-      - STDERR.puts "@cim_class #{name}: #{value}"
-        %p
-          %b
-            - case name
-              - when "id"
-                - next
-              - when "cim_model_id"
-                - value = CimModel.find(value).name
-                - name = "model"
-              - when "parent_id"
-                - parent_id = value
-                - value = CimClass.find(value).name rescue ""
-                - name = "parent"
-
-            = t("activerecord.attributes.cim_class.#{name}", :default => t("activerecord.labels.#{name}", :default => name.capitalize ))
-            \:
-            - case name
-              - when "parent"
-                = link_to value, cim_class_path(parent_id, :model => @model)
-              - else
-                = value
-
+      - @instance.attributes do |name,value|
+        %p= "#{name}: #{value}"

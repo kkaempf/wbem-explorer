@@ -7,11 +7,11 @@ class CimQualifier < ActiveRecord::Migration
       # scopes and flavors are in external join table
     end
     # qualifier <-> scope
-    create_table :cim_qualifier_scopes_cim_qualifiers, :id => false do |t|
+    create_table :cim_qualifier_scopes_qualifiers, :id => false do |t|
       t.references :cim_qualifier, :cim_qualifier_scope
     end
     # class <-> flavor
-    create_table :cim_qualifier_flavors_cim_qualifiers, :id => false do |t|
+    create_table :cim_qualifier_flavors_qualifiers, :id => false do |t|
       t.references :cim_qualifier, :cim_qualifier_flavor
     end
 
@@ -19,8 +19,8 @@ class CimQualifier < ActiveRecord::Migration
   end
 
   def down
-    drop_table :cim_classes_cim_qualifier_flavors
-    drop_table :cim_classes_cim_qualifier_scopes
+    drop_table :cim_qualifier_flavors_qualifiers
+    drop_table :cim_qualifier_scopes_qualifiers
     remove_index :cim_qualifiers, :name
     drop_table :cim_qualifiers
   end
